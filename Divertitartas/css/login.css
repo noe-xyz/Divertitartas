@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Importa el archivo global */
 @import url('global.css');
 
@@ -13,4 +14,21 @@ main {
     flex: 1;
     padding-top: 100px; 
     padding-bottom: 100px; 
+=======
+/* Importa el archivo global */
+@import url('global.css');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hacer que el contenido principal ocupe el espacio restante */
+main {
+    flex: 1;
+    padding-top: 100px; 
+    padding-bottom: 100px; 
+>>>>>>> b547031ae9a4ad0d42d9ef5397e602618f7717f1
 }

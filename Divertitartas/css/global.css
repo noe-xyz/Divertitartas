@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Importa Bootstrap desde CDN */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css');
 
@@ -338,4 +339,346 @@ footer form textarea {
         color: white;
         /* Texto blanco */
     }
+=======
+/* Importa Bootstrap desde CDN */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css');
+
+/* Importa la fuente 'Kaushan Script' desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+/* Variables CSS para colores */
+:root {
+    --color-rosa-claro: #fbd1f0;
+    --color-rosa-oscuro: #ff1493;
+    --color-gris-claro: #e6e4e4;
+    --color-texto: #333;
+    --color-blanco: #fff;
+    --color-negro: #000;
+}
+
+/* Estilos generales para el cuerpo de la página */
+body {
+    font-family: 'Kaushan Script', cursive;
+    background-image: url('../Imagenes/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--color-texto);
+}
+
+/* Estilos para el encabezado */
+.header-fino {
+    font-size: 30px;
+    height: 150px;
+    background-color: var(--color-rosa-claro);
+}
+
+.logo {
+    width: 200px;
+    position: relative;
+    top: 5px;
+    z-index: 1000;
+    border-radius: 50%;
+}
+
+.nav-link {
+    margin-left: 23px;
+    color: var(--color-negro);
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: var(--color-rosa-oscuro);    
+}
+
+/* Estilos para el menú offcanvas */
+.offcanvas-body a {
+    color: var(--color-negro);
+    text-decoration: none;
+}
+
+.offcanvas-body a:hover {
+    color: var(--color-rosa-oscuro);    
+}
+
+/* Estilos para la sección "Hero" */
+.hero {
+    position: relative;
+    text-align: center;
+    color: var(--color-blanco);
+}
+
+.hero img {
+    width: 100%;
+    height: auto;
+}
+
+.hero h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 800px;
+}
+
+/* Estilos para el pie de página */
+footer {
+    background-color: var(--color-rosa-claro);
+    color: var(--color-negro);
+    padding: 20px 0;
+}
+
+
+footer ul li a ,h5{
+    color: var(--color-negro);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+footer ul {
+    text-align: center;
+    list-style: none;
+    padding: 0;
+}
+
+footer form input,
+footer form textarea {
+    color: var(--color-negro);
+}
+
+.ribete {
+    width: 100%;
+    /* La imagen ocupa el ancho del contenedor */
+    max-width: 300px;
+    /* Tamaño máximo de la imagen */
+    margin-bottom: 20px;
+    /* Espaciado inferior */
+}
+
+/* Estilos para todos los botones */
+.custom-btn {
+    padding: 10px 30px;
+    /* Espaciado interno (ajusta según necesites) */
+    background-color: var(--color-gris-claro);
+    /* Fondo gris claro */
+    color: var(--color-negro);
+    /* Texto negro */
+    border-radius: 10px;
+    /* Bordes redondeados */
+    border: 1px solid rgba(148, 144, 144, 0.47);
+    /* Borde gris con transparencia */
+    font-size: 20px;
+    /* Tamaño del texto */
+    cursor: pointer;
+    /* Cambia el cursor al pasar el ratón */
+    text-align: center;
+    /* Centra el texto */
+    display: inline-block;
+    /* Se comporta como un bloque en línea */
+    width: fit-content;
+    /* Ajusta el ancho al contenido */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Transición suave */
+}
+
+/* Efecto hover para los botones */
+.custom-btn:hover {
+    background-color: var(--color-rosa-oscuro);
+    /* Fondo rosa oscuro */
+    color: var(--color-blanco);
+    /* Texto blanco */
+}
+
+/* Estilos para botones deshabilitados */
+.custom-btn:disabled {
+    background-color: #ccc;
+    /* Fondo gris */
+    color: #666;
+    /* Texto gris oscuro */
+    cursor: not-allowed;
+    /* Cursor de "no permitido" */
+}
+
+.footer-btn {
+    background-color: #efeded;
+    /* Fondo gris claro */
+    color: black;
+    /* Texto negro */
+    border: none;
+    /* Sin borde */
+    outline: none;
+    /* Sin contorno */
+    cursor: pointer;
+    /* Cambia el cursor al pasar el ratón */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    font-size: 16px;
+    /* Tamaño del texto */
+    width: 50%;
+    /* Ancho del botón */
+}
+
+/* Efecto hover para los botones */
+.footer-btn:hover {
+    background-color: #555;
+    /* Fondo gris oscuro */
+    color: white;
+    /* Texto blanco */
+}
+
+/* Estilos para el mapa con borde bonito */
+.mapa-estilizado {
+    border: 1px solid #ff1493; /* Borde sólido de 3px con color rosa */  
+    transition: all 0.3s ease; /* Transición suave para efectos hover */
+}
+
+/* Efecto hover para el mapa */
+.mapa-estilizado:hover {
+       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Aumenta la sombra al pasar el mouse */
+}
+
+.titulo-legal {
+    font-size: 2.5rem;
+    color: var(--color-rosa-oscuro);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.titulo2-legal {
+    font-size: 1.8rem;
+    color: var(--color-rosa-oscuro);
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.legal p {
+    font-size: 1.2rem;
+    color: var(--color-texto);
+    margin-bottom: 20px;
+}
+
+/* Estilos personalizados para los radio buttons */
+.form-check-input:checked {
+    background-color: var(--color-rosa-oscuro);
+    border-color: var(--color-rosa-oscuro);
+    /*background-image: url('../Imagenes/logo_icono.ico'); /* Ícono de check */
+    /*background-size: cover;*/
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 20, 147, 0.25); /* Sombra rosa */
+}
+
+.form-check-input {
+    border-color: var(--color-rosa-oscuro);
+}
+
+/* Estilos responsivos */
+@media (max-width: 991px) {
+    .hamburger-menu {
+        display: block;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .elementos {
+        display: none;
+    }
+
+    
+    /* Efecto hover para los botones */
+    .custom-btn:active,
+    .custom-btn:focus {
+        background-color: var(--color-rosa-oscuro);
+        /* Fondo rosa oscuro */
+        color: var(--color-blanco);
+        /* Texto blanco */
+    }
+
+    /* Efecto para dispositivos táctiles */
+    .footer-btn:active,
+    .footer-btn:focus {
+        background-color: #555;
+        /* Fondo gris oscuro */
+        color: white;
+        /* Texto blanco */
+    }
+}
+
+@media (max-width: 767px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .logo {
+        width: 120px;
+    }
+
+    .header-fino {
+        font-size: 24px;
+        height: 100px;
+    }
+
+    .container-fluid img {
+        width: 150px;
+        height: auto;
+    }
+
+    .container-fluid p {
+        font-size: 1rem;
+    }
+
+    .tarta h2 {
+        font-size: 40px;
+    }
+
+    .carousel-item img {
+        width: 50%;
+        height: auto;
+    }
+
+    .carousel {
+        height: 30vh;
+        max-height: 300px;
+        overflow: hidden;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Efecto hover para los botones */
+    .custom-btn:active,
+    .custom-btn:focus {
+        background-color: var(--color-rosa-oscuro);
+        /* Fondo rosa oscuro */
+        color: var(--color-blanco);
+        /* Texto blanco */
+    }
+
+    /* Efecto para dispositivos táctiles */
+    .footer-btn:active,
+    .footer-btn:focus {
+        background-color: #555;
+        /* Fondo gris oscuro */
+        color: white;
+        /* Texto blanco */
+    }
+>>>>>>> b547031ae9a4ad0d42d9ef5397e602618f7717f1
 }

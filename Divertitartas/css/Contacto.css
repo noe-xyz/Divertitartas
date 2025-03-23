@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Importa el archivo global */
 @import url('global.css');
 
@@ -31,4 +32,39 @@
 .formulario button:hover {
     background-color: var(--color-rosa-oscuro);
     color: var(--color-blanco);
+=======
+/* Importa el archivo global */
+@import url('global.css');
+
+/* Estilos para el formulario de contacto */
+.formulario {
+    background-color: var(--color-rosa-claro);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.formulario input,
+.formulario textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--color-gris-claro);
+    border-radius: 5px;
+}
+
+.formulario button {
+    background-color: var(--color-gris-claro);
+    color: var(--color-negro);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.formulario button:hover {
+    background-color: var(--color-rosa-oscuro);
+    color: var(--color-blanco);
+>>>>>>> b547031ae9a4ad0d42d9ef5397e602618f7717f1
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Carrito.css */
 body {
     font-family: 'Kaushan Script', cursive;
@@ -78,4 +79,86 @@ body {
 
 .footer-btn:hover {
     background-color: #e60073;
+=======
+/* Carrito.css */
+body {
+    font-family: 'Kaushan Script', cursive;
+    background-color: var(--color-blanco);
+    color: var(--color-texto);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.card {
+    border: 1px solid var(--color-gris-claro);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    background-color: var(--color-blanco);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: var(--color-rosa-oscuro);
+}
+
+.card-text {
+    font-size: 1.2rem;
+    color: var(--color-texto);
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color-gris-claro);
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.btn-danger {
+    background-color: var(--color-rosa-oscuro);
+    border: none;
+    color: var(--color-blanco);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: #e60073;
+}
+
+.btn-primary {
+    background-color: var(--color-rosa-oscuro);
+    border: none;
+    color: var(--color-blanco);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #e60073;
+}
+
+.footer-btn {
+    background-color: var(--color-rosa-oscuro);
+    border: none;
+    color: var(--color-blanco);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.footer-btn:hover {
+    background-color: #e60073;
+>>>>>>> b547031ae9a4ad0d42d9ef5397e602618f7717f1
 }
