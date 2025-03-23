@@ -1,0 +1,8 @@
+/* Importa el archivo global */
+@import url('global.css');
+
+
+
+.custom-btn {
+    margin-bottom: 30px;
+}

@@ -1,0 +1,30 @@
+/* Importa el archivo global */
+@import url('global.css');
+
+/* Estilo para imágenes circulares con sombra */
+.img-circular {
+    background-color: hsla(340, 84%, 94%, 0.7);
+    border-radius: 50%; /* Hace que la imagen sea circular */
+    border: 5px solid #ff1493; /* Borde rosa */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra suave */
+    transition: all 0.3s ease; /* Transición suave */
+    margin-bottom: 30px;
+
+}
+
+/* Efecto hover para el marco circular */
+.img-circular:hover {
+    transform: scale(1.1); /* Escala ligeramente la imagen */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Aumenta la sombra */
+}
+
+/* Animación de movimiento de lado a lado */
+@keyframes movimiento {
+    0% { transform: translateX(-80px); }
+    50% { transform: translateX(80px); }
+    100% { transform: translateX(-80px); }
+}
+
+.mover {
+    animation: movimiento 2s infinite ease-in-out;
+}
