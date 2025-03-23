@@ -1,0 +1,48 @@
+@import url('global.css');
+
+/* Error.css */
+
+h1 {
+    font-size: 3rem;
+    color: var(--color-rosa-oscuro);
+    margin-bottom: 20px;
+    margin-top: 100px;
+    
+}
+
+p {
+    font-size: 1.5rem;
+    color: var(--color-texto);
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    background-color: var(--color-rosa-oscuro);
+    border: none;
+    color: var(--color-blanco);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #e60073;
+}
+
+/* Asegura que el body ocupe toda la altura de la ventana */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Contenedor flexible para el body */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* El contenido principal ocupa el espacio restante */
+main {
+    flex-grow: 1;
+}
