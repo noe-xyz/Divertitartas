@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inicia sesión | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    {% include '_header.html.twig' %}
+
+    <div id="cajaLogin">
+        <h2>Iniciar sesión</h2>
+        <form method="post" action="">
+            <input type="email" name="email" placeholder="Email"/>
+            <br/><br/>
+            <input type="password" name="password" placeholder="Contraseña"/>
+            <br/><br/>
+            <input type="submit" name="login" value="Iniciar sesión" id="btnLogin"/>
+            <br />
+            <p id="enlaceRegistro">¿No tienes una cuenta? <a href="#">Regístrate aquí</a></p>
+        </form>
+    </div>
+{% endblock %}

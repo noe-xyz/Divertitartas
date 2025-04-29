@@ -1,0 +1,35 @@
+/*Header*/
+#header {
+    display: flex;
+    justify-content: center;
+    background: #ffd7fa;
+}
+
+.headerItems {
+    margin: 20px;
+}
+
+
+/*Página de login*/
+#cajaLogin {
+    display: grid;
+    justify-items: center;
+    background: rgba(253, 234, 253, 0.93);
+    margin-top: 50px;
+}
+
+#cajaLogin input[type="email"], input[type="password"] {
+    width: 500px;
+}
+
+#cajaLogin input[type="submit"] {
+    display: grid;
+    justify-content: center;
+    margin: auto;
+}
+
+#enlaceRegistro{
+    display: grid;
+    justify-content: center;
+    margin: auto;
+}
