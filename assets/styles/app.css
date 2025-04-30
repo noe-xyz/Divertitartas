@@ -1,0 +1,65 @@
+/*Body*/
+body{
+    background-image: url("../images/fondo.jpg");
+}
+
+/*Header, footer*/
+#header, #footer {
+    display: flex;
+    justify-content: center;
+    background: #ffd7fa;
+}
+
+.headerItems {
+    margin: 20px;
+}
+
+
+/*Página de login*/
+#cajaLogin {
+    display: grid;
+    justify-items: center;
+    background: rgba(253, 234, 253, 0.93);
+    margin-top: 50px;
+    padding-top: 10px;
+}
+
+#cajaLogin input[type="email"], input[type="password"] {
+    width: 500px;
+}
+
+#cajaLogin input[type="submit"] {
+    display: grid;
+    justify-content: center;
+    margin: auto;
+}
+
+#enlaceRegistro {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    padding-bottom: 30px;
+}
+
+/*Footer*/
+#footer{
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 30px;
+}
+
+#legal, #contacto{
+    display: grid;
+    justify-items: center;
+}
+
+.contactoItems{
+    display: grid;
+    justify-content: space-evenly;
+}
+
+.legalItems{
+    display: grid;
+}
