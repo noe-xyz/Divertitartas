@@ -1,0 +1,36 @@
+<<<<<<< HEAD
+/* Importa el archivo global */
+@import url('global.css');
+
+/* Animación de giro como moneda */
+@keyframes moneda {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(180deg); }
+    100% { transform: rotateY(360deg); }
+}
+
+.coin {
+    transition: transform 1s ease-in-out;
+}
+
+.coin:hover {
+    animation: moneda 1s linear;
+=======
+/* Importa el archivo global */
+@import url('global.css');
+
+/* Animación de giro como moneda */
+@keyframes moneda {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(180deg); }
+    100% { transform: rotateY(360deg); }
+}
+
+.coin {
+    transition: transform 1s ease-in-out;
+}
+
+.coin:hover {
+    animation: moneda 1s linear;
+>>>>>>> b547031ae9a4ad0d42d9ef5397e602618f7717f1
+}
