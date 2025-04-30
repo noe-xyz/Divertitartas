@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="footer">
+        <img src="#" alt="logo" class="footerItems">
+        <br/><br/>
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48577.57811042196!2d-3.54137673218303!3d40.45095389641754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42371b975e66b7%3A0x4917503ef510ad8e!2sTorrej%C3%B3n%20de%20Ardoz%2C%20Madrid!5e0!3m2!1ses-419!2ses!4v1745942433064!5m2!1ses-419!2ses"
+                width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                class="footerItems"></iframe>
+        <br/><br/>
+
+        <div id="legal">
+            <h2 class="legalItems">Legal</h2><br/>
+            <p class="legalItems"><a>Política de privacidad</a></p><br/>
+            <p class="legalItems"><a>Aviso legal</a></p><br/>
+            <p class="legalItems"><a>Política de cookies</a></p><br/>
+            <p class="legalItems"><a>Política de venta y cancelación</a></p><br/>
+            <p class="legalItems">© 2025 Divertitartas</p>
+            <br/><br/>
+        </div>
+
+        <div id="contacto">
+            <h2 class="contactoItems">Contáctanos</h2>
+            <form method="post" action="" class="contactoItems">
+                <input type="text" name="name" placeholder="Nombre" required><br/>
+                <input type="email" name="email" placeholder="Email" required><br/>
+                <textarea name="message" placeholder="Mensaje" required></textarea><br/>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+    </div>
+{% endblock %}

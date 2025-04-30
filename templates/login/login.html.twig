@@ -8,14 +8,19 @@
 
     <div id="cajaLogin">
         <h2>Iniciar sesión</h2>
+
         <form method="post" action="">
-            <input type="email" name="email" placeholder="Email"/>
+            <input type="email" name="email" placeholder="Email" required/>
             <br/><br/>
-            <input type="password" name="password" placeholder="Contraseña"/>
+            <input type="password" name="password" placeholder="Contraseña" required/>
             <br/><br/>
             <input type="submit" name="login" value="Iniciar sesión" id="btnLogin"/>
-            <br />
+            <br/>
             <p id="enlaceRegistro">¿No tienes una cuenta? <a href="#">Regístrate aquí</a></p>
         </form>
+
     </div>
+
+    {% include '_footer.html.twig' %}
+
 {% endblock %}
