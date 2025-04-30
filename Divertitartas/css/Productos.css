@@ -1,0 +1,18 @@
+<<<<<<< HEAD
+/* Importa el archivo global */
+@import url('global.css');
+
+
+
+.custom-btn {
+    margin-bottom: 30px;
+=======
+/* Importa el archivo global */
+@import url('global.css');
+
+
+
+.custom-btn {
+    margin-bottom: 30px;
+>>>>>>> b547031ae9a4ad0d42d9ef5397e602618f7717f1
+}

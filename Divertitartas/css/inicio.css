@@ -1,0 +1,150 @@
+<<<<<<< HEAD
+/* Importa el archivo global */
+@import url('global.css');
+
+/* Contenedor para centrar imágenes */
+.card-img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px; /* Ajusta la altura según tu diseño */
+    overflow: hidden;
+}
+
+/* Ajuste de las imágenes */
+.card-img-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain; /* Asegura que la imagen no se distorsione */
+}
+
+/* Alinear el título al final de la tarjeta */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Asegura que el título esté alineado al final */
+}
+
+.card-title {
+    margin-top: auto; /* Empuja el título hacia abajo si hay espacio */
+}
+
+/* Estilos para la sección "Tartas" */
+.tarta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.tarta h2 {
+    margin-top: 10px;
+    font-size: 60px;
+    color: var(--color-texto);
+}
+
+.custom-btn {
+    padding: 5px 30px;
+    background-color: var(--color-gris-claro);
+    color: var(--color-negro);
+    border-radius: 10px;
+    border: 1px solid rgba(148, 144, 144, 0.47);
+    cursor: pointer;
+    font-size: 20px;
+    display: block;
+    width: fit-content;
+    text-align: center;
+    margin: 20px auto;
+}
+
+/* Animación de rotación */
+@keyframes girar {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.rotar {
+    transition: transform 1s linear;
+    will-change: transform; /* Mejora el rendimiento */
+}
+
+.rotar:hover {
+    animation: girar 1s linear;
+=======
+/* Importa el archivo global */
+@import url('global.css');
+
+/* Contenedor para centrar imágenes */
+.card-img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px; /* Ajusta la altura según tu diseño */
+    overflow: hidden;
+}
+
+/* Ajuste de las imágenes */
+.card-img-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain; /* Asegura que la imagen no se distorsione */
+}
+
+/* Alinear el título al final de la tarjeta */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Asegura que el título esté alineado al final */
+}
+
+.card-title {
+    margin-top: auto; /* Empuja el título hacia abajo si hay espacio */
+}
+
+/* Estilos para la sección "Tartas" */
+.tarta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.tarta h2 {
+    margin-top: 10px;
+    font-size: 60px;
+    color: var(--color-texto);
+}
+
+.custom-btn {
+    padding: 5px 30px;
+    background-color: var(--color-gris-claro);
+    color: var(--color-negro);
+    border-radius: 10px;
+    border: 1px solid rgba(148, 144, 144, 0.47);
+    cursor: pointer;
+    font-size: 20px;
+    display: block;
+    width: fit-content;
+    text-align: center;
+    margin: 20px auto;
+}
+
+/* Animación de rotación */
+@keyframes girar {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.rotar {
+    transition: transform 1s linear;
+    will-change: transform; /* Mejora el rendimiento */
+}
+
+.rotar:hover {
+    animation: girar 1s linear;
+>>>>>>> b547031ae9a4ad0d42d9ef5397e602618f7717f1
+}
