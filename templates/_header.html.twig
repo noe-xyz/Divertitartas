@@ -41,4 +41,22 @@
             </div>
         </div>
     </header>
+
+    {% block javascripts %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const tipoCuentaPersona = document.getElementById('persona');
+                const tipoCuentaEmpresa = document.getElementById('empresa');
+                const camposEmpresa = document.getElementById('camposEmpresa');
+
+                tipoCuentaPersona.addEventListener('change', function () {
+                    camposEmpresa.style.display = 'none';
+                });
+
+                tipoCuentaEmpresa.addEventListener('change', function () {
+                    camposEmpresa.style.display = 'block';
+                });
+            });
+        </script>
+    {% endblock %}
 {% endblock %}

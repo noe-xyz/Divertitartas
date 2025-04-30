@@ -110,6 +110,13 @@ html, body {
     padding-bottom: 100px;
 }
 
+/*Página registro*/
+#mainRegistro {
+    flex: 1;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
 /*Footer*/
 footer {
     background-color: var(--color-rosa-claro);
