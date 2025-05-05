@@ -35,7 +35,7 @@ class Cliente
     #[ORM\Column(length: 255)]
     private ?string $domicilio = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $telefono1 = null;
 
     #[ORM\Column(nullable: true)]

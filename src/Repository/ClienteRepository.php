@@ -16,6 +16,17 @@ class ClienteRepository extends ServiceEntityRepository
         parent::__construct($registry, Cliente::class);
     }
 
+    public function findLoggedClient($email, $password)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.email = :email')
+            ->andWhere('c.password = :password')
+            ->setParameter('email', $email)
+            ->setParameter('password', $password)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     //    /**
     //     * @return Cliente[] Returns an array of Cliente objects
     //     */
