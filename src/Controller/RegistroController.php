@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cliente;
+use App\Entity\Empresa;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,18 +16,33 @@ class RegistroController extends AbstractController
     public function registro(EntityManagerInterface $entityManager, Request $request): Response
     {
         if ($request->isMethod('POST')) {
-            $name = $request->request->get('nombre');
+            $fullName = $request->request->get('nombre');
             $email = $request->request->get('email');
             $password = $request->request->get('password');
+            #TODO lógica confirmar contraseña
 
-            $usuarioLogueado = new Cliente();
-            $usuarioLogueado->setNombre($name);
-            $usuarioLogueado->setEmail($email);
-            $usuarioLogueado->setPassword($password);
+            if (isset($_POST['nombreEmpresa']) && isset($_POST['nifCif'])) {
+                $nombreEmpresa = $request->request->get('nombreEmpresa');
+                $nifCif = $request->request->get('nifCif');
 
-            $entityManager->persist($usuarioLogueado);
+                $empresaLogueada = new Empresa();
+                $empresaLogueada->setNombreCompleto($fullName);
+                $empresaLogueada->setEmail($email);
+                $empresaLogueada->setPassword($password);
+                $empresaLogueada->setNombreEmpresa($nombreEmpresa);
+                $empresaLogueada->setNifCif($nifCif);
+
+                $entityManager->persist($empresaLogueada);
+            } else {
+                $usuarioLogueado = new Cliente();
+                $usuarioLogueado->setNombreCompleto($fullName);
+                $usuarioLogueado->setEmail($email);
+                $usuarioLogueado->setPassword($password);
+
+                $entityManager->persist($usuarioLogueado);
+            }
+
             $entityManager->flush();
-
         }
 
         return $this->render('registro/registro.html.twig');

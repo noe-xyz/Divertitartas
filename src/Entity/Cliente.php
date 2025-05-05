@@ -14,9 +14,6 @@ class Cliente
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_cliente = null;
-
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
@@ -24,15 +21,18 @@ class Cliente
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $nombreCompleto = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $nombre = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $apellidos = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $fecha_nacimiento = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $domicilio = null;
 
     #[ORM\Column(nullable: true)]
@@ -83,6 +83,16 @@ class Cliente
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getNombreCompleto(): ?string
+    {
+        return $this->nombreCompleto;
+    }
+
+    public function setNombreCompleto(?string $nombreCompleto): void
+    {
+        $this->nombreCompleto = $nombreCompleto;
     }
 
     public function getNombre(): ?string
