@@ -12,39 +12,79 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RegistroController extends AbstractController
 {
+    #TODO dividir en funciones para no hacer un pedazo de bloque de código
+    #Ruta de la página web
     #[Route('/registro', name: 'registro')]
     public function registro(EntityManagerInterface $entityManager, Request $request): Response
     {
+        #Comprobar que se envían los datos por POST y guardarlos en variables
         if ($request->isMethod('POST')) {
+            #Recoger los datos comunes a un cliente habitual y a una empresa
             $fullName = $request->request->get('nombre');
             $email = $request->request->get('email');
             $password = $request->request->get('password');
-            #TODO lógica confirmar contraseña
+            $passwordConfirmar = $request->request->get('passwordConfirmar');
 
-            if (isset($_POST['nombreEmpresa']) && isset($_POST['nifCif'])) {
-                $nombreEmpresa = $request->request->get('nombreEmpresa');
-                $nifCif = $request->request->get('nifCif');
+            #Separar el nombre completo a nombre/apellido/apellido
+            $arrNombreApellidos = explode(' ', $fullName);
+            $name = $arrNombreApellidos[0];
+            $lastName1 = $arrNombreApellidos[1];
+            $lastName2 = $arrNombreApellidos[2];
 
-                $empresaLogueada = new Empresa();
-                $empresaLogueada->setNombreCompleto($fullName);
-                $empresaLogueada->setEmail($email);
-                $empresaLogueada->setPassword($password);
-                $empresaLogueada->setNombreEmpresa($nombreEmpresa);
-                $empresaLogueada->setNifCif($nifCif);
+            #Comprobación de que la contraseña esté confirmada correctamente: si está bien se ejecuta la lógica
+            $confirmar = $this->comprobarPassword($password, $passwordConfirmar);
+            if ($confirmar) {
+                #TODO: Añadir qué pasa cuando no se introducen valores correctos (aunque creo que html lo pilla ya) o repetidos (ya existe la cuenta)
+                if (isset($_POST['nombreEmpresa']) && isset($_POST['nifCif'])) {
+                    #Si se incluyen en el formulario los datos exclusivos a una empresa, se tratará como empresa
+                    $nombreEmpresa = $request->request->get('nombreEmpresa');
+                    $nifCif = $request->request->get('nifCif');
 
-                $entityManager->persist($empresaLogueada);
-            } else {
-                $usuarioLogueado = new Cliente();
-                $usuarioLogueado->setNombreCompleto($fullName);
-                $usuarioLogueado->setEmail($email);
-                $usuarioLogueado->setPassword($password);
+                    #Creación del objeto de tipo Empresa
+                    $empresaLogueada = new Empresa();
+                    $empresaLogueada->setNombreCompleto($fullName)
+                                    ->setNombre($name)
+                                    ->setApellido1($lastName1)
+                                    ->setApellido2($lastName2)
+                                    ->setEmail($email)
+                                    ->setPassword($password)
+                                    ->setNombreEmpresa($nombreEmpresa)
+                                    ->setNifCif($nifCif);
 
-                $entityManager->persist($usuarioLogueado);
+                    #Se prepara el objeto para insertarlo en la base de datos
+                    $entityManager->persist($empresaLogueada);
+                } else {
+                    #Creación del objeto de tipo Empresa
+                    $usuarioLogueado = new Cliente();
+                    $usuarioLogueado->setNombreCompleto($fullName)
+                                    ->setNombre($name)
+                                    ->setApellido1($lastName1)
+                                    ->setApellido2($lastName2)
+                                    ->setEmail($email)
+                                    ->setPassword($password);
+
+                    #Se prepara el objeto para insertarlo en la base de datos
+                    $entityManager->persist($usuarioLogueado);
+                }
+                #TODO avisar de haberse registrado correctamente
+
+                #Se insertan en la base de datos cualquier persist ejecutado
+                $entityManager->flush();
             }
-
-            $entityManager->flush();
         }
 
+        #Cualquier función que maneje la lógica principal de una vista debe devolver una plantilla twig (lo que se ve en la vista)
         return $this->render('registro/registro.html.twig');
+    }
+
+    #Función que maneja la lógica de comprobar que se haya introducido bien la contraseña
+    private function comprobarPassword($password, $passwordRepetida): bool
+    {
+        if ($password != $passwordRepetida) {
+            $this->addFlash('error', 'Las contraseñas no coinciden.');
+            return false;
+        } else {
+            return true;
+        }
     }
 }

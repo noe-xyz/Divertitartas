@@ -6,9 +6,11 @@ use App\Repository\ClienteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#TODO: abstract entity de la que hereden cliente y empresa????
 #[ORM\Entity(repositoryClass: ClienteRepository::class)]
 class Cliente
 {
+    #Atributos del objeto
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -27,7 +29,10 @@ class Cliente
     private ?string $nombre = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $apellidos = null;
+    private ?string $apellido1 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $apellido2 = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $fecha_nacimiento = null;
@@ -44,6 +49,7 @@ class Cliente
     #[ORM\Column(nullable: true)]
     private ?int $puntos = null;
 
+    #Getters y setters
     public function getId(): ?int
     {
         return $this->id;
@@ -90,9 +96,11 @@ class Cliente
         return $this->nombreCompleto;
     }
 
-    public function setNombreCompleto(?string $nombreCompleto): void
+    public function setNombreCompleto(string $nombreCompleto): static
     {
         $this->nombreCompleto = $nombreCompleto;
+
+        return $this;
     }
 
     public function getNombre(): ?string
@@ -107,14 +115,26 @@ class Cliente
         return $this;
     }
 
-    public function getApellidos(): ?string
+    public function getApellido1(): ?string
     {
-        return $this->apellidos;
+        return $this->apellido1;
     }
 
-    public function setApellidos(string $apellidos): static
+    public function setApellido1(?string $apellido1): static
     {
-        $this->apellidos = $apellidos;
+        $this->apellido1 = $apellido1;
+
+        return $this;
+    }
+
+    public function getApellido2(): ?string
+    {
+        return $this->apellido2;
+    }
+
+    public function setApellido2(?string $apellido2): static
+    {
+        $this->apellido2 = $apellido2;
 
         return $this;
     }
