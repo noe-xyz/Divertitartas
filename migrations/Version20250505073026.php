@@ -26,6 +26,12 @@ final class Version20250505073026 extends AbstractMigration
         $this->addSql(<<<'SQL'
             ALTER TABLE cliente DROP id_cliente
         SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE cliente ADD apellido2 VARCHAR(255) DEFAULT NULL, CHANGE apellidos apellido1 VARCHAR(255) DEFAULT NULL
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE empresa ADD nombre VARCHAR(255) DEFAULT NULL, ADD apellido1 VARCHAR(255) DEFAULT NULL, ADD apellido2 VARCHAR(255) DEFAULT NULL
+        SQL);
     }
 
     public function down(Schema $schema): void
@@ -42,6 +48,12 @@ final class Version20250505073026 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE cliente ADD id_cliente INT NOT NULL
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE cliente ADD apellidos VARCHAR(255) DEFAULT NULL, DROP apellido1, DROP apellido2
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE empresa DROP nombre, DROP apellido1, DROP apellido2
         SQL);
     }
 }

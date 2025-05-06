@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\EmpresaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #TODO: abstract entity de la que hereden cliente y empresa????
 #[ORM\Entity(repositoryClass: EmpresaRepository::class)]
+#[UniqueEntity('email', message: 'Este email ya existe.')]
+#[UniqueEntity(fields: ['nombreEmpresa','nifCif'], message: 'Ya existe una empresa registrada con esos datos.')]
 class Empresa
 {
     #Atributos del objeto
@@ -15,7 +18,7 @@ class Empresa
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
@@ -33,16 +36,21 @@ class Empresa
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $apellido2 = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $nombreEmpresa = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $nifCif = null;
 
     #Getters y setters
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
     }
 
     public function getEmail(): ?string

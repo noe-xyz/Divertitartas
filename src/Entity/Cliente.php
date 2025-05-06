@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Repository\ClienteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #TODO: abstract entity de la que hereden cliente y empresa????
 #[ORM\Entity(repositoryClass: ClienteRepository::class)]
+#[UniqueEntity('email', message: 'Este email ya existe.')]
 class Cliente
 {
     #Atributos del objeto
@@ -16,7 +18,7 @@ class Cliente
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
@@ -55,14 +57,9 @@ class Cliente
         return $this->id;
     }
 
-    public function getIdCliente(): ?int
+    public function setId(int $id): static
     {
-        return $this->id_cliente;
-    }
-
-    public function setIdCliente(int $id_cliente): static
-    {
-        $this->id_cliente = $id_cliente;
+        $this->id = $id;
 
         return $this;
     }
