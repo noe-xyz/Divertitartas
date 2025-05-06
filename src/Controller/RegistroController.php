@@ -28,14 +28,14 @@ class RegistroController extends AbstractController
             #Separar el nombre completo a nombre/apellido/apellido
             $arrNombreApellidos = explode(' ', $fullName);
             $name = $arrNombreApellidos[0];
-            $lastName1 = $arrNombreApellidos[1];
-            $lastName2 = $arrNombreApellidos[2];
+            $lastName1 = $arrNombreApellidos[1] ?? "";
+            $lastName2 = $arrNombreApellidos[2] ?? "";
 
             #Comprobación de que la contraseña esté confirmada correctamente: si está bien se ejecuta la lógica
             $confirmar = $this->comprobarPassword($password, $passwordConfirmar);
             if ($confirmar) {
                 #TODO: Añadir qué pasa cuando no se introducen valores correctos (aunque creo que html lo pilla ya) o repetidos (ya existe la cuenta)
-                if (isset($_POST['nombreEmpresa']) && isset($_POST['nifCif'])) {
+                if ($_POST['nombreEmpresa'] !== "" && $_POST['nifCif'] !== "") {
                     #Si se incluyen en el formulario los datos exclusivos a una empresa, se tratará como empresa
                     $nombreEmpresa = $request->request->get('nombreEmpresa');
                     $nifCif = $request->request->get('nifCif');
@@ -70,18 +70,29 @@ class RegistroController extends AbstractController
 
                 #Se insertan en la base de datos cualquier persist ejecutado
                 $entityManager->flush();
+                #Redirigir al index
+                return $this->redirectToRoute("index");
+            } else {
+                return $this->render('registro/registro.html.twig', [
+                    "error" => true,
+                    "titulo" => "Error",
+                    "mensaje" => "Las contraseñas no coinciden. Por favor, revísalas e inténtalo de nuevo."
+                ]);
             }
         }
 
         #Cualquier función que maneje la lógica principal de una vista debe devolver una plantilla twig (lo que se ve en la vista)
-        return $this->render('registro/registro.html.twig');
+        return $this->render('registro/registro.html.twig', [
+            "error" => false,
+            "titulo" => "",
+            "mensaje" => ""
+        ]);
     }
 
     #Función que maneja la lógica de comprobar que se haya introducido bien la contraseña
     private function comprobarPassword($password, $passwordRepetida): bool
     {
         if ($password != $passwordRepetida) {
-            $this->addFlash('error', 'Las contraseñas no coinciden.');
             return false;
         } else {
             return true;
