@@ -9,6 +9,8 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Cliente>
  */
+
+#Donde se hacen todas las queries a la base de datos, a la tabla de Cliente
 class ClienteRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -16,7 +18,8 @@ class ClienteRepository extends ServiceEntityRepository
         parent::__construct($registry, Cliente::class);
     }
 
-    public function findLoggedClient($email, $password)
+    #Buscar si el usuario existe (está registrado ya o no)
+    public function findRegisteredClient($email, $password)
     {
         return $this->createQueryBuilder('c')
             ->where('c.email = :email')

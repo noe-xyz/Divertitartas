@@ -9,6 +9,8 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Empresa>
  */
+
+#Donde se hacen todas las queries a la base de datos, a la tabla de Empresa
 class EmpresaRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
