@@ -22,7 +22,7 @@ class LoginController extends AbstractController
             $password = $request->request->get('password');
 
             #Query que busca en la base de datos si existe el usuario y lógica por si no lo está (no está registrado)
-            $usuarioExiste = $clienteRepository->findRegisteredClient($email, $password);
+            $usuarioExiste = $clienteRepository->findRegisteredClient($email);
             if ($usuarioExiste) {
                 #TODO avisar de haberse logueado correctamente
                 #Redirigir al index
@@ -31,17 +31,21 @@ class LoginController extends AbstractController
                 return $this->render('login/login.html.twig', [
                     "error" => true,
                     "titulo" => "Error",
-                    "mensaje" => 'La contraseña o el usuario no existe en nuestra base de datos.'
+                    "mensaje" => 'El usuario no existe en nuestra base de datos.',
+                    "boton" => true,
+                    "mensajeBtn" => "¿Quieres registrarte?",
+                    "enlaceBtn" => "registro"
                 ]);
-                #TODO redirigir al registro?
-                #TODO poner algo que avise al usuario de que debe registrarse/revisar lo que ha escrito (necesito hacer redirect? flash?)
             }
         }
         #Cualquier función que maneje la lógica principal de una vista debe devolver una plantilla twig (lo que se ve en la vista)
         return $this->render('login/login.html.twig', [
             "error" => false,
             "titulo" => "",
-            "mensaje" => ""
+            "mensaje" => "",
+            "boton" => false,
+            "mensajeBtn" => "",
+            "enlaceBtn" => ""
         ]);
     }
 }

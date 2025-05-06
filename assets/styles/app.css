@@ -103,6 +103,17 @@ html, body {
     /* Cursor de "no permitido" */
 }
 
+/*Modal*/
+#linkModal, #linkModal:visited, #linkModal:active{
+    color: var(--color-negro);
+    text-decoration: none;
+}
+
+#linkModal:hover{
+    color: var(--color-blanco);
+    text-decoration: none;
+}
+
 /*Página login*/
 #mainLogin {
     flex: 1;

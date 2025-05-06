@@ -10,6 +10,9 @@
                 {{ mensaje }}
             </div>
             <div class="modal-footer">
+                {% if boton %}
+                    <button type="button" class="btn btn-secondary custom-btn" data-bs-dismiss="modal"><a href="/{{ enlaceBtn }}" id="linkModal">{{ mensajeBtn }}</a></button>
+                {% endif %}
                 <button type="button" class="btn btn-secondary custom-btn" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
