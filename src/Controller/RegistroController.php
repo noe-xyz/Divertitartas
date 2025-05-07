@@ -26,6 +26,7 @@ class RegistroController extends AbstractController
             $password = $request->request->get('password');
             $passwordConfirmar = $request->request->get('passwordConfirmar');
 
+            #Query que busca en la base de datos si existe el usuario y lógica por si lo está/no lo está
             $usuarioExiste = $clienteRepository->findRegisteredClient($email);
             if ($usuarioExiste) {
                 return $this->render('registro/registro.html.twig', [
