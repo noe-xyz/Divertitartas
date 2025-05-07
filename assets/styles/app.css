@@ -1,35 +1,194 @@
-/*Header*/
-#header {
+/*Body, general*/
+body {
+    background-image: url("../images/fondo.jpg");
+    font-family: 'Kaushan Script', cursive;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--color-texto);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
     display: flex;
-    justify-content: center;
-    background: #ffd7fa;
+    flex-direction: column;
 }
 
-.headerItems {
-    margin: 20px;
+/*-----------Variables CSS para colores */
+:root {
+    --color-rosa-claro: #fbd1f0;
+    --color-rosa-oscuro: #ff1493;
+    --color-gris-claro: #e6e4e4;
+    --color-texto: #333;
+    --color-blanco: #fff;
+    --color-negro: #000;
 }
 
-
-/*Página de login*/
-#cajaLogin {
-    display: grid;
-    justify-items: center;
-    background: rgba(253, 234, 253, 0.93);
-    margin-top: 50px;
+/*Header*/
+.logo {
+    width: 200px;
+    position: relative;
+    top: 5px;
+    z-index: 1000;
+    border-radius: 50%;
 }
 
-#cajaLogin input[type="email"], input[type="password"] {
-    width: 500px;
+.header-fino {
+    font-size: 30px;
+    height: 150px;
+    background-color: var(--color-rosa-claro);
 }
 
-#cajaLogin input[type="submit"] {
-    display: grid;
-    justify-content: center;
-    margin: auto;
+.nav-link {
+    margin-left: 23px;
+    color: var(--color-negro);
+    text-decoration: none;
 }
 
-#enlaceRegistro{
-    display: grid;
-    justify-content: center;
-    margin: auto;
+.nav-link:hover {
+    color: var(--color-rosa-oscuro);
+}
+
+/*-----------Estilos para el menú offcanvas */
+.offcanvas-body a {
+    color: var(--color-negro);
+    text-decoration: none;
+}
+
+.offcanvas-body a:hover {
+    color: var(--color-rosa-oscuro);
+}
+
+/*Botones*/
+.custom-btn {
+    padding: 10px 30px;
+    /* Espaciado interno (ajusta según necesites) */
+    background-color: var(--color-gris-claro);
+    /* Fondo gris claro */
+    color: var(--color-negro);
+    /* Texto negro */
+    border-radius: 10px;
+    /* Bordes redondeados */
+    border: 1px solid rgba(148, 144, 144, 0.47);
+    /* Borde gris con transparencia */
+    font-size: 20px;
+    /* Tamaño del texto */
+    cursor: pointer;
+    /* Cambia el cursor al pasar el ratón */
+    text-align: center;
+    /* Centra el texto */
+    display: inline-block;
+    /* Se comporta como un bloque en línea */
+    width: fit-content;
+    /* Ajusta el ancho al contenido */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Transición suave */
+}
+
+.custom-btn:hover {
+    background-color: var(--color-rosa-oscuro);
+    /* Fondo rosa oscuro */
+    color: var(--color-blanco);
+    /* Texto blanco */
+}
+
+.custom-btn:disabled {
+    background-color: #ccc;
+    /* Fondo gris */
+    color: #666;
+    /* Texto gris oscuro */
+    cursor: not-allowed;
+    /* Cursor de "no permitido" */
+}
+
+/*Modal*/
+#linkModal, #linkModal:visited, #linkModal:active{
+    color: var(--color-negro);
+    text-decoration: none;
+}
+
+#linkModal:hover{
+    color: var(--color-blanco);
+    text-decoration: none;
+}
+
+/*Página login*/
+#mainLogin {
+    flex: 1;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+/*Página registro*/
+#mainRegistro {
+    flex: 1;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+/*Footer*/
+footer {
+    background-color: var(--color-rosa-claro);
+    color: var(--color-negro);
+    padding: 20px 0;
+}
+
+footer ul li a, h5 {
+    color: var(--color-negro);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+footer ul {
+    text-align: center;
+    list-style: none;
+    padding: 0;
+}
+
+footer form input,
+footer form textarea {
+    color: var(--color-negro);
+}
+
+.footer-btn {
+    background-color: #efeded;
+    /* Fondo gris claro */
+    color: black;
+    /* Texto negro */
+    border: none;
+    /* Sin borde */
+    outline: none;
+    /* Sin contorno */
+    cursor: pointer;
+    /* Cambia el cursor al pasar el ratón */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    font-size: 16px;
+    /* Tamaño del texto */
+    width: 50%;
+    /* Ancho del botón */
+}
+
+.footer-btn:hover {
+    background-color: #555;
+    /* Fondo gris oscuro */
+    color: white;
+    /* Texto blanco */
+}
+
+/*-----------Mapa*/
+
+.mapa-estilizado {
+    border: 1px solid #ff1493; /* Borde sólido de 3px con color rosa */
+    transition: all 0.3s ease; /* Transición suave para efectos hover */
+}
+
+.mapa-estilizado:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Aumenta la sombra al pasar el mouse */
 }
