@@ -18,16 +18,6 @@ class ClienteRepository extends ServiceEntityRepository
         parent::__construct($registry, Cliente::class);
     }
 
-    #Buscar si el cliente existe (está registrado ya o no)
-    public function findRegisteredClient($email)
-    {
-        return $this->createQueryBuilder('c')
-            ->where('c.email = :email')
-            ->setParameter('email', $email)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
     //    /**
     //     * @return Cliente[] Returns an array of Cliente objects
     //     */

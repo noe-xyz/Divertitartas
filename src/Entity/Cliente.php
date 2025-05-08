@@ -24,14 +24,17 @@ class Cliente extends Usuario
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $fecha_nacimiento = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $domicilio = null;
+    #[ORM\Column(type: 'json', length: 255, nullable: true)]
+    private ?array $domicilio = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $telefono2 = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $puntos = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $sexo = null;
 
     #Getters y setters
     public function getNombre(): ?string
@@ -78,12 +81,12 @@ class Cliente extends Usuario
         return $this;
     }
 
-    public function getDomicilio(): ?string
+    public function getDomicilio(): ?array
     {
         return $this->domicilio;
     }
 
-    public function setDomicilio(?string $domicilio): static
+    public function setDomicilio(?array $domicilio): static
     {
         $this->domicilio = $domicilio;
         return $this;
@@ -108,6 +111,16 @@ class Cliente extends Usuario
     public function setPuntos(?int $puntos): static
     {
         $this->puntos = $puntos;
+        return $this;
+    }
+
+    public function getSexo(): ?string
+    {
+        return $this->sexo;
+    }
+    public function setSexo(?string $sexo): static
+    {
+        $this->sexo = $sexo;
         return $this;
     }
 }

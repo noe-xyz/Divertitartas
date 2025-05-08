@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Cliente;
 use App\Entity\Empresa;
 use App\Repository\ClienteRepository;
+use App\Repository\UsuarioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class RegistroController extends AbstractController
@@ -16,7 +18,7 @@ class RegistroController extends AbstractController
     #TODO dividir en funciones para no hacer un pedazo de bloque de código
     #Ruta de la página web
     #[Route('/registro', name: 'registro')]
-    public function registro(EntityManagerInterface $entityManager, Request $request, ClienteRepository $clienteRepository): Response
+    public function registro(EntityManagerInterface $entityManager, Request $request, UsuarioRepository $usuarioRepository, SessionInterface $session): Response
     {
         #Comprobar que se envían los datos por POST y guardarlos en variables
         if ($request->isMethod('POST')) {
@@ -27,7 +29,7 @@ class RegistroController extends AbstractController
             $passwordConfirmar = $request->request->get('passwordConfirmar');
 
             #Query que busca en la base de datos si existe el usuario y lógica por si lo está/no lo está
-            $usuarioExiste = $clienteRepository->findRegisteredClient($email);
+            $usuarioExiste = $usuarioRepository->findRegisteredUser($email, $password);
             if ($usuarioExiste) {
                 return $this->render('registro/registro.html.twig', [
                     "error" => true,
@@ -66,6 +68,8 @@ class RegistroController extends AbstractController
 
                         #Se prepara el objeto para insertarlo en la base de datos
                         $entityManager->persist($empresaLogueada);
+                        #Crear la sesión de la empresa
+                        $this->crearSesion($session, $empresaLogueada);
                     } else {
                         #Creación del objeto de tipo Empresa
                         $usuarioLogueado = new Cliente();
@@ -78,6 +82,8 @@ class RegistroController extends AbstractController
 
                         #Se prepara el objeto para insertarlo en la base de datos
                         $entityManager->persist($usuarioLogueado);
+                        #Crear la sesión del usuario
+                        $this->crearSesion($session, $usuarioLogueado);
                     }
                     #TODO avisar de haberse registrado correctamente
 
@@ -117,5 +123,12 @@ class RegistroController extends AbstractController
         } else {
             return true;
         }
+    }
+
+    public function crearSesion(SessionInterface $session, $usuario): void
+    {
+        $session->set('id', $usuario->getId());
+        $session->set('email', $usuario->getEmail());
+        $session->set('nombreCompleto', $usuario->getNombreCompleto());
     }
 }
