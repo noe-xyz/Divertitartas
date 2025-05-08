@@ -7,7 +7,7 @@
                     data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu" style="color: #000000;">
                 ☰
             </button>
-            <a href="index.html">
+            <a href="/">
                 <img src="{{ asset('../assets/images/logo_circulo.png') }}" alt="Logo Divertitartas" class="logo">
             </a>
             <div class="d-none d-lg-flex gap-3">
@@ -20,9 +20,18 @@
             <div class="d-flex gap-2">
                 <a href="Carrito.html"><img src="{{ asset('../assets/images/Carrito.png') }}" alt="Carrito" class="icon"
                                             style="height: 30px;"></a>
-                <a href="login" style="margin-left: 20px;"><img src="{{ asset('../assets/images/login.png') }}"
+                {# {% if not app.session.get('id') %} #}
+                <a href="/login" style="margin-left: 20px;"><img src="{{ asset('../assets/images/login.png') }}"
                                                                 alt="login" class="icon"
                                                                 style="height: 30px;"></a>
+                {# {% else %}
+                <div style="font-size: 20px; margin-left: 20px;">
+                    <a href="/perfil/{{ app.session.get('id') }}">{{ usuarioRegistrado.nombreCompleto }}</a>
+                    <form method="post" action="{{ path('login') }}">
+                        <a href="/login">Cerrar sesión</a>
+                    </form>
+                </div>
+                 {% endif %} #}
             </div>
         </div>
 
@@ -42,21 +51,4 @@
         </div>
     </header>
 
-    {% block javascripts %}
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const tipoCuentaPersona = document.getElementById('persona');
-                const tipoCuentaEmpresa = document.getElementById('empresa');
-                const camposEmpresa = document.getElementById('camposEmpresa');
-
-                tipoCuentaPersona.addEventListener('change', function () {
-                    camposEmpresa.style.display = 'none';
-                });
-
-                tipoCuentaEmpresa.addEventListener('change', function () {
-                    camposEmpresa.style.display = 'block';
-                });
-            });
-        </script>
-    {% endblock %}
 {% endblock %}

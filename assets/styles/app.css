@@ -104,12 +104,12 @@ html, body {
 }
 
 /*Modal*/
-#linkModal, #linkModal:visited, #linkModal:active{
+#linkModal, #linkModal:visited, #linkModal:active {
     color: var(--color-negro);
     text-decoration: none;
 }
 
-#linkModal:hover{
+#linkModal:hover {
     color: var(--color-blanco);
     text-decoration: none;
 }
@@ -126,6 +126,37 @@ html, body {
     flex: 1;
     padding-top: 100px;
     padding-bottom: 100px;
+}
+
+/*Página inicio*/
+#mainIndex {
+    flex: 1;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+/*Página perfil*/
+#mainPerfil {
+    flex: 1;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    float: left;
+}
+
+#mainPerfil input{
+    width: 300px;
+}
+
+#mainPerfil label{
+    margin-right: 23px;
+}
+
+#mainPerfilDatos{
+    float: left;
+}
+
+#mainPerfilTarjeta{
+    float: right;
 }
 
 /*Footer*/

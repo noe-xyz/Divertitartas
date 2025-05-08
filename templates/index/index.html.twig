@@ -4,6 +4,17 @@
 
 {% block body %}
 
-    hola mundo
+    {% include '_header.html.twig' %}
+
+    <div id="mainIndex">
+        {% if app.session.get('id') %}
+            hola <a href="perfil/{{ id }}">{{ usuarioRegistrado }}</a>
+            <form method="post" action="{{ path('login') }}">
+                <button type="submit" name="logout">Cerrar sesión</button>
+            </form>
+        {% endif %}
+    </div>
+
+    {% include '_footer.html.twig' %}
 
 {% endblock %}

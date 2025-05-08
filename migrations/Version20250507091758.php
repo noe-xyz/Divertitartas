@@ -27,6 +27,9 @@ final class Version20250507091758 extends AbstractMigration
             ALTER TABLE cliente ADD CONSTRAINT FK_F41C9B25BF396750 FOREIGN KEY (id) REFERENCES usuario (id) ON DELETE CASCADE
         SQL);
         $this->addSql(<<<'SQL'
+            ALTER TABLE cliente ADD sexo VARCHAR(255) DEFAULT NULL
+        SQL);
+        $this->addSql(<<<'SQL'
             ALTER TABLE empresa CHANGE id id INT NOT NULL
         SQL);
         $this->addSql(<<<'SQL'
@@ -48,6 +51,9 @@ final class Version20250507091758 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE empresa CHANGE id id INT AUTO_INCREMENT NOT NULL
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE cliente DROP sexo
         SQL);
     }
 }
