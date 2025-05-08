@@ -32,6 +32,9 @@ class Usuario
     #[ORM\Column(nullable: true)]
     private ?int $telefono1 = null;
 
+    #[ORM\Column(type: 'json')]
+    private ?array $roles = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,6 +84,17 @@ class Usuario
     public function setTelefono1(?int $telefono1): static
     {
         $this->telefono1 = $telefono1;
+
+        return $this;
+    }
+
+    public function getRoles(): ?array
+    {
+        return $this->roles;
+    }
+    public function setRoles(?array $roles): static
+    {
+        $this->roles = $roles;
 
         return $this;
     }
