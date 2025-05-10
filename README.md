@@ -2,7 +2,7 @@
 ## Trabajo de final de grado de Matías, Arantxa y Noelia
 
 #### Se debe tener instalado:
-  * php (activar en xampp apache y mysql)
+  * php (activar en xampp apache y mysql)-> path -> abrir/cerrar cmd
   * composer (descargar composer-setup.exe)
   * symfony cli (desde la web oficial, descargar scoop y seguir las instrucciones)
 
