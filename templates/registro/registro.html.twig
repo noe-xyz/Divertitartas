@@ -38,21 +38,16 @@
                                    required>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="password" class="form-control password" placeholder="Contraseña" name="password"
+                            <input type="password" class="form-control mostrarPassword" placeholder="Contraseña" name="password"
                                    required>
                         </div>
-                        <div class="form-group mb-3" style="position: absolute; left: 500px">
-                            <input type="checkbox" onclick="mostrarPassword()" style="width: 10px !important;"> Mostrar
-                            contraseña
-                        </div>
-                        <br/><br/>
                         <div class="form-group mb-3">
-                            <input type="password" class="form-control password" placeholder="Confirmar contraseña"
+                            <input type="password" class="form-control mostrarPassword" placeholder="Confirmar contraseña"
                                    name="passwordConfirmar" required>
                         </div>
                         <div class="form-group mb-3" style="position: absolute; left: 500px">
                             <input type="checkbox" onclick="mostrarPassword()" style="width: 10px !important;"> Mostrar
-                            contraseña
+                            contraseñas
                         </div>
                         <br/>
 
@@ -97,11 +92,13 @@
             });
 
             function mostrarPassword() {
-                var password = document.getElementsByClassName('password');
-                if (password.type === 'password') {
-                    password.type = 'text';
-                } else {
-                    password.type = 'password';
+                var passwords = document.getElementsByClassName('mostrarPassword');
+                for (var i = 0; i < passwords.length; i++) {
+                    if (passwords[i].type === 'password') {
+                        passwords[i].type = 'text';
+                    } else {
+                        passwords[i].type = 'password';
+                    }
                 }
             }
         </script>
