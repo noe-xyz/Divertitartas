@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\DetallesPedidoRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: DetallesPedidoRepository::class)]
+class DetallesPedido
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column]
+    private ?int $id_producto = null;
+
+    #[ORM\Column]
+    private ?float $precio_unitario = null;
+
+    #[ORM\Column]
+    private ?int $cantidad = null;
+
+    #[ORM\Column]
+    private ?int $id_pedido = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getIdProducto(): ?int
+    {
+        return $this->id_producto;
+    }
+
+    public function setIdProducto(int $id_producto): static
+    {
+        $this->id_producto = $id_producto;
+
+        return $this;
+    }
+
+    public function getPrecioUnitario(): ?float
+    {
+        return $this->precio_unitario;
+    }
+
+    public function setPrecioUnitario(float $precio_unitario): static
+    {
+        $this->precio_unitario = $precio_unitario;
+
+        return $this;
+    }
+
+    public function getCantidad(): ?int
+    {
+        return $this->cantidad;
+    }
+
+    public function setCantidad(int $cantidad): static
+    {
+        $this->cantidad = $cantidad;
+
+        return $this;
+    }
+
+    public function getIdPedido(): ?int
+    {
+        return $this->id_pedido;
+    }
+
+    public function setIdPedido(int $id_pedido): static
+    {
+        $this->id_pedido = $id_pedido;
+
+        return $this;
+    }
+}
