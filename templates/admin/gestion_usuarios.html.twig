@@ -1,0 +1,53 @@
+{% extends '_base.admin.html.twig' %}
+
+
+
+{% block body %}
+    {% include '_header.admin.html.twig'  %}
+
+<div class="board-container">
+    <h2 class="text-center my-4">GESTIÓN DE USUARIOS</h2>
+    <div class="custom-table">
+        <ul class="nav nav-tabs custom-tabs mb-3">
+            <li class="nav-item">
+                <a class="nav-link active" id="clientes-tab" href="#" onclick="mostrarPestaña('clientes'); return false;">Clientes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="trabajadores-tab" href="#" onclick="mostrarPestaña('trabajadores'); return false;">Trabajadores</a>
+            </li>
+        </ul>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Contraseña</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.apellido1 }}{% if cliente.apellido2 %} {{ cliente.apellido2 }}{% endif %}</td>
+                    <td>{{ cliente.telefono1 }}</td>
+                    <td>
+                        <a href="{{ path('eliminar_cliente', {'id': cliente.id}) }}" class="icon-btn" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este cliente?');">
+                            🗑️
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="contenido-trabajadores" style="display:none;">
+        <!-- Aquí la tabla de trabajadores -->
+    </div>
+</div>
+    {% block javascripts %}
+
+    <script src="{{ asset('assets/js/pestanas_usuarios.js') }}"></script>
+    {% endblock %}
+{% endblock %}
