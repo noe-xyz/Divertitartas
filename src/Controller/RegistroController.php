@@ -68,6 +68,8 @@ class RegistroController extends AbstractController
 
                         #Se prepara el objeto para insertarlo en la base de datos
                         $entityManager->persist($empresaLogueada);
+                        #Se insertan en la base de datos cualquier persist ejecutado
+                        $entityManager->flush();
                         #Crear la sesión de la empresa
                         $this->crearSesion($session, $empresaLogueada);
                     } else {
@@ -82,13 +84,13 @@ class RegistroController extends AbstractController
 
                         #Se prepara el objeto para insertarlo en la base de datos
                         $entityManager->persist($usuarioLogueado);
+                        #Se insertan en la base de datos cualquier persist ejecutado
+                        $entityManager->flush();
                         #Crear la sesión del usuario
                         $this->crearSesion($session, $usuarioLogueado);
                     }
                     #TODO avisar de haberse registrado correctamente
 
-                    #Se insertan en la base de datos cualquier persist ejecutado
-                    $entityManager->flush();
                     #Redirigir al index
                     return $this->redirectToRoute("index");
                 } else {

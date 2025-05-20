@@ -13,9 +13,14 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class PerfilController extends AbstractController
 {
-    #[Route('/perfil/{id<\d+>}', name: 'perfil')]
-    public function perfil(int $id, SessionInterface $session, UsuarioRepository $usuarioRepository, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/perfil', name: 'perfil')]
+    public function perfil(SessionInterface $session, UsuarioRepository $usuarioRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $id = $request->query->get('id');
+        if (!$id || !is_numeric($id)) {
+            throw $this->createNotFoundException('ID de usuario no válido');
+        }
+
         $usuarioRegistrado = $usuarioRepository->findUserById($id);
         if (!$usuarioRegistrado) {
             throw $this->createNotFoundException('No encontramos esta página...');
