@@ -8,7 +8,7 @@
 
     <div id="mainIndex">
         {% if id is not null %}
-            hola <a href="perfil/{{ id }}">{{ usuarioRegistrado }}</a>
+            hola <a href="{{ path('perfil') ~ '?id=' ~ id }}">{{ usuarioRegistrado }}</a>
             <form method="post" action="{{ path('login') }}">
                 <button type="submit" name="logout">Cerrar sesión</button>
             </form>
