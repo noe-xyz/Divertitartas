@@ -27,6 +27,7 @@ class RegistroController extends AbstractController
             $email = $request->request->get('email');
             $password = $request->request->get('password');
             $passwordConfirmar = $request->request->get('passwordConfirmar');
+            $telefono1 = $request->request->get('telefono');
 
             #Query que busca en la base de datos si existe el usuario y lógica por si lo está/no lo está
             $usuarioExiste = $usuarioRepository->findRegisteredUser($email, $password);
@@ -61,6 +62,7 @@ class RegistroController extends AbstractController
                             ->setNombre($name)
                             ->setApellido1($lastName1)
                             ->setApellido2($lastName2)
+                            ->setTelefono1($telefono1)
                             ->setEmail($email)
                             ->setPassword($password)
                             ->setNombreEmpresa($nombreEmpresa)

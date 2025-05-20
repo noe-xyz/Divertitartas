@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
-class PerfilController extends AbstractController
+class CuentaController extends AbstractController
 {
-    #[Route('/perfil', name: 'perfil')]
+    #[Route('/cuenta', name: 'cuenta')]
     public function perfil(SessionInterface $session, UsuarioRepository $usuarioRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $id = $request->query->get('id');
@@ -38,10 +38,10 @@ class PerfilController extends AbstractController
             $entityManager->persist($usuarioModificado);
             $entityManager->flush();
 
-            return $this->redirectToRoute("perfil", ["id" => $usuarioRegistrado->getId()]);
+            return $this->redirectToRoute("cuenta", ["id" => $usuarioRegistrado->getId()]);
         }
 
-        return $this->render('perfil/perfil.html.twig', [
+        return $this->render('cuenta/cuenta.html.twig', [
             'usuarioRegistrado' => $usuarioRegistrado,
             'idUsuarioRegistrado' => $idUsuarioRegistrado
         ]);
@@ -51,7 +51,7 @@ class PerfilController extends AbstractController
     {
         #Recoger en variables los datos introducidos en el formulario
         $campos = [
-            'email', 'password', 'sexo', 'nombre', 'apellido', 'fechaNacimiento',
+            'email', 'password', 'sexo', 'nombre', 'apellido', 'dia', 'mes', 'year',
             'domicilio', 'portal', 'piso', 'puerta', 'cp', 'localidad', 'provincia',
             'telefono1', 'telefono2'
         ];
@@ -86,7 +86,7 @@ class PerfilController extends AbstractController
             ->setApellido1($datos['apellido1'])
             ->setApellido2($datos['apellido2'])
             ->setNombreCompleto($datos['nombre'] . " " . $datos['apellido'])
-            ->setFechaNacimiento(new \DateTime($datos['fechaNacimiento']))
+            ->setFechaNacimiento(new \DateTime($datos['dia']  . " " . $datos['mes'] . " " . $datos['year']))
             ->setDomicilio($arrDireccion)
             ->setTelefono1($datos['telefono1'])
             ->setTelefono2($datos['telefono2']);

@@ -1,0 +1,467 @@
+/*------------Index------------*/
+
+/* Contenedor para centrar imágenes */
+.card-img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px; /* Ajusta la altura según tu diseño */
+    overflow: hidden;
+}
+
+/* Ajuste de las imágenes */
+.card-img-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain; /* Asegura que la imagen no se distorsione */
+}
+
+/* Alinear el título al final de la tarjeta */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Asegura que el título esté alineado al final */
+}
+
+.card-title {
+    margin-top: auto; /* Empuja el título hacia abajo si hay espacio */
+}
+
+/* Estilos para la sección "Tartas" */
+.tarta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.tarta h2 {
+    margin-top: 10px;
+    font-size: 60px;
+    color: var(--color-texto);
+}
+
+.custom-btn {
+    padding: 5px 30px;
+    background-color: var(--color-gris-claro);
+    color: var(--color-negro);
+    border-radius: 10px;
+    border: 1px solid rgba(148, 144, 144, 0.47);
+    cursor: pointer;
+    font-size: 20px;
+    display: block;
+    width: fit-content;
+    text-align: center;
+    margin: 20px auto;
+    transition: all 0.3s ease;
+}
+
+.custom-btn:hover {
+    background-color: var(--color-rosa-oscuro);
+    color: var(--color-blanco);
+}
+
+/* Animación de rotación */
+@keyframes girar {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.rotar {
+    transition: transform 1s linear;
+    will-change: transform; /* Mejora el rendimiento */
+}
+
+.rotar:hover {
+    animation: girar 1s linear;
+}
+
+/*------------Registro/login------------*/
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hacer que el contenido principal ocupe el espacio restante */
+main {
+    flex: 1;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+/* Estilos de validación */
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+.is-invalid ~ .invalid-feedback {
+    display: block;
+}
+
+/* Estilo para el botón deshabilitado */
+#loginBtn:disabled {
+    background-color: #e6e4e4 !important;
+    color: #999 !important;
+    border-color: #ddd !important;
+    cursor: not-allowed;
+}
+
+/* Mejoras visuales para el formulario */
+.form-label {
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-control {
+    transition: all 0.3s ease;
+}
+
+/* Nuevos estilos para Lionel Messi y botón */
+.messi-text {
+    color: var(--color-rosa-oscuro);
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 0; /* Eliminamos margen inferior */
+    line-height: 1.2; /* Reducimos espacio entre líneas */
+    padding-bottom: 1px; /* Pequeño espacio en lugar de margen */
+}
+
+.messi-text:hover {
+    color: var(--color-negro); /* Cambia a negro al pasar el mouse */
+}
+
+.btn-inicio {
+    padding: 1px 8px !important; /* Más compacto*/
+    margin-top: 0; /* Sin margen superior */
+    transform: translateY(-2px); /* Sube ligeramente el botón */
+}
+
+
+.btn-inicio:hover {
+    background-color: var(--color-rosa-claro);
+    color: var(--color-negro);
+    transform: translateY(-2px);
+}
+
+/* Estilos para la sección de botones */
+.text-rosa {
+    color: #ff1493;
+    font-weight: bold;
+}
+
+.display-4 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .custom-btn:active,
+    .custom-btn:focus {
+        background-color: var(--color-rosa-oscuro);
+        color: var(--color-blanco);
+    }
+}
+
+@media (max-width: 767px) {
+    .tarta h2 {
+        font-size: 40px;
+    }
+
+    .messi-text {
+        font-size: 0.8rem;
+        line-height: 1.1;
+    }
+
+    .btn-inicio {
+        font-size: 0.6rem !important;
+        padding: 0 6px !important;
+        transform: translateY(-3px);
+    }
+
+    .custom-btn {
+        padding: 10px 20px !important;
+        font-size: 1.2rem !important;
+    }
+
+    .display-4 {
+        font-size: 2rem;
+    }
+}
+
+/*------------Cuenta------------*/
+
+/* Contenedor principal */
+.account-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.363);
+    font-family: 'Kaushan Script', cursive;
+    position: relative;
+}
+
+/* Títulos de sección */
+.section-title {
+    color: var(--color-rosa-oscuro);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-rosa-claro);
+}
+
+/* Etiquetas de formulario */
+.form-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: var(--color-texto);
+}
+
+/* Campos de entrada */
+.form-control {
+    margin-bottom: 15px;
+    border: 1px solid var(--color-rosa-claro);
+    background-color: var(--color-gris-claro);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.form-control:focus {
+    border-color: var(--color-rosa-oscuro);
+    box-shadow: 0 0 0 0.25rem rgba(255, 20, 147, 0.25);
+    background-color: white;
+}
+
+/* Estilo para inputs en modo lectura */
+input[readonly] {
+    background-color: var(--color-gris-claro);
+    border: 1px solid transparent;
+    cursor: default;
+}
+
+/* Estilo para inputs deshabilitados */
+input:disabled, button:disabled {
+    opacity: 1;
+    cursor: not-allowed;
+    background-color: var(--color-gris-claro);
+}
+
+/* Estilo para radio buttons deshabilitados */
+input[type="radio"]:disabled {
+    opacity: 0.7;
+}
+
+/* Grupo de radio buttons */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.radio-option input[type="radio"] {
+    accent-color: var(--color-rosa-oscuro);
+}
+
+/* Inputs de fecha */
+.date-inputs {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 15px;
+    background-color: var(--color-gris-claro);
+}
+
+.date-inputs input {
+    width: 60px;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#fechaInput:disabled{
+   background: var(--color-gris-claro);
+    border: none;
+}
+
+/* Grid para dirección */
+.address-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.address-grid input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Botones de acción */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.action-button {
+    background-color: var(--color-gris-claro);
+    color: var(--color-negro);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Kaushan Script', cursive;
+    font-size: 1rem;
+}
+
+.action-button:hover {
+    background-color: var(--color-rosa-oscuro);
+    color: white;
+}
+
+/* Tarjeta guardada */
+.saved-card {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: var(--color-gris-claro);
+}
+
+.saved-card .form-control {
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+/* Estilo para el grupo de contraseña */
+.input-group {
+    margin-bottom: 15px;
+}
+
+#showPasswordBtn {
+    background-color: var(--color-gris-claro);
+    border-color: var(--color-rosa-claro);
+    color: var(--color-texto);
+    height: 46px;
+}
+
+#showPasswordBtn:hover:not(:disabled) {
+    background-color: var(--color-rosa-oscuro);
+    color: white;
+}
+
+/* Icono de ojo */
+.bi-eye, .bi-eye-slash {
+    margin-right: 5px;
+}
+
+/* Botón de edición global */
+#toggleEditBtn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background-color: var(--color-rosa-oscuro);
+    color: white;
+}
+/* Asegurar que los estilos de edición solo afecten al formulario de cuenta */
+#accountForm input[readonly] {
+    background-color: var(--color-gris-claro);
+    border: 1px solid transparent;
+    cursor: default;
+}
+
+#accountForm input:disabled,
+#accountForm button:disabled:not(.footer-btn) {
+    opacity: 1;
+    cursor: not-allowed;
+    background-color: var(--color-gris-claro);
+}
+
+/* Mantener estilos originales del footer */
+footer form input,
+footer form textarea,
+footer form button {
+    color: var(--color-negro) !important;
+    background-color: white !important;
+    cursor: text !important;
+}
+
+footer form button.footer-btn {
+    cursor: pointer !important;
+    background-color: #efeded !important;
+}
+
+footer form button.footer-btn:hover {
+    background-color: #555 !important;
+    color: white !important;
+}
+/* Responsive */
+@media (max-width: 768px) {
+    .account-container {
+        padding: 20px;
+        margin: 1rem;
+    }
+
+    .address-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    #toggleEditBtn {
+        position: static;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .address-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .radio-group {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .date-inputs {
+        flex-wrap: wrap;
+    }
+
+    .date-inputs input {
+        width: 50px;
+    }
+}

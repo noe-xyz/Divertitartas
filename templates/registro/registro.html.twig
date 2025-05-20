@@ -6,7 +6,8 @@
 
     {% include '_header.html.twig' %}
 
-    <main class="flex-grow-1" id="mainRegistro">
+    <!-- Contenido principal -->
+    <main class="flex-grow-1">
         <!-- Sección de Registro -->
         <section class="container-fluid text-center py-5" style="background-color: hsla(340, 84%, 94%, 0.7);">
             <div class="row justify-content-center">
@@ -17,54 +18,48 @@
                         <div class="form-group mb-3">
                             <label>Tipo de cuenta:</label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="tipoCuenta" id="persona"
-                                       value="persona" checked>
+                                <input class="form-check-input" type="radio" name="tipoCuenta" id="persona" value="persona" checked>
                                 <label class="form-check-label" for="persona">Persona</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="tipoCuenta" id="empresa"
-                                       value="empresa">
+                                <input class="form-check-input" type="radio" name="tipoCuenta" id="empresa" value="empresa">
                                 <label class="form-check-label" for="empresa">Empresa</label>
                             </div>
                         </div>
 
                         <!-- Campos del formulario -->
                         <div class="form-group mb-3">
-                            <input type="text" class="form-control" placeholder="Nombre completo" name="nombre"
-                                   required>
+                            <input type="text" class="form-control" placeholder="Nombre" name="nombre" required>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="email" class="form-control" placeholder="Correo electrónico" name="email"
-                                   required>
+                            <input type="text" class="form-control" placeholder="Apellidos" name="apellidos" required>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="password" class="form-control mostrarPassword" placeholder="Contraseña" name="password"
-                                   required>
+                            <input type="number" class="form-control" placeholder="Teléfono" name="telefono1" required>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="password" class="form-control mostrarPassword" placeholder="Confirmar contraseña"
-                                   name="passwordConfirmar" required>
+                            <input type="email" class="form-control" placeholder="Correo electrónico" name="email" required>
                         </div>
-                        <div class="form-group mb-3" style="position: absolute; left: 500px">
-                            <input type="checkbox" onclick="mostrarPassword()" style="width: 10px !important;"> Mostrar
-                            contraseñas
+                        <div class="form-group mb-3">
+                            <input type="password" class="form-control" placeholder="Contraseña" name="password" required>
                         </div>
-                        <br/>
+                        <div class="form-group mb-3">
+                            <input type="password" class="form-control" placeholder="Confirmar contraseña" name="passwordConfirmar" required>
+                        </div>
 
                         <!-- Campos adicionales para empresas (ocultos por defecto) -->
                         <div id="camposEmpresa" style="display: none;">
                             <div class="form-group mb-3">
-                                <input type="text" class="form-control" placeholder="Nombre de la empresa"
-                                       name="nombreEmpresa">
+                                <input type="text" class="form-control" placeholder="Nombre de la empresa">
                             </div>
                             <div class="form-group mb-3">
-                                <input type="text" class="form-control" placeholder="NIF/CIF" name="nifCif">
+                                <input type="text" class="form-control" placeholder="NIF/CIF">
                             </div>
                         </div>
 
                         <button type="submit" class="custom-btn">Registrarse</button>
                     </form>
-                    <p class="mt-3">¿Ya tienes una cuenta? <a href="login">Inicia sesión aquí</a></p>
+                    <p class="mt-3">¿Ya tienes una cuenta? <a href="/login">Inicia sesión aquí</a></p>
                 </div>
             </div>
         </section>
@@ -90,17 +85,6 @@
                     camposEmpresa.style.display = 'block';
                 });
             });
-
-            function mostrarPassword() {
-                var passwords = document.getElementsByClassName('mostrarPassword');
-                for (var i = 0; i < passwords.length; i++) {
-                    if (passwords[i].type === 'password') {
-                        passwords[i].type = 'text';
-                    } else {
-                        passwords[i].type = 'password';
-                    }
-                }
-            }
         </script>
     {% endblock %}
 

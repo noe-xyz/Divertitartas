@@ -6,14 +6,130 @@
 
     {% include '_header.html.twig' %}
 
-    <div id="mainIndex">
-        {% if id is not null %}
-            hola <a href="{{ path('perfil') ~ '?id=' ~ id }}">{{ usuarioRegistrado }}</a>
-            <form method="post" action="{{ path('login') }}">
-                <button type="submit" name="logout">Cerrar sesión</button>
-            </form>
-        {% endif %}
+    <!-- Imagen principal con texto -->
+    <section class="herone text-center py-5" style="margin-top: -24px;">
+        <img src="{{ asset('../assets/images/imagen1.jpg') }}" alt="Tartas variadas" class="img-fluid"
+             style="margin-top: -24px; max-height: 400px;">
+        <h1 class="mt-3">Diversión y sabor en cada bocado</h1>
+    </section>
+
+    <!-- Sección de introducción -->
+    <section class="container-fluid text-center" style="background-color: hsla(340, 84%, 94%, 0.7);">
+        <div class="row align-items-center">
+            <!-- Columna de la imagen -->
+            <div class="col-md-4 text-center text-md-start">
+                <div class="rotar-container">
+                    <img src="{{ asset('../assets/images/pastel.png') }}" alt="Pastel" class="img-fluid rotar"
+                         style="max-width: 50%; height: auto; margin-left: auto; margin-right: auto;">
+                </div>
+            </div>
+
+            <!-- Columna de texto -->
+            <div class="col-md-7">
+                <p style="font-size: 2rem; line-height: 1.6;">
+                    En Divertitartas, creamos tartas únicas y llenas de imaginación. Cada uno de nuestros pasteles
+                    combina deliciosos sabores con diseños divertidos y personalizados, perfectos para hacer de
+                    cualquier ocasión un momento inolvidable. ¡Endulza tus celebraciones con un toque creativo y
+                    original!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!--banner carousel-->
+    <div class="container mt-4">
+        <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{{ asset('../assets/images/baner1.png') }}" class="d-block w-100" alt="Banner 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('../assets/images/banner2.png') }}" class="d-block w-100" alt="Banner 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('../assets/images/banner3.png') }}" class="d-block w-100" alt="Banner 3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
+
+    <!-- Sección de tartas -->
+    <div class="tarta">
+        <img src="{{ asset('../assets/images/ribete1.png') }}" alt="Ribete decorativo" class="ribete">
+        <h2>Algunas de nuestras elaboraciones</h2>
+    </div>
+
+    <!-- Tarjetas de tartas -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-img-container">
+                        <img src="{{ asset('../assets/images/tarta4.png') }}" class="card-img-top" alt="1">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-end">
+                        <h5 class="card-title">Sonic</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-img-container">
+                        <img src="{{ asset('../assets/images/dulce1.png') }}" class="card-img-top" alt="2">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-end">
+                        <h5 class="card-title">Cupcake</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-img-container">
+                        <img src="{{ asset('../assets/images/dulce5.png') }}" class="card-img-top" alt="3">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-end">
+                        <h5 class="card-title">Alfajores</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-img-container">
+                        <img src="{{ asset('../assets/images/tarta2.png') }}" class="card-img-top" alt="4">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-end">
+                        <h5 class="card-title">Unicornio</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <a href="Productos.html" style="text-decoration: none;">
+            <button class="custom-btn mt-3 mx-auto d-block">Ver más</button>
+        </a>
+    </div>
+
+    <!-- Sección de comentarios -->
+    <section class="py-2 text-center" style="background-color: #fbd1f0; margin-bottom: 20px;">
+        <div class="container">
+            <img src="{{ asset('../assets/images/comentario.png') }}" alt="Comentarios de clientes" class="img-fluid">
+        </div>
+    </section>
 
     {% include '_footer.html.twig' %}
 
