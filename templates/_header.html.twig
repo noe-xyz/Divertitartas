@@ -18,7 +18,7 @@
             </div>
 
             <div class="d-flex gap-2">
-                {% if app.session.get('email') is defined %}
+                {% if app.session.get('email') is defined and app.session.get('email') is not null %}
                     <div class="text-center" style="margin-right: -5px;">
                         <div class="messi-text">
                             <a href="{{ path('cuenta') ~ '?id=' ~ app.session.get('id') }}" style="color: #ff1493; text-decoration: none">{{ app.session.get('nombreCompleto') }}</a>

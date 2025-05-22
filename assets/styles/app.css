@@ -1,109 +1,63 @@
-/* Variables CSS para colores */
+/* Variables CSS */
 :root {
     --color-rosa-claro: #fbd1f0;
     --color-rosa-oscuro: #ff1493;
-    --color-gris-claro: #e6e4e4;
+    --color-gris-claro: #e6e6e6;
     --color-texto: #333;
     --color-blanco: #fff;
     --color-negro: #000;
+    --transition-time: 0.3s;
+    --border-radius: 10px;
 }
 
-/* Estilos generales para el cuerpo de la página */
+/* Estructura base */
 body {
     font-family: 'Kaushan Script', cursive;
     background-image: url('../images/fondo.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    background-repeat: no-repeat;
     color: var(--color-texto);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Estilos para el encabezado */
+/* Header */
 .header-fino {
-    font-size: 30px;
     height: 150px;
     background-color: var(--color-rosa-claro);
-
+    display: flex;
+    align-items: center;
+    font-size: 30px;
 }
 
 .logo {
     width: 230px;
-    position: relative;
-    top: 5px;
-    z-index: 1000;
     border-radius: 50%;
+    position: relative;
+    top:25px;
+    z-index: 1000;
 }
 
+/* Navegación */
 .nav-link {
     margin-left: 23px;
     color: var(--color-negro);
     text-decoration: none;
+    transition: color var(--transition-time);
 }
 
 .nav-link:hover {
     color: var(--color-rosa-oscuro);
 }
 
-/* Estilos para el menú offcanvas */
-.offcanvas-body a {
-    color: var(--color-negro);
-    text-decoration: none;
-}
-
-.offcanvas-body a:hover {
-    color: var(--color-rosa-oscuro);
-}
-
-/* Estilos para la sección "Hero" */
-
-.hero {
-    position: relative;
-    text-align: center;
-    color: var(--color-rosa-oscuro);
-    margin-bottom: 50px;
-    margin-top: 50px;
-
-}
-
+/* Hero Section */
 .hero h1 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     font-size: 4rem;
     font-weight: bold;
-    width: 80%;
-    max-width: 800px;
-    margin-top: 100px; /* Añade espacio adicional hacia abajo */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-
-}
-.herone {
-    position: relative;
-    text-align: center;
-    color: var(--color-blanco);
-    margin-bottom: 50px;
-
-}
-
-.herone img {
-    width: 100%;
-    height: auto;
-}
-
-.herone h1 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 4rem;
-    font-weight: bold;
-    width: 80%;
-    max-width: 800px;
-    margin-top: 100px; /* Añade espacio adicional hacia abajo */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-
+    color: var(--color-rosa-oscuro);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
 /* Estilos para el pie de página */
@@ -226,137 +180,31 @@ footer form textarea {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Aumenta la sombra al pasar el mouse */
 }
 
-.titulo-legal {
-    font-size: 2.5rem;
-    color: var(--color-rosa-oscuro);
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.titulo2-legal {
-    font-size: 1.8rem;
-    color: var(--color-rosa-oscuro);
-    margin-top: 30px;
-    margin-bottom: 10px;
-}
-
-.legal p {
-    font-size: 1.2rem;
-    color: var(--color-texto);
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform var(--transition-time);
     margin-bottom: 20px;
 }
 
-/* Estilos personalizados para los radio buttons */
-.form-check-input:checked {
-    background-color: var(--color-rosa-oscuro);
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.form-control:focus {
     border-color: var(--color-rosa-oscuro);
-    /*background-size: cover;*/
+    box-shadow: 0 0 0 0.25rem rgba(255,20,147,0.25);
 }
 
-.form-check-input:focus {
-    box-shadow: 0 0 0 0.25rem rgba(255, 20, 147, 0.25); /* Sombra rosa */
-}
-
-.form-check-input {
-    border-color: var(--color-rosa-oscuro);
-}
-
-/* Estilos responsivos */
+/* Responsive */
 @media (max-width: 991px) {
-    .hamburger-menu {
-        display: block;
-        font-size: 1.5rem;
-        background: none;
-        border: none;
-        cursor: pointer;
-    }
-
-    .elementos {
-        display: none;
-    }
-
-
-    /* Efecto hover para los botones */
-    .custom-btn:active,
-    .custom-btn:focus {
-        background-color: var(--color-rosa-oscuro);
-        /* Fondo rosa oscuro */
-        color: var(--color-blanco);
-        /* Texto blanco */
-    }
-
-    /* Efecto para dispositivos táctiles */
-    .footer-btn:active,
-    .footer-btn:focus {
-        background-color: #555;
-        /* Fondo gris oscuro */
-        color: white;
-        /* Texto blanco */
-    }
+    .header-fino { height: 100px; }
+    .logo { width: 120px; }
+    .hero h1 { font-size: 2.5rem; }
 }
 
 @media (max-width: 767px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .logo {
-        width: 120px;
-    }
-
-    .header-fino {
-        font-size: 24px;
-        height: 100px;
-    }
-
-    .container-fluid img {
-        width: 150px;
-        height: auto;
-    }
-
-    .container-fluid p {
-        font-size: 1rem;
-    }
-
-    .tarta h2 {
-        font-size: 40px;
-    }
-
-    .carousel-item img {
-        width: 50%;
-        height: auto;
-    }
-
-    .carousel {
-        height: 30vh;
-        max-height: 300px;
-        overflow: hidden;
-    }
-
-    footer {
-        text-align: center;
-    }
-
-    .footer-content {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* Efecto hover para los botones */
-    .custom-btn:active,
-    .custom-btn:focus {
-        background-color: var(--color-rosa-oscuro);
-        /* Fondo rosa oscuro */
-        color: var(--color-blanco);
-        /* Texto blanco */
-    }
-
-    /* Efecto para dispositivos táctiles */
-    .footer-btn:active,
-    .footer-btn:focus {
-        background-color: #555;
-        /* Fondo gris oscuro */
-        color: white;
-        /* Texto blanco */
-    }
+    .hero h1 { font-size: 2rem; }
 }
+
