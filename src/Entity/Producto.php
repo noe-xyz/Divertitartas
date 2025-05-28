@@ -16,17 +16,23 @@ class Producto
     #[ORM\Column(length: 30)]
     private ?string $nombre = null;
 
-    #[ORM\Column(length: 20)]
-    private ?string $tipo = null;
+    #[ORM\Column]
+    private ?float $precio = null;
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $sabor = null;
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $relleno = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $raciones = null;
 
     #[ORM\Column(length: 255)]
     private ?string $descripcion = null;
 
-    #[ORM\Column]
-    private ?float $precio = null;
-
-    #[ORM\Column(length: 20, nullable: true)]
-    private ?string $codigoDescuento = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $comentario = null;
 
     public function getId(): ?int
     {
@@ -45,14 +51,50 @@ class Producto
         return $this;
     }
 
-    public function getTipo(): ?string
+    public function getPrecio(): ?float
     {
-        return $this->tipo;
+        return $this->precio;
     }
 
-    public function setTipo(string $tipo): static
+    public function setPrecio(float $precio): static
     {
-        $this->tipo = $tipo;
+        $this->precio = $precio;
+
+        return $this;
+    }
+
+    public function getSabor(): ?string
+    {
+        return $this->sabor;
+    }
+
+    public function setSabor(?string $sabor): static
+    {
+        $this->sabor = $sabor;
+
+        return $this;
+    }
+
+    public function getRelleno(): ?string
+    {
+        return $this->relleno;
+    }
+
+    public function setRelleno(?string $relleno): static
+    {
+        $this->relleno = $relleno;
+
+        return $this;
+    }
+
+    public function getRaciones(): ?int
+    {
+        return $this->raciones;
+    }
+
+    public function setRaciones(?int $raciones): static
+    {
+        $this->raciones = $raciones;
 
         return $this;
     }
@@ -69,26 +111,14 @@ class Producto
         return $this;
     }
 
-    public function getPrecio(): ?float
+    public function getComentario(): ?string
     {
-        return $this->precio;
+        return $this->comentario;
     }
 
-    public function setPrecio(float $precio): static
+    public function setComentario(?string $comentario): static
     {
-        $this->precio = $precio;
-
-        return $this;
-    }
-
-    public function getCodigoDescuento(): ?string
-    {
-        return $this->codigoDescuento;
-    }
-
-    public function setCodigoDescuento(?string $codigoDescuento): static
-    {
-        $this->codigoDescuento = $codigoDescuento;
+        $this->comentario = $comentario;
 
         return $this;
     }

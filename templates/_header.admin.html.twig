@@ -3,7 +3,7 @@
 {% block body %}
 
 <!-- Header -->
-<nav class="navbar navbar-expand-lg justify-content-center">
+<nav class="navbar navbar-expand-lg justify-content-center" role="tablist">
     <div class="container-fluid">
         <a class="navbar-brand" href="/comunicados">
 
@@ -14,7 +14,7 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
             <div class="navbar-nav gap-2">
-                <button class="btn btn-uniforme mx-1" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuarios" type="button">Gestión de usuarios</button>
+                <button role="tab"  aria-selected="{{ app.request.attributes.get('_route') == 'gestion_usuarios' ? 'true' : 'false' }}" class=" {{ app.request.attributes.get('_route') =='gestion_usuarios' ? 'tab-activa' : '' }} btn btn-uniforme mx-1" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuarios" type="button"><a  class= "botones-menu" href="/admin/gestion-usuarios">Gestión de usuarios</a> </button>
                 <button class="btn btn-uniforme mx-1" id="proveedores-tab" data-bs-toggle="tab" data-bs-target="#proveedores" type="button">Proveedores</button>
                 <button class="btn btn-uniforme mx-1" id="contabilidad-tab" data-bs-toggle="tab" data-bs-target="#contabilidad" type="button">Contabilidad</button>
                 <button class="btn btn-uniforme mx-1" id="pedidos-tab" data-bs-toggle="tab" data-bs-target="#pedidos" type="button">Pedidos</button>
