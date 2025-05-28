@@ -1,0 +1,29 @@
+<!-- Modal -->
+<div class="modal fade grid" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">¡Todo listo!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Tu información ha sido actualizada
+            </div>
+            <div class="modal-footer">
+{#                {% if boton %}#}
+{#                    <button type="button" class="btn btn-secondary custom-btn" data-bs-dismiss="modal"><a href="/{{ enlaceBtn }}" id="linkModal">{{ mensajeBtn }}</a></button>#}
+{#                {% endif %}#}
+                <button type="button" class="btn btn-secondary custom-btn" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if submit %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+            myModal.show();
+        });
+    </script>
+{% endif %}

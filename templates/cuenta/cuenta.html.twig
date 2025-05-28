@@ -28,8 +28,9 @@
                     <label class="form-label">Contraseña</label>
                     <div class="input-group">
                         <input type="password" class="form-control" id="passwordInput"
-                               value="{{ usuarioRegistrado.password }}" name="password" readonly>
-                        <button class="btn btn-outline-secondary" type="button" id="showPasswordBtn" disabled>
+                               value="{{ usuarioRegistrado.password }}" name="password">
+                        <button class="btn btn-outline-secondary" type="button" id="showPasswordBtn"
+                                onclick="mostrarPassword()" disabled>
                             <i class="bi bi-eye"></i> Mostrar
                         </button>
                     </div>
@@ -54,6 +55,7 @@
                             <label for="mujer">Mujer</label>
                         </div>
                     </div>
+                    <br>
 
                     <label class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="nameInput" value="{{ usuarioRegistrado.nombre }}"
@@ -148,7 +150,7 @@
 
                 <!-- Botones de guardar/cancelar (visible solo en modo edición) -->
                 <div id="formActions" class="action-buttons mt-5" style="display: none;">
-                    <button type="submit" class="action-button"
+                    <button type="submit" id="confirmEditBtn" class="action-button"
                             style="background-color: var(--color-rosa-oscuro); color: white;">Guardar cambios
                     </button>
                     <button type="button" id="cancelEditBtn" class="action-button">Cancelar</button>
@@ -162,15 +164,29 @@
                 </button>
             </section>
         </div>
+
+        {% include 'components/modal-confirmacion.html.twig' %}
+
     </main>
 
     {% include '_footer.html.twig' %}
 
     {% block javascripts %}
         <script>
+            function mostrarPassword() {
+                const password = document.getElementById('passwordInput');
+                const showPasswordBtn = document.getElementById('showPasswordBtn');
+                if (password.type === 'password') {
+                    password.type = 'text';
+                    showPasswordBtn.innerHTML = 'Ocultar';
+                } else {
+                    password.type = 'password';
+                    showPasswordBtn.innerHTML = 'Mostrar';
+                }
+            }
+
             document.addEventListener('DOMContentLoaded', function () {
                 const toggleEditBtn = document.getElementById('toggleEditBtn');
-                const cancelEditBtn = document.getElementById('cancelEditBtn');
                 const formActions = document.getElementById('formActions');
                 const showPasswordBtn = document.getElementById('showPasswordBtn');
                 const accountForm = document.getElementById('accountForm');
@@ -219,16 +235,6 @@
                     }
                 }
 
-                function togglePasswordVisibility() {
-                    if (passwordInput.type === 'password') {
-                        passwordInput.type = 'text';
-                        showPasswordBtn.innerHTML = '<i class="bi bi-eye-slash"></i> Ocultar';
-                    } else {
-                        passwordInput.type = 'password';
-                        showPasswordBtn.innerHTML = '<i class="bi bi-eye"></i> Mostrar';
-                    }
-                }
-
                 toggleEditBtn.addEventListener('click', function () {
                     if (isEditing) {
                         // Restaurar valores originales
@@ -240,12 +246,8 @@
                     toggleEditMode();
                 });
 
-                showPasswordBtn?.addEventListener('click', togglePasswordVisibility);
-
                 accountForm.addEventListener('submit', function (e) {
                     e.preventDefault();
-                    alert('Cambios guardados correctamente');
-                    toggleEditMode();
                 });
             });
         </script>

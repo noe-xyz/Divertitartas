@@ -28,7 +28,7 @@ class CuentaController extends AbstractController
 
         $idUsuarioRegistrado = $session->get('id');
         if ($id != $idUsuarioRegistrado) {
-            throw $this->createAccessDeniedException('No encontramos esta página...');
+            $this->redirectToRoute('index');
         }
 
         if ($request->isMethod('POST') && isset($_POST['submit'])) {
@@ -43,7 +43,8 @@ class CuentaController extends AbstractController
 
         return $this->render('cuenta/cuenta.html.twig', [
             'usuarioRegistrado' => $usuarioRegistrado,
-            'idUsuarioRegistrado' => $idUsuarioRegistrado
+            'idUsuarioRegistrado' => $idUsuarioRegistrado,
+            'submit' => true
         ]);
     }
 
