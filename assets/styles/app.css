@@ -169,6 +169,12 @@ footer form textarea {
     /* Texto blanco */
 }
 
+/* Botón de los modals */
+a#linkModal{
+    text-decoration: none;
+    color: black;
+}
+
 /* Estilos para el mapa con borde bonito */
 .mapa-estilizado {
     border: 1px solid #ff1493; /* Borde sólido de 3px con color rosa */

@@ -29,7 +29,7 @@ class Usuario
     #[ORM\Column(length: 255)]
     private ?string $nombreCompleto = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?int $telefono1 = null;
 
     public function getId(): ?int

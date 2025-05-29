@@ -13,36 +13,76 @@
         <h1 class="mt-3">Diversión y sabor en cada bocado</h1>
     </section>
 
-    <!-- Sección de introducción -->
-    <section class="container-fluid text-center" style="background-color: hsla(340, 84%, 94%, 0.7);">
-        <div class="row align-items-center">
-            <!-- Columna de la imagen -->
-            <div class="col-md-4 text-center text-md-start">
-                <div class="rotar-container">
-                    <img src="{{ asset('../assets/images/pastel.png') }}" alt="Pastel" class="img-fluid rotar"
-                         style="max-width: 50%; height: auto; margin-left: auto; margin-right: auto;">
+    {% if app.session.get('email') is defined and app.session.get('email') is not null %}
+        <!-- Sección de botones -->
+        <section class="container-fluid text-center py-4" style="background-color: hsla(340, 84%, 94%, 0.7);">
+            <div class="row align-items-center justify-content-center">
+                <!-- Botón Ver Pedidos -->
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <a href="Pedidos.html" class="text-decoration-none">
+                        <button class="custom-btn" style="padding: 15px 30px; font-size: 1.5rem;">
+                            <i class="bi bi-cart-check"></i> Ver Pedidos
+                        </button>
+                    </a>
+                </div>
+
+                <!-- Recuadro de Puntos Acumulados -->
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <div class="card shadow-sm" style="background-color: white; border-radius: 15px;">
+                        <div class="card-body">
+                            <h4 class="card-title">Puntos Acumulados</h4>
+                            <div class="display-4 text-rosa">{{ app.session.get('puntos') }} pts</div>
+                            <p class="text-muted">Disponibles para canjear</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón Mi Cuenta -->
+                <div class="col-md-3">
+                    <a href="{{ path('cuenta') ~ '?id=' ~ app.session.get('id') }}"
+                       style="color: #ff1493; text-decoration: none" class="text-decoration-none">
+                        <button class="custom-btn" style="padding: 15px 30px; font-size: 1.5rem;">
+                            <i class="bi bi-person-circle"></i> Mi Cuenta
+                        </button>
+                    </a>
                 </div>
             </div>
+        </section>
+    {% else %}
+        <!-- Sección de introducción -->
+        <section class="container-fluid text-center" style="background-color: hsla(340, 84%, 94%, 0.7);">
+            <div class="row align-items-center">
+                <!-- Columna de la imagen -->
+                <div class="col-md-4 text-center text-md-start">
+                    <div class="rotar-container">
+                        <img src="{{ asset('../assets/images/pastel.png') }}" alt="Pastel" class="img-fluid rotar"
+                             style="max-width: 50%; height: auto; margin-left: auto; margin-right: auto;">
+                    </div>
+                </div>
 
-            <!-- Columna de texto -->
-            <div class="col-md-7">
-                <p style="font-size: 2rem; line-height: 1.6;">
-                    En Divertitartas, creamos tartas únicas y llenas de imaginación. Cada uno de nuestros pasteles
-                    combina deliciosos sabores con diseños divertidos y personalizados, perfectos para hacer de
-                    cualquier ocasión un momento inolvidable. ¡Endulza tus celebraciones con un toque creativo y
-                    original!
-                </p>
+                <!-- Columna de texto -->
+                <div class="col-md-7">
+                    <p style="font-size: 2rem; line-height: 1.6;">
+                        En Divertitartas, creamos tartas únicas y llenas de imaginación. Cada uno de nuestros pasteles
+                        combina deliciosos sabores con diseños divertidos y personalizados, perfectos para hacer de
+                        cualquier ocasión un momento inolvidable. ¡Endulza tus celebraciones con un toque creativo y
+                        original!
+                    </p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {% endif %}
 
     <!--banner carousel-->
     <div class="container mt-4">
         <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
 
             </div>
             <div class="carousel-inner">

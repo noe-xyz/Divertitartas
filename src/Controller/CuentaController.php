@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class CuentaController extends AbstractController
 {
     #[Route('/cuenta', name: 'cuenta')]
-    public function perfil(SessionInterface $session, UsuarioRepository $usuarioRepository, Request $request, EntityManagerInterface $entityManager): Response
+    public function cuenta(SessionInterface $session, UsuarioRepository $usuarioRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $id = $request->query->get('id');
         if (!$id || !is_numeric($id)) {
@@ -28,7 +28,7 @@ class CuentaController extends AbstractController
 
         $idUsuarioRegistrado = $session->get('id');
         if ($id != $idUsuarioRegistrado) {
-            $this->redirectToRoute('index');
+            return $this->redirectToRoute('index');
         }
 
         if ($request->isMethod('POST') && isset($_POST['submit'])) {
@@ -52,7 +52,7 @@ class CuentaController extends AbstractController
     {
         #Recoger en variables los datos introducidos en el formulario
         $campos = [
-            'email', 'password', 'sexo', 'nombre', 'apellido', 'dia', 'mes', 'year',
+            'email', 'password', 'sexo', 'nombre', 'apellido', 'fechaNacimiento',
             'domicilio', 'portal', 'piso', 'puerta', 'cp', 'localidad', 'provincia',
             'telefono1', 'telefono2'
         ];
@@ -87,7 +87,7 @@ class CuentaController extends AbstractController
             ->setApellido1($datos['apellido1'])
             ->setApellido2($datos['apellido2'])
             ->setNombreCompleto($datos['nombre'] . " " . $datos['apellido'])
-            ->setFechaNacimiento(new \DateTime($datos['dia']  . " " . $datos['mes'] . " " . $datos['year']))
+            ->setFechaNacimiento(new \DateTime($datos['fechaNacimiento']))
             ->setDomicilio($arrDireccion)
             ->setTelefono1($datos['telefono1'])
             ->setTelefono2($datos['telefono2']);

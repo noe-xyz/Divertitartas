@@ -66,5 +66,6 @@ class LoginController extends AbstractController
         $session->set('id', $usuario->getId());
         $session->set('email', $usuario->getEmail());
         $session->set('nombreCompleto', $usuario->getNombreCompleto());
+        $session->set('puntos', $usuario->getPuntos());
     }
 }

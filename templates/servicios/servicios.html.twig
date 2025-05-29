@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Quiénes somos | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    {% include '_header.html.twig' %}
+
+    <!-- Imagen principal con texto -->
+    <section class="hero text-center py-5">
+
+        <h1 class="mt-3">Servicios</h1>
+    </section>
+
+
+    <!-- cuerpo -->
+
+    <section class="about">
+        <div class="container text-center">
+            <div class="row align-items-center"
+                 style="background-color: hsla(340, 84%, 94%, 0.7); margin-bottom: 50px; width: 100vw; margin-left: calc(-50vw + 50%); padding-left: 0; padding-right: 0; padding-top: 30px; padding-bottom: 30px;">
+                <div class="col-12 col-md-4 text-center">
+                    <img src="{{ asset('../assets/images/torta.png') }}" alt="img" class="img-fluid coin"
+                         style="width: 200px; height: 200px; object-fit: cover;">
+                </div>
+                <div class="col-12 col-md-8">
+                    <blockquote class="blockquote">
+                        <p style="font-size: 30px;">
+                            Nuestros pasteles personalizados son perfectos para cualquier ocasión. Diseñados a tu medida
+                            y con ingredientes de calidad, harán que tu celebración sea única y especial.
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+
+            <!-- Fila con fondo rosa ocupando todo el ancho -->
+            <div class="row align-items-center"
+                 style="margin-bottom: 50px;width: 100vw; margin-left: calc(-50vw + 50%); padding-left: 0; padding-right: 0; padding-top: 30px; padding-bottom: 30px;">
+                <div class="col-12 col-md-4 text-center">
+                    <img src="{{ asset('../assets/images/prefe.png') }}" alt="img" class="img-fluid coin"
+                         style="width: 200px; height: 200px; object-fit: cover;">
+                </div>
+                <div class="col-12 col-md-8">
+                    <blockquote class="blockquote">
+                        <p style="font-size: 30px;">
+                            Nuestro servicio para preferencias alimentarias especiales ofrece postres adaptados a tus
+                            necesidades. Disfruta de opciones sin gluten, veganas y sin azúcar, siempre con la calidad y
+                            el sabor que nos caracteriza.
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+
+            <div class="row align-items-center"
+                 style="background-color: hsla(340, 84%, 94%, 0.7); margin-bottom: 50px; width: 100vw; margin-left: calc(-50vw + 50%); padding-left: 0; padding-right: 0; padding-top: 30px; padding-bottom: 30px;">
+                <div class="col-12 col-md-4 text-center">
+                    <img src="{{ asset('../assets/images/cumple.png') }}" alt="img" class="img-fluid coin"
+                         style="width: 200px; height: 200px; object-fit: cover;">
+                </div>
+                <div class="col-12 col-md-8">
+                    <blockquote class="blockquote">
+                        <p style="font-size: 30px;">
+                            Ofrecemos un servicio especializado para eventos, con una amplia variedad de postres y
+                            pasteles personalizados. Ya sea para bodas, cumpleaños o eventos corporativos, nos
+                            encargamos de cada detalle para que sorprendas a tus invitados con productos únicos y
+                            deliciosos.
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+
+            <!-- Fila con fondo rosa ocupando todo el ancho -->
+            <div class="row align-items-center"
+                 style="margin-bottom: 50px;width: 100vw; margin-left: calc(-50vw + 50%); padding-left: 0; padding-right: 0; padding-top: 30px; padding-bottom: 30px;">
+                <div class="col-12 col-md-4 text-center">
+                    <img src="{{ asset('../assets/images/Delivery.png') }}" alt="img" class="img-fluid coin"
+                         style="width: 300px; height: 150px; object-fit: cover;">
+                </div>
+                <div class="col-12 col-md-8">
+                    <blockquote class="blockquote">
+                        <p style="font-size: 30px;">
+                            Disfruta de nuestros productos desde la comodidad de tu hogar con nuestro servicio de
+                            pedidos online y delivery. Elige tu favorito o personaliza tu pastel, y te lo llevamos a
+                            donde estés, garantizando frescura y calidad en cada entrega.
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include '_footer.html.twig' %}
+
+{% endblock %}

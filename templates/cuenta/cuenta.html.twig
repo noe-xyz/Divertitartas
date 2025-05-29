@@ -115,11 +115,11 @@
 
                     <label class="form-label">Teléfono</label>
                     <input type="tel" class="form-control" id="phoneInput" value="{{ usuarioRegistrado.telefono1 }}"
-                           readonly>
+                           name="telefono1" readonly>
 
                     <label class="form-label">Teléfono 2</label>
                     <input type="tel" class="form-control" id="phone2Input"
-                           value="{{ usuarioRegistrado.telefono2|default('') }}" placeholder="+34 987654321" readonly>
+                           value="{{ usuarioRegistrado.telefono2|default('') }}" name="telefono2" placeholder="+34 987654321" readonly>
                 </section>
 
                 <!-- Tarjeta de crédito -->
@@ -150,7 +150,7 @@
 
                 <!-- Botones de guardar/cancelar (visible solo en modo edición) -->
                 <div id="formActions" class="action-buttons mt-5" style="display: none;">
-                    <button type="submit" id="confirmEditBtn" class="action-button"
+                    <button type="submit" id="confirmEditBtn" class="action-button" name="submit"
                             style="background-color: var(--color-rosa-oscuro); color: white;">Guardar cambios
                     </button>
                     <button type="button" id="cancelEditBtn" class="action-button">Cancelar</button>
@@ -246,9 +246,9 @@
                     toggleEditMode();
                 });
 
-                accountForm.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                });
+                // accountForm.addEventListener('submit', function (e) {
+                //     e.preventDefault();
+                // });
             });
         </script>
     {% endblock %}
