@@ -421,3 +421,93 @@ main {
     background-color: var(--color-rosa-oscuro);
     color: var(--color-blanco);
 }
+
+/*------------Legal------------*/
+
+/*------Aviso legal------*/
+
+#avisoLegal h1{
+    font-size: 2.5rem;
+    color: var(--color-rosa-oscuro);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#avisoLegal h3{
+    font-size: 1.8rem;
+    color: var(--color-rosa-oscuro);
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+#avisoLegal p{
+    font-size: 1.2rem;
+    color: var(--color-texto);
+    margin-bottom: 20px;
+}
+
+/*------Cookies------*/
+
+#cookies h1{
+    font-size: 2.5rem;
+    color: var(--color-rosa-oscuro);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#cookies h3{
+    font-size: 1.8rem;
+    color: var(--color-rosa-oscuro);
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+#cookies p{
+    font-size: 1.2rem;
+    color: var(--color-texto);
+    margin-bottom: 20px;
+}
+
+/*------Venta y cancelación------*/
+
+#ventaCancelacion h1{
+    font-size: 2.5rem;
+    color: var(--color-rosa-oscuro);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#ventaCancelacion h3{
+    font-size: 1.8rem;
+    color: var(--color-rosa-oscuro);
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+#ventaCancelacion p{
+    font-size: 1.2rem;
+    color: var(--color-texto);
+    margin-bottom: 20px;
+}
+
+/*------Privacidad------*/
+
+#privacidad h1{
+    font-size: 2.5rem;
+    color: var(--color-rosa-oscuro);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#privacidad h3{
+    font-size: 1.8rem;
+    color: var(--color-rosa-oscuro);
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+#privacidad p{
+    font-size: 1.2rem;
+    color: var(--color-texto);
+    margin-bottom: 20px;
+}
