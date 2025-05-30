@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Método de pago | {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% include '_header.html.twig' %}
+    <!-- Contenido principal -->
+    <main id="mainPago">
+        <div class="container-fluid my-5">
+            <div class="payment-container">
+                <div class="payment-header">
+                    <h1>Seleccione el método de pago</h1>
+                </div>
+                <div class="pagoseguro">
+                    <h1>pago seguro <img src="imagenes/pagoSeguro.png" alt="Pago seguro" style="height: 40px;"></h1>
+                </div>
+
+                <!-- Métodos de pago - Contenedor centrado -->
+                <div class="payment-options-container">
+                    <div class="payment-methods">
+                        <!-- Opción Tarjeta -->
+                        <div class="method-option">
+                            <input type="radio" id="tarjeta" name="metodoPago" checked>
+                            <label for="tarjeta">Tarjeta</label>
+                        </div>
+
+                        <!-- Opción PayPal -->
+                        <div class="method-option">
+                            <input type="radio" id="paypal" name="metodoPago">
+                            <label for="paypal">PayPal</label>
+                        </div>
+                    </div>
+
+                    <p class="security-note">Pago seguro con tarjeta de crédito o débito</p>
+
+                    <div class="accepted-cards">
+                        <img src="imagenes/TARJETAS.png" alt="Tarjetas aceptadas" class="img-fluid">
+                    </div>
+                </div>
+
+                <!-- Formulario de tarjeta -->
+                <div class="card-form" id="paymentForm">
+                    <div class="form-group">
+                        <h3 class="section-title text-center">Titular de tarjeta</h3>
+                        <input type="text" id="cardName" class="form-input" placeholder="Nombre completo" required>
+                        <div id="nameError" class="error-message text-center">Por favor ingresa el nombre del titular
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3 class="section-title">Número de tarjeta</h3>
+                        <input type="text" id="cardNumber" class="form-input" placeholder="Ejemplo: 1111 1111 1111 0054"
+                               required>
+                        <div id="numberError" class="error-message">Ingresa un número de tarjeta válido (16 dígitos)
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <h3 class="section-title">Fecha de vencimiento</h3>
+                            <div class="date-inputs">
+                                <input type="text" id="cardMonth" class="form-input" placeholder="MM" required
+                                       maxlength="2">
+                                <span>/</span>
+                                <input type="text" id="cardYear" class="form-input" placeholder="AA" required
+                                       maxlength="2">
+                            </div>
+                            <div id="dateError" class="error-message">Fecha inválida</div>
+                        </div>
+                        <div class="form-group cvv-container">
+                            <h3 class="section-title">CVV
+                                <a href="CVV.html" class="cvv-link">¿Qué es?</a>
+                            </h3>
+                            <input type="password" id="cardCvv" class="form-input" placeholder="***" required
+                                   maxlength="4">
+                            <div id="cvvError" class="error-message">CVV debe tener 3-4 dígitos</div>
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="recordarTarjeta">
+                        <label for="recordarTarjeta">Recordar esta tarjeta para el futuro</label>
+                    </div>
+
+                    <button type="button" id="submitPayment" class="payment-button">Pagar y finalizar</button>
+                </div>
+                <!-- Formulario de PayPal (oculto inicialmente) -->
+                <div class="paypal-form" id="paypalForm" style="display: none;">
+                    <img src="imagenes/Paypal.png" alt="PayPal" class="paypal-logo">
+
+                    <div class="form-group">
+                        <label for="paypalEmail" class="section-title">Correo de PayPal</label>
+                        <input type="email" id="paypalEmail" class="form-input" placeholder="tucuenta@example.com"
+                               required>
+                        <div id="paypalEmailError" class="error-message">Debes ingresar un correo válido de PayPal</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paypalPassword" class="section-title">Contraseña</label>
+                        <input type="password" id="paypalPassword" class="form-input" placeholder="••••••••" required
+                               minlength="6">
+                        <div id="paypalPasswordError" class="error-message">La contraseña debe tener al menos 6
+                            caracteres
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input type="checkbox" id="rememberPaypal" class="form-check-input">
+                        <label for="rememberPaypal" class="form-check-label">Mantener sesión iniciada</label>
+                    </div>
+
+                    <button type="button" id="submitPaypal" class="payment-button">Iniciar sesión y pagar</button>
+
+                    <p class="security-note mt-3">
+                        <img src="imagenes/candado.jpg" alt="Seguridad" width="16">
+                        Protegido por PayPal
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include '_footer.html.twig' %}
+{% endblock %}

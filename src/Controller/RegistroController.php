@@ -27,7 +27,7 @@ class RegistroController extends AbstractController
             $email = $request->request->get('email');
             $password = $request->request->get('password');
             $passwordConfirmar = $request->request->get('passwordConfirmar');
-            $telefono1 = $request->request->get('telefono');
+            $telefono1 = $request->request->get('telefono1');
 
             #Query que busca en la base de datos si existe el usuario y lógica por si lo está/no lo está
             $usuarioExiste = $usuarioRepository->findRegisteredUser($email, $password);
@@ -51,7 +51,7 @@ class RegistroController extends AbstractController
                 $confirmar = $this->comprobarPassword($password, $passwordConfirmar);
                 if ($confirmar) {
                     #TODO: Añadir qué pasa cuando no se introducen valores correctos (aunque creo que html lo pilla ya) o repetidos (ya existe la cuenta)
-                    if ($_POST['nombreEmpresa'] !== "" && $_POST['nifCif'] !== "") {
+                    if ((isset($_POST['nombreEmpresa'])) && (isset($_POST['nifCif']))) {
                         #Si se incluyen en el formulario los datos exclusivos a una empresa, se tratará como empresa
                         $nombreEmpresa = $request->request->get('nombreEmpresa');
                         $nifCif = $request->request->get('nifCif');
@@ -82,6 +82,7 @@ class RegistroController extends AbstractController
                             ->setApellido1($lastName1)
                             ->setApellido2($lastName2)
                             ->setEmail($email)
+                            ->setTelefono1($telefono1)
                             ->setPassword($password)
                             ->setPuntos(0);
 

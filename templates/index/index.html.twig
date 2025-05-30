@@ -19,7 +19,7 @@
             <div class="row align-items-center justify-content-center">
                 <!-- Botón Ver Pedidos -->
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <a href="Pedidos.html" class="text-decoration-none">
+                    <a href="/pedidos" class="text-decoration-none">
                         <button class="custom-btn" style="padding: 15px 30px; font-size: 1.5rem;">
                             <i class="bi bi-cart-check"></i> Ver Pedidos
                         </button>
@@ -165,12 +165,221 @@
     </div>
 
     <!-- Sección de comentarios -->
-    <section class="py-2 text-center" style="background-color: #fbd1f0; margin-bottom: 20px;">
+    <section id="comentarios" class="py-5 text-center" style="background-color: #fbd1f0; margin: 20px;">
         <div class="container">
-            <img src="{{ asset('../assets/images/comentario.png') }}" alt="Comentarios de clientes" class="img-fluid">
+            <h2 class="mb-4">Lo que dicen nuestros clientes</h2>
+            <div class="row comentarios">
+                <!-- Comentario de ejemplo 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-3">
+                                <!-- 3.5 estrellas -->
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Media estrella"
+                                     class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella vacía"
+                                     class="estrella">
+                            </div>
+                            <p class="card-text">"De lo mejor que he visto. Esta página esta aprobada"</p>
+                            <p class="text-muted">- Por Chayanne.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Comentario de ejemplo 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-3">
+                                <!-- 4 estrellas -->
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía"
+                                     class="estrella">
+                            </div>
+                            <p class="card-text">"El pastel de cumpleaños fue un éxito. Casi como ganar un mundial."</p>
+                            <p class="text-muted">- Lionel Andres M.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comentario de ejemplo 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-3">
+                                <!-- 3.5 estrellas -->
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella_mitad.png') }}" alt="Media estrella"
+                                     class="estrella">
+                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía"
+                                     class="estrella">
+                            </div>
+                            <p class="card-text">"Muy bueno, aunque esperaba un poco más de relleno. La decoración
+                                perfecta."</p>
+                            <p class="text-muted">- Chicote.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Comentario de ejemplo 4 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-3">
+                                <!-- 3.5 estrellas -->
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Media estrella"
+                                     class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella vacía"
+                                     class="estrella">
+                            </div>
+                            <p class="card-text">"El mejor croissant que comi en mi vida"</p>
+                            <p class="text-muted">- Mbappé.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Comentario de ejemplo 5 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-3">
+                                <!-- 3.5 estrellas -->
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella_mitad.png') }}" alt="Media estrella"
+                                     class="estrella">
+                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía"
+                                     class="estrella">
+                            </div>
+                            <p class="card-text">"Muy buen precio, casi lo compro todo!"</p>
+                            <p class="text-muted">- Florentino P.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Comentario de ejemplo 6 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-3">
+                                <!-- 5 estrellas -->
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                            </div>
+                            <p class="card-text">"Las tartas son increíbles, tanto en sabor como en presentación.
+                                ¡Volveré!"</p>
+                            <p class="text-muted">- Diego Armando M.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if app.session.get('email') is defined and app.session.get('email') is not null %}
+                <button class="custom-btn mt-3" data-bs-toggle="modal" data-bs-target="#comentarioModal">Deja tu
+                    valoración
+                </button>
+            {% endif %}
         </div>
     </section>
 
+    <!-- Modal para valoraciones -->
+    <div class="modal fade" id="comentarioModal" tabindex="-1" aria-labelledby="comentarioModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="comentarioModalLabel">Añade tu valoración</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formValoracion">
+                        <div class="mb-3">
+                            <label for="nombreValoracion" class="form-label">Tu nombre</label>
+                            <input type="text" class="form-control" id="nombreValoracion" value="{{ app.session.get('nombreCompleto') }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tu valoración</label>
+                            <div class="rating">
+                                <input type="radio" id="star1" name="rating" value="1">
+                                <label for="star1"><span class="estrella"></span></label>
+                                <input type="radio" id="star2" name="rating" value="2">
+                                <label for="star2"><span class="estrella"></span></label>
+                                <input type="radio" id="star3" name="rating" value="3">
+                                <label for="star3"><span class="estrella"></span></label>
+                                <input type="radio" id="star4" name="rating" value="4">
+                                <label for="star4"><span class="estrella"></span></label>
+                                <input type="radio" id="star5" name="rating" value="5">
+                                <label for="star5"><span class="estrella"></span></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="comentarioValoracion" class="form-label">Tu comentario</label>
+                            <textarea class="form-control" id="comentarioValoracion" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarValoracion()">Enviar
+                        valoración
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% include '_footer.html.twig' %}
+
+    {% block javascripts %}
+        <script>
+            function guardarValoracion() {
+                const nombre = document.getElementById('nombreValoracion').value;
+                const rating = document.querySelector('input[name="rating"]:checked')?.value;
+                const comentario = document.getElementById('comentarioValoracion').value;
+
+                if (!nombre || !rating || !comentario) {
+                    alert('Por favor completa todos los campos');
+                    return;
+                }
+
+                // Crear elemento HTML para el nuevo comentario
+                const nuevoComentario = document.createElement('div');
+                nuevoComentario.className = 'col-md-4 mb-4';
+                nuevoComentario.innerHTML = `
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-center mb-3">
+                    ${'<img src="{{ asset('../assets/images/estrella.png') }}" class="estrella">'.repeat(rating)}
+                    ${'<img src="{{ asset('../assets/images/estrella_vacia.png') }}" class="estrella">'.repeat(5 - rating)}
+                </div>
+                <p class="card-text">"${comentario}"</p>
+                <p class="text-muted">- ${nombre}</p>
+            </div>
+        </div>
+    `;
+
+                // Añadir al contenedor de comentarios
+                document.querySelector('.row.comentarios').prepend(nuevoComentario);
+
+                // Cerrar modal y limpiar formulario
+                const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('comentarioModal'));
+                modal.hide();
+
+                alert('¡Gracias por tu valoración!');
+            }
+        </script>
+    {% endblock %}
 
 {% endblock %}

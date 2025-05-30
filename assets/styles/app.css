@@ -23,6 +23,11 @@ body {
     flex-direction: column;
 }
 
+/* Efecto de scroll suave */
+html {
+    scroll-behavior: smooth;
+}
+
 /* Header */
 .header-fino {
     height: 150px;

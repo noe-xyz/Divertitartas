@@ -1,58 +1,72 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<footer class="bg-pink text-light py-4" style="background-color:#fbd1f0;">
-    <div class="container">
-        <div class="row align-items-start">
-            <!-- Columna del logo -->
-            <div class="col-md-3 text-center border-end pb-3">
-                <img src="{{ asset('../assets/images/Divertitartas.jpeg') }}" alt="Divertitartas Logo" class="img-fluid"
-                     style="height: 300px; width: auto;">
-            </div>
+    <footer class="bg-pink text-light py-4" style="background-color:#fbd1f0;">
+        <div class="container">
+            <div class="row align-items-start">
+                <!-- Columna del logo -->
+                <div class="col-md-3 text-center border-end pb-3">
+                    <img src="{{ asset('../assets/images/Divertitartas.jpeg') }}" alt="Divertitartas Logo"
+                         class="img-fluid"
+                         style="height: 300px; width: auto;">
+                </div>
 
-            <!-- Columna del mapa -->
-            <div class="col-md-3 text-center border-end pb-3">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48577.57811042196!2d-3.54137673218303!3d40.45095389641754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42371b975e66b7%3A0x4917503ef510ad8e!2sTorrej%C3%B3n%20de%20Ardoz%2C%20Madrid!5e0!3m2!1ses-419!2ses!4v1745942433064!5m2!1ses-419!2ses"
-                        width="300" height="300" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        class="mapa-estilizado"></iframe>
-            </div>
+                <!-- Columna del mapa -->
+                <div class="col-md-3 text-center border-end pb-3">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48577.57811042196!2d-3.54137673218303!3d40.45095389641754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42371b975e66b7%3A0x4917503ef510ad8e!2sTorrej%C3%B3n%20de%20Ardoz%2C%20Madrid!5e0!3m2!1ses-419!2ses!4v1745942433064!5m2!1ses-419!2ses"
+                            width="300" height="300" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            class="mapa-estilizado"></iframe>
+                </div>
 
-            <!-- Columna de los avisos legales -->
-            <div class="col-md-3 text-center border-end pb-3">
-                <h5 class="mb-3" style="color: black;">
-                    <i class="bi bi-file-earmark-text"></i> Legal
-                </h5>
-                <ul class="list-unstyled">
-                    <li><a href="/legal/privacidad" style="color: black;"><i class="bi bi-shield-lock"></i> Política
-                            de privacidad</a></li>
-                    <li><a href="/legal/aviso-legal" style="color: black;"><i class="bi bi-file-earmark-text"></i>
-                            Aviso Legal</a></li>
-                    <li><a href="/legal/cookies" style="color: black;"><i class="bi bi-cookie"></i> Política de
-                            cookies</a></li>
-                    <li><a href="/legal/venta-cancelacion" style="color: black;"><i class="bi bi-cart-x"></i> Política
-                            de venta y cancelación</a></li>
-                    <li><a style="color: black;"><i class="bi bi-cart-x"></i> © 2025 Divertitartas</a></li>
-                </ul>
-            </div>
+                <!-- Columna de los avisos legales -->
+                <div class="col-md-3 text-center border-end pb-3">
+                    <h5 class="mb-3" style="color: black;">
+                        <i class="bi bi-file-earmark-text"></i> Legal
+                    </h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/legal/privacidad"
+                               aria-selected="{{ app.request.attributes.get('_route') == 'legal-privacidad' ? 'true' : 'false' }}"
+                               style="{{ app.request.attributes.get('_route') =='legal-privacidad' ? 'color: #FF1493FF;' : 'color: black;' }}"><i
+                                        class="bi bi-shield-lock"></i> Política
+                                de privacidad</a></li>
+                        <li><a href="/legal/aviso-legal"
+                               aria-selected="{{ app.request.attributes.get('_route') == 'legal-aviso' ? 'true' : 'false' }}"
+                               style="{{ app.request.attributes.get('_route') =='legal-aviso' ? 'color: #FF1493FF;' : 'color: black;' }}"><i
+                                        class="bi bi-file-earmark-text"></i>
+                                Aviso Legal</a></li>
+                        <li><a href="/legal/cookies"
+                               aria-selected="{{ app.request.attributes.get('_route') == 'legal-cookies' ? 'true' : 'false' }}"
+                               style="{{ app.request.attributes.get('_route') =='legal-cookies' ? 'color: #FF1493FF;' : 'color: black;' }}"><i
+                                        class="bi bi-cookie"></i> Política de
+                                cookies</a></li>
+                        <li><a href="/legal/venta-cancelacion"
+                               aria-selected="{{ app.request.attributes.get('_route') == 'legal-venta' ? 'true' : 'false' }}"
+                               style="{{ app.request.attributes.get('_route') =='legal-venta' ? 'color: #FF1493FF;' : 'color: black;' }}"><i
+                                        class="bi bi-cart-x"></i>
+                                Política
+                                de venta y cancelación</a></li>
+                        <li><a style="color: black;"><i class="bi bi-cart-x"></i> © 2025 Divertitartas</a></li>
+                    </ul>
+                </div>
 
-            <!-- Columna del formulario de contacto -->
-            <div class="col-md-3 text-center pb-3">
-                <h5 class="mb-3" style="color: black;">
-                    <i class="bi bi-envelope"></i> Contáctanos
-                </h5>
-                <form action="mailto:matiasandoval@hotmail.com" method="post" enctype="text/plain">
-                    <input type="text" name="nombre" class="form-control mb-2" placeholder="Nombre" required
-                           style="color: black;">
-                    <input type="email" name="email" class="form-control mb-2" placeholder="Email" required
-                           style="color: black;">
-                    <textarea name="mensaje" class="form-control mb-2" placeholder="Mensaje" required
-                              style="color: black; height: 80px;"></textarea>
-                    <button type="submit" class="footer-btn" style="float: left;">Enviar</button>
-                    <!-- Botón alineado a la izquierda -->
-                </form>
+                <!-- Columna del formulario de contacto -->
+                <div class="col-md-3 text-center pb-3">
+                    <h5 class="mb-3" style="color: black;">
+                        <i class="bi bi-envelope"></i> Contáctanos
+                    </h5>
+                    <form action="mailto:matiasandoval@hotmail.com" method="post" enctype="text/plain">
+                        <input type="text" name="nombre" class="form-control mb-2" placeholder="Nombre" required
+                               style="color: black;">
+                        <input type="email" name="email" class="form-control mb-2" placeholder="Email" required
+                               style="color: black;">
+                        <textarea name="mensaje" class="form-control mb-2" placeholder="Mensaje" required
+                                  style="color: black; height: 80px;"></textarea>
+                        <button type="submit" class="footer-btn" style="float: left;">Enviar</button>
+                        <!-- Botón alineado a la izquierda -->
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 {% endblock %}

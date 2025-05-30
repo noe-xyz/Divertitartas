@@ -11,17 +11,26 @@
                 <img src="{{ asset('../assets/images/logo_circulo.png') }}" alt="Logo Divertitartas" class="logo">
             </a>
             <div class="d-none d-lg-flex gap-3">
-                <a href="/quienes-somos" class="nav-link">QuiénesSomos</a>
-                <a href="/servicios" class="nav-link">Servicios</a>
-                <a href="Productos.html" class="nav-link">Productos</a>
-                <a href="/contacto" class="nav-link">Contacto</a>
+                <a href="/quienes-somos" class="nav-link"
+                   aria-selected="{{ app.request.attributes.get('_route') == 'quienes-somos' ? 'true' : 'false' }}"
+                   style="{{ app.request.attributes.get('_route') =='quienes-somos' ? 'color: #FF1493FF;' : 'color: black;' }}">QuiénesSomos</a>
+                <a href="/servicios" class="nav-link"
+                   aria-selected="{{ app.request.attributes.get('_route') == 'servicios' ? 'true' : 'false' }}"
+                   style="{{ app.request.attributes.get('_route') =='servicios' ? 'color: #FF1493FF;' : 'color: black;' }}">Servicios</a>
+                <a href="Productos.html" class="nav-link"
+                   aria-selected="{{ app.request.attributes.get('_route') == 'quienes-somos' ? 'true' : 'false' }}"
+                   style="{{ app.request.attributes.get('_route') =='quienes-somos' ? 'color: #FF1493FF;' : 'color: black;' }}">Productos</a>
+                <a href="/contacto" class="nav-link"
+                   aria-selected="{{ app.request.attributes.get('_route') == 'contacto' ? 'true' : 'false' }}"
+                   style="{{ app.request.attributes.get('_route') =='contacto' ? 'color: #FF1493FF;' : 'color: black;' }}">Contacto</a>
             </div>
 
             <div class="d-flex gap-2">
                 {% if app.session.get('email') is defined and app.session.get('email') is not null %}
                     <div class="text-center" style="margin-right: -5px;">
                         <div class="messi-text">
-                            <a href="{{ path('cuenta') ~ '?id=' ~ app.session.get('id') }}" style="color: #ff1493; text-decoration: none">{{ app.session.get('nombreCompleto') }}</a>
+                            <a href="{{ path('cuenta') ~ '?id=' ~ app.session.get('id') }}"
+                               style="color: #ff1493; text-decoration: none">{{ app.session.get('nombreCompleto') }}</a>
                         </div>
                         <a href="/" class="d-block mt-1">
                             <button class="btn btn-sm btn-inicio">Cerrar sesión</button>
@@ -32,7 +41,7 @@
                                                                      alt="login" class="icon"
                                                                      style="height: 30px;"></a>
                 {% endif %}
-                <a href="Carrito.html"><img src="{{ asset('../assets/images/Carrito.png') }}" alt="Carrito" class="icon"
+                <a href="/carrito"><img src="{{ asset('../assets/images/Carrito.png') }}" alt="Carrito" class="icon"
                                             style="height: 30px;"></a>
             </div>
         </div>
@@ -45,10 +54,10 @@
             </div>
             <div class="offcanvas-body">
                 <a href="/" class="d-block mb-2" style="color: #ff1493;">Home</a>
-                <a href="QuienesSomos.html" class="d-block mb-2">Quiénes Somos</a>
-                <a href="Servicios.html" class="d-block mb-2">Servicios</a>
+                <a href="/quienes-somos" class="d-block mb-2">Quiénes Somos</a>
+                <a href="/servicios" class="d-block mb-2">Servicios</a>
                 <a href="Productos.html" class="d-block mb-2">Productos</a>
-                <a href="Contacto.html" class="d-block mb-2">Contacto</a>
+                <a href="/contacto" class="d-block mb-2">Contacto</a>
             </div>
         </div>
     </header>
