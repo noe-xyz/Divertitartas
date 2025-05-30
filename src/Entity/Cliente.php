@@ -30,8 +30,8 @@ class Cliente extends Usuario
     #[ORM\Column(nullable: true)]
     private ?int $telefono2 = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $puntos = null;
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
+    private ?int $puntos = 0;
 
     #[ORM\Column(nullable: true)]
     private ?string $sexo = null;
