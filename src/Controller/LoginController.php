@@ -52,13 +52,14 @@ class LoginController extends AbstractController
         ]);
     }
 
+    #[Route('/logout', name: 'logout', methods: ['POST'])]
     public function logout(Request $request, SessionInterface $session): Response
     {
         if ($request->isMethod('POST') && $request->request->has('logout')) {
             $session->invalidate();
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('index');
         }
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('index');
     }
 
     public function crearSesion(SessionInterface $session, $usuario): void

@@ -14,6 +14,7 @@
     max-width: 100%;
     object-fit: contain;
 }
+
 .herone {
     position: relative;
     text-align: center;
@@ -58,8 +59,12 @@
 
 /* Animaciones */
 @keyframes girar {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .rotar {
@@ -73,8 +78,13 @@
 
 /* Responsive */
 @media (max-width: 767px) {
-    .tarta h2 { font-size: 40px; }
-    .herone h1 { font-size: 2.5rem; }
+    .tarta h2 {
+        font-size: 40px;
+    }
+
+    .herone h1 {
+        font-size: 2.5rem;
+    }
 }
 
 /* =============== SECCIÓN DE VALORACIONES COMPACTAS =============== */
@@ -103,7 +113,7 @@ section.py-5.text-center {
     background-color: white;
     border-radius: 10px;
     padding: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     width: 220px;
     min-height: 160px;
     margin: 0;
@@ -165,26 +175,26 @@ section.py-5.text-center {
 
 .comentarios .card:hover {
     transform: scale(1.02);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
 }
 
 /* Estilos del modal compacto */
-#comentarioModal .modal-content{
+#comentarioModal .modal-content {
     background-color: #fbd1f0;
     border: 2px solid #ff1493;
     max-width: 500px;
     margin: 0 auto;
 }
 
-#comentarioModal .modal-header, #comentarioModal .modal-footer{
+#comentarioModal .modal-header, #comentarioModal .modal-footer {
     padding: 12px 15px;
 }
 
-#comentarioModal .modal-header{
+#comentarioModal .modal-header {
     border-bottom: 1px solid #ff1493;
 }
 
-#comentarioModal .modal-footer{
+#comentarioModal .modal-footer {
     border-top: 1px solid #ff1493;
 }
 
@@ -238,7 +248,7 @@ section.py-5.text-center {
         font-size: 16px;
     }
 
-    #comentarioModal .modal-content{
+    #comentarioModal .modal-content {
         margin: 0 10px;
     }
 }
@@ -361,7 +371,7 @@ main {
     padding: 30px;
     background-color: white;
     border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .section-title {
@@ -404,7 +414,7 @@ main {
     background-color: var(--color-rosa-oscuro);
     color: var(--color-blanco);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-decoration: none !important; /* Asegura no subrayado en hover */
 }
 
@@ -529,20 +539,24 @@ main {
     background-color: hsla(340, 84%, 94%, 0.7);
     border-radius: 50%;
     border: 5px solid var(--color-rosa-oscuro);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: all var(--transition-time);
     margin-bottom: 30px;
 }
 
 .img-circular:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 /* Animación */
 @keyframes movimiento {
-    0%, 100% { transform: translateX(-80px); }
-    50% { transform: translateX(80px); }
+    0%, 100% {
+        transform: translateX(-80px);
+    }
+    50% {
+        transform: translateX(80px);
+    }
 }
 
 .mover {
@@ -553,9 +567,15 @@ main {
 
 /* Animación de moneda */
 @keyframes moneda {
-    0% { transform: rotateY(0deg); }
-    50% { transform: rotateY(180deg); }
-    100% { transform: rotateY(360deg); }
+    0% {
+        transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(180deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
 }
 
 .coin {
@@ -565,6 +585,75 @@ main {
 .coin:hover {
     animation: moneda 1s linear;
 }
+
+
+/*------------Productos------------*/
+.productosContainers .custom-btn {
+    margin-bottom: 30px;
+}
+
+/*---Categoría de productos---*/
+
+/* Encabezado de categoría */
+.category-header {
+    padding: 30px;
+    background-color: hsla(340, 84%, 94%, 0.7);
+    border-radius: 15px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.category-header h1 {
+    color: var(--color-rosa-oscuro);
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+}
+
+.category-header p {
+    font-size: 1.5rem;
+    color: var(--color-texto);
+}
+
+/* Tarjetas de producto */
+.product-card {
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.product-card .card-img-container {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.product-card img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform var(--transition-time);
+}
+
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .category-header h1 {
+        font-size: 2rem;
+    }
+
+    .category-header p {
+        font-size: 1.2rem;
+    }
+
+    .product-card .card-img-container {
+        height: 200px;
+    }
+}
+
 
 /*------------Contacto------------*/
 .formulario {
@@ -631,7 +720,9 @@ main {
 
 /* Responsive */
 @media (max-width: 768px) {
-    #mainPedidos .btn-outline-rosa { width: 100%; }
+    #mainPedidos .btn-outline-rosa {
+        width: 100%;
+    }
 }
 
 /*------------Factura------------*/
@@ -640,7 +731,7 @@ main {
 .invoice-container {
     background-color: white;
     border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     padding: 30px;
     max-width: 800px;
     margin: -10px auto 30px;
@@ -733,9 +824,11 @@ main {
     body * {
         visibility: hidden;
     }
+
     .invoice-container, .invoice-container * {
         visibility: visible;
     }
+
     .invoice-container {
         position: absolute;
         left: 0;
@@ -744,6 +837,7 @@ main {
         border: none;
         box-shadow: none;
     }
+
     .no-print {
         display: none !important;
     }
@@ -833,7 +927,9 @@ main {
 
 /* Responsive */
 @media (max-width: 767px) {
-    .btn-outline-rosa { width: 30%; }
+    .btn-outline-rosa {
+        width: 30%;
+    }
 }
 
 /*------------Pago------------*/
@@ -1067,6 +1163,7 @@ main {
     margin: 0 auto 25px;
     display: block;
 }
+
 /* Responsive */
 @media (max-width: 768px) {
     .payment-methods {
@@ -1098,25 +1195,147 @@ main {
     }
 }
 
+/*------------CVV------------*/
+
+.cvv-main {
+    padding: 40px 0;
+    background-color: #fff9fc;
+}
+
+.cvv-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centrar todo el contenido */
+}
+
+.cvv-title {
+    color: var(--color-rosa-oscuro);
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cvv-content {
+    text-align: left; /* Alinear texto a la izquierda */
+    margin-bottom: 30px;
+}
+
+.cvv-image {
+    max-width: 100%;
+    border: 1px solid #fbd1f0;
+    border-radius: 10px;
+    margin: 20px auto; /* Centrar la imagen */
+    display: block;
+}
+
+/* Estilo para el botón (usando los estilos globales) */
+.action-button {
+    padding: 10px 30px;
+    background-color: var(--color-gris-claro);
+    color: var(--color-negro);
+    border-radius: 10px;
+    border: 1px solid rgba(148, 144, 144, 0.47);
+    font-family: 'Kaushan Script', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all var(--transition-time);
+    text-decoration: none !important;
+}
+
+.action-button:hover {
+    background-color: var(--color-rosa-oscuro);
+    color: var(--color-blanco);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cvv-container {
+        padding: 20px;
+    }
+
+    .cvv-title {
+        font-size: 1.8rem;
+    }
+}
+
+/*------------Confirmación------------*/
+
+.confirmation-main {
+    display: grid;
+    place-items: center;
+    min-height: calc(100vh - 250px);
+    padding: 20px;
+    background-color: #fff9fc;
+}
+
+.confirmation-card {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.confirmation-icon {
+    margin-bottom: 20px;
+    color: var(--color-rosa-oscuro);
+    font-size: 3rem;
+}
+
+.confirmation-card h1 {
+    color: var(--color-rosa-oscuro);
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+/* Resumen del pedido */
+.order-summary {
+    background-color: #fff9fc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 30px 0;
+    text-align: left;
+}
+
+.order-summary .total {
+    font-weight: bold;
+    border-top: 2px solid var(--color-rosa-oscuro);
+    padding-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .confirmation-card { padding: 30px 20px; }
+    .confirmation-card h1 { font-size: 1.8rem; }
+}
+
 /*------------Legal------------*/
 
 /*------Aviso legal------*/
 
-#avisoLegal h1{
+#avisoLegal h1 {
     font-size: 2.5rem;
     color: var(--color-rosa-oscuro);
     margin-bottom: 20px;
     text-align: center;
 }
 
-#avisoLegal h3{
+#avisoLegal h3 {
     font-size: 1.8rem;
     color: var(--color-rosa-oscuro);
     margin-top: 30px;
     margin-bottom: 10px;
 }
 
-#avisoLegal p{
+#avisoLegal p {
     font-size: 1.2rem;
     color: var(--color-texto);
     margin-bottom: 20px;
@@ -1124,21 +1343,21 @@ main {
 
 /*------Cookies------*/
 
-#cookies h1{
+#cookies h1 {
     font-size: 2.5rem;
     color: var(--color-rosa-oscuro);
     margin-bottom: 20px;
     text-align: center;
 }
 
-#cookies h3{
+#cookies h3 {
     font-size: 1.8rem;
     color: var(--color-rosa-oscuro);
     margin-top: 30px;
     margin-bottom: 10px;
 }
 
-#cookies p{
+#cookies p {
     font-size: 1.2rem;
     color: var(--color-texto);
     margin-bottom: 20px;
@@ -1146,21 +1365,21 @@ main {
 
 /*------Venta y cancelación------*/
 
-#ventaCancelacion h1{
+#ventaCancelacion h1 {
     font-size: 2.5rem;
     color: var(--color-rosa-oscuro);
     margin-bottom: 20px;
     text-align: center;
 }
 
-#ventaCancelacion h3{
+#ventaCancelacion h3 {
     font-size: 1.8rem;
     color: var(--color-rosa-oscuro);
     margin-top: 30px;
     margin-bottom: 10px;
 }
 
-#ventaCancelacion p{
+#ventaCancelacion p {
     font-size: 1.2rem;
     color: var(--color-texto);
     margin-bottom: 20px;
@@ -1168,21 +1387,21 @@ main {
 
 /*------Privacidad------*/
 
-#privacidad h1{
+#privacidad h1 {
     font-size: 2.5rem;
     color: var(--color-rosa-oscuro);
     margin-bottom: 20px;
     text-align: center;
 }
 
-#privacidad h3{
+#privacidad h3 {
     font-size: 1.8rem;
     color: var(--color-rosa-oscuro);
     margin-top: 30px;
     margin-bottom: 10px;
 }
 
-#privacidad p{
+#privacidad p {
     font-size: 1.2rem;
     color: var(--color-texto);
     margin-bottom: 20px;

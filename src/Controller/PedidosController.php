@@ -32,4 +32,16 @@ class PedidosController extends AbstractController
     {
         return $this->render('pedidos/pago.html.twig');
     }
+
+    #[Route('/pago/cvv', name: 'cvv')]
+    public function CVV(): Response
+    {
+        return $this->render('pedidos/cvv.html.twig');
+    }
+
+    #[Route('/pago/confirmacion', name: 'confirmacion')]
+    public function confirmacion(): Response
+    {
+        return $this->render('pedidos/confirmacion.html.twig');
+    }
 }

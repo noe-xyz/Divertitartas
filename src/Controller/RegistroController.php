@@ -23,7 +23,8 @@ class RegistroController extends AbstractController
         #Comprobar que se envían los datos por POST y guardarlos en variables
         if ($request->isMethod('POST')) {
             #Recoger los datos comunes a un cliente habitual y a una empresa
-            $fullName = $request->request->get('nombre');
+            $name = $request->request->get('nombre');
+            $lastName = $request->request->get('apellidos');
             $email = $request->request->get('email');
             $password = $request->request->get('password');
             $passwordConfirmar = $request->request->get('passwordConfirmar');
@@ -41,11 +42,10 @@ class RegistroController extends AbstractController
                     "enlaceBtn" => "login"
                 ]);
             } else {
-                #Separar el nombre completo a nombre/apellido/apellido
-                $arrNombreApellidos = explode(' ', $fullName);
-                $name = $arrNombreApellidos[0];
-                $lastName1 = $arrNombreApellidos[1] ?? "";
-                $lastName2 = $arrNombreApellidos[2] ?? "";
+                #Separar apellidos
+                $arrApellidos = explode(' ', $lastName);
+                $lastName1 = $arrApellidos[0] ?? "";
+                $lastName2 = $arrApellidos[1] ?? "";
 
                 #Comprobación de que la contraseña esté confirmada correctamente: si está bien se ejecuta la lógica
                 $confirmar = $this->comprobarPassword($password, $passwordConfirmar);
@@ -58,7 +58,7 @@ class RegistroController extends AbstractController
 
                         #Creación del objeto de tipo Empresa
                         $empresaLogueada = new Empresa();
-                        $empresaLogueada->setNombreCompleto($fullName)
+                        $empresaLogueada->setNombreCompleto($name . " " . $lastName)
                             ->setNombre($name)
                             ->setApellido1($lastName1)
                             ->setApellido2($lastName2)
@@ -77,7 +77,7 @@ class RegistroController extends AbstractController
                     } else {
                         #Creación del objeto de tipo Empresa
                         $usuarioLogueado = new Cliente();
-                        $usuarioLogueado->setNombreCompleto($fullName)
+                        $usuarioLogueado->setNombreCompleto($name . " " . $lastName)
                             ->setNombre($name)
                             ->setApellido1($lastName1)
                             ->setApellido2($lastName2)

@@ -12,16 +12,12 @@
             </a>
             <div class="d-none d-lg-flex gap-3">
                 <a href="/quienes-somos" class="nav-link"
-                   aria-selected="{{ app.request.attributes.get('_route') == 'quienes-somos' ? 'true' : 'false' }}"
                    style="{{ app.request.attributes.get('_route') =='quienes-somos' ? 'color: #FF1493FF;' : 'color: black;' }}">QuiénesSomos</a>
                 <a href="/servicios" class="nav-link"
-                   aria-selected="{{ app.request.attributes.get('_route') == 'servicios' ? 'true' : 'false' }}"
                    style="{{ app.request.attributes.get('_route') =='servicios' ? 'color: #FF1493FF;' : 'color: black;' }}">Servicios</a>
-                <a href="Productos.html" class="nav-link"
-                   aria-selected="{{ app.request.attributes.get('_route') == 'quienes-somos' ? 'true' : 'false' }}"
-                   style="{{ app.request.attributes.get('_route') =='quienes-somos' ? 'color: #FF1493FF;' : 'color: black;' }}">Productos</a>
+                <a href="/productos" class="nav-link"
+                   style="{{ app.request.attributes.get('_route') in ['productos', 'categorias', 'producto'] ? 'color: #FF1493FF;' : 'color: black;' }}">Productos</a>
                 <a href="/contacto" class="nav-link"
-                   aria-selected="{{ app.request.attributes.get('_route') == 'contacto' ? 'true' : 'false' }}"
                    style="{{ app.request.attributes.get('_route') =='contacto' ? 'color: #FF1493FF;' : 'color: black;' }}">Contacto</a>
             </div>
 
@@ -32,9 +28,9 @@
                             <a href="{{ path('cuenta') ~ '?id=' ~ app.session.get('id') }}"
                                style="color: #ff1493; text-decoration: none">{{ app.session.get('nombreCompleto') }}</a>
                         </div>
-                        <a href="/" class="d-block mt-1">
-                            <button class="btn btn-sm btn-inicio">Cerrar sesión</button>
-                        </a>
+                        <form method="post" action="/logout">
+                            <button class="btn btn-sm btn-inicio" name="logout">Cerrar sesión</button>
+                        </form>
                     </div>
                 {% else %}
                     <a href="/login" style="margin-left: 20px;"><img src="{{ asset('../assets/images/login.png') }}"
@@ -56,7 +52,7 @@
                 <a href="/" class="d-block mb-2" style="color: #ff1493;">Home</a>
                 <a href="/quienes-somos" class="d-block mb-2">Quiénes Somos</a>
                 <a href="/servicios" class="d-block mb-2">Servicios</a>
-                <a href="Productos.html" class="d-block mb-2">Productos</a>
+                <a href="/productos" class="d-block mb-2">Productos</a>
                 <a href="/contacto" class="d-block mb-2">Contacto</a>
             </div>
         </div>

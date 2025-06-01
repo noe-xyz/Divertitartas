@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
     "usuario" => Usuario::class,
     "empresa" => Empresa::class,
     "cliente" => Cliente::class,
+    "trabajador" => Trabajador::class,
+    "proveedor" => Proveedores::class,
 ])]
 class Usuario
 {

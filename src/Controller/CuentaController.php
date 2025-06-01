@@ -21,7 +21,7 @@ class CuentaController extends AbstractController
             throw $this->createNotFoundException('ID de usuario no válido');
         }
 
-        $usuarioRegistrado = $usuarioRepository->findUserById($id);
+        $usuarioRegistrado = $usuarioRepository->findOneById($id);
         if (!$usuarioRegistrado) {
             throw $this->createNotFoundException('No encontramos esta página...');
         }

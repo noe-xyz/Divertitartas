@@ -28,15 +28,6 @@ class UsuarioRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findUserById($id)
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
     //    /**
     //     * @return Usuario[] Returns an array of Usuario objects
     //     */

@@ -39,9 +39,6 @@ final class Version20250507091758 extends AbstractMigration
             ALTER TABLE cliente CHANGE domicilio domicilio JSON DEFAULT NULL
         SQL);
         $this->addSql(<<<'SQL'
-            ALTER TABLE usuario DROP roles
-        SQL);
-        $this->addSql(<<<'SQL'
             ALTER TABLE usuario CHANGE telefono1 telefono1 INT NOT NULL
         SQL);
     }
@@ -66,9 +63,6 @@ final class Version20250507091758 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE cliente CHANGE domicilio domicilio VARCHAR(255) DEFAULT NULL
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE usuario ADD roles JSON NOT NULL
         SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE usuario CHANGE telefono1 telefono1 INT DEFAULT NULL
