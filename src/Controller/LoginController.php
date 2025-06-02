@@ -29,6 +29,9 @@ class LoginController extends AbstractController
                 #Crear la sesión del usuario
                 $this->crearSesion($session, $usuarioExiste);
                 #Redirigir al index
+//                if ($usuarioExiste->getTipoUsuario() === "trabajador"){
+//                    return $this->redirectToRoute('mostrar-accion');
+//                }
                 return $this->redirectToRoute('index');
             } else {
                 return $this->render('login/login.html.twig', [

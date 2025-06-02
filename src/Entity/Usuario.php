@@ -86,4 +86,15 @@ class Usuario
 
         return $this;
     }
+
+    public function getTipoUsuario(): ?string
+    {
+        return $this->tipoUsuario;
+    }
+
+    public function setTipoUsuario(string $tipoUsuario): static
+    {
+        $this->tipoUsuario = $tipoUsuario;
+        return $this;
+    }
 }

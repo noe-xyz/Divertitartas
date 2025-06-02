@@ -1,0 +1,51 @@
+<div class="board-title text-center">PEDIDOS</div>
+<div class="row justify-content-center align-items-start g-4">
+    <!-- Calendario y botón actualizar -->
+    <div class="col-md-4">
+        <form id="formActualizarEstados">
+            <div class="p-3 rounded" style="background: lightgrey;">
+                <label for="fechaPedidos" class="form-label fw-bold">Selecciona un día</label>
+                <input type="date" id="fechaPedidos" name="fechaPedidos" class="form-control mb-2" value="2025-04-13">
+                <div class="d-grid mt-3">
+                    <button type="submit" class="btn btn-rosado" id="btnActualizarEstados">
+                        <i class="bi bi-arrow-repeat"></i> Actualizar estados
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Tabla de pedidos -->
+    <div class="col-md-8">
+        <div class="table-responsive" style="max-height: 300px;">
+            <table class="table table-bordered align-middle mb-0">
+                <thead >
+                <tr>
+                    <th style="color: #ed7abd;">Nº</th>
+                    <th style="color: #ed7abd;">Descripción</th>
+                    <th style="color: #ed7abd;">Entrega</th>
+                    <th style="color: #ed7abd;">Estado</th>
+                    <th style="color: #ed7abd;">Notas</th>
+                </tr>
+                </thead>
+                <!--ejemplo de una tabla con el contenido del dia seleccionado buscado en la bd -->
+                <tbody>
+                {% for pedido in pedidos %}
+                <tr>
+                    <td>{{ pedido.id }}</td>
+                    <td>{{ pedido.descripcion | default('15 Muffins de chocolate') }}</td>
+                    <td>{{ pedido.fecha|date('d-m-Y') }}</td>
+                    <td>
+                        <select class="form-select form-select-sm" style="min-width: 110px;">
+                            <option>Preparando</option>
+                            <option>Listo</option>
+                            <option>Pendiente</option>
+                        </select>
+                    </td>
+                    <td>{{ pedido.notas | default('Sin lactosa') }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

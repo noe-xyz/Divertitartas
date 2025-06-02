@@ -19,13 +19,15 @@ class UsuarioRepository extends ServiceEntityRepository
     #Buscar si el cliente existe (está registrado ya o no)
     public function findRegisteredUser($email, $password): ?Usuario
     {
-        return $this->createQueryBuilder('u')
+        $result = $this->createQueryBuilder('u')
             ->where('u.email = :email')
             ->andWhere('u.password = :password')
             ->setParameter('email', $email)
             ->setParameter('password', $password)
             ->getQuery()
             ->getOneOrNullResult();
+
+        return $result instanceof Usuario ? $result : null;
     }
 
     //    /**

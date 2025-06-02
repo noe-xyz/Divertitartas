@@ -2,32 +2,48 @@
 
 {% block body %}
 
-<!-- Header -->
-<nav class="navbar navbar-expand-lg justify-content-center" role="tablist">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/comunicados">
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg justify-content-center">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/administracion/comunicados">
+                <img src="{{ asset('../assets/images/logo_circulo.png') }}" alt="Logo Divertitartas" class="logo-img">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
+                <div class="navbar-nav gap-2" id="mainMenu">
+                    <button class="btn btn-uniforme mx-1"><a href="/administracion/usuarios">Gestión de usuarios</a>
+                    </button>
+                    <button class="btn btn-uniforme mx-1"><a href="/administracion/proveedores">Proveedores</a>
+                    </button>
+                    <button class="btn btn-uniforme mx-1"><a href="/administracion/contabilidad">Contabilidad</a>
+                    </button>
+                    <button class="btn btn-uniforme mx-1"><a href="/administracion/pedidos">Pedidos</a>
+                    </button>
+                    <button class="btn btn-uniforme mx-1"><a href="/administracion/stock">Stock de productos</a>
+                    </button>
+                    {# {% if isAdmin %}
+                        <button class="btn btn-uniforme mx-1"><a href="/administracion/configuracion">Configuración de datos</a>
+                        </button>
+                    {% endif %} #}
 
-            <img src="{{ asset('../assets/images/logo_circulo.png') }}" alt="Logo Divertitartas" class="logo-img">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
-            <div class="navbar-nav gap-2">
-                <button role="tab"  aria-selected="{{ app.request.attributes.get('_route') == 'gestion_usuarios' ? 'true' : 'false' }}" class=" {{ app.request.attributes.get('_route') =='gestion_usuarios' ? 'tab-activa' : '' }} btn btn-uniforme mx-1" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuarios" type="button"><a  class= "botones-menu" href="/admin/gestion-usuarios">Gestión de usuarios</a> </button>
-                <button class="btn btn-uniforme mx-1" id="proveedores-tab" data-bs-toggle="tab" data-bs-target="#proveedores" type="button">Proveedores</button>
-                <button class="btn btn-uniforme mx-1" id="contabilidad-tab" data-bs-toggle="tab" data-bs-target="#contabilidad" type="button">Contabilidad</button>
-                <button class="btn btn-uniforme mx-1" id="pedidos-tab" data-bs-toggle="tab" data-bs-target="#pedidos" type="button">Pedidos</button>
-                <button class="btn btn-uniforme mx-1" id="stock-tab" data-bs-toggle="tab" data-bs-target="#stock" type="button">Stock de productos</button>
-                <button class="btn btn-uniforme mx-1" id="stock-tab" data-bs-toggle="tab" data-bs-target="#stock" type="button">Configuración de datos</button>
+                </div>
+            </div>
+            <div class="user-panel ms-3">
+                <i class="bi bi-person"></i>
+                <span id="loggedUserName">
+                     {% if app.session.get('email') is defined and app.session.get('email') is not null %}
+                         {{ app.session.get('nombreCompleto') }}
+                     {% else %}
+                         Pepe
+                     {% endif %}
+                </span>
+                <button class="btn btn-uniforme">Cerrar sesión</button>
             </div>
         </div>
-        <div class="user-panel ms-3">
-            <i class="bi bi-person"></i>
-            <span id="loggedUserName">Pepe</span>
-            <button class="btn btn-uniforme">Cerrar sesión</button>
-        </div>
-    </div>
-</nav>
+    </nav>
+
 
 {% endblock %}

@@ -1,0 +1,33 @@
+<div class="board-title text-center">PROVEEDORES</div>
+<div class="p-3">
+    <!-- Tabla proveedores -->
+    <div class="tab-content" id="userTabsContent">
+        <div class="tab-pane fade show active" id="clientes" role="tabpanel" aria-labelledby="clientes-tab">
+            <div class="table-responsive" style="max-height: 250px;">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th>Notas</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for proveedor in proveedores %}
+                        <tr>
+                            <td>{{ proveedor.nombre }}</td>
+                            <td>{{ proveedor.correo }}</td>
+                            <td>{{ proveedor.telefono }}</td>
+                            <td>{{ proveedor.direccion }}</td>
+                            <td>{{ proveedor.notas }}</td>
+                        </tr>
+                    {% endfor %}
+                    <!-- Repite las filas según sea necesario -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
