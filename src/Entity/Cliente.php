@@ -7,7 +7,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#TODO: abstract entity de la que hereden cliente y empresa????
 #[ORM\Entity(repositoryClass: ClienteRepository::class)]
 #[UniqueEntity('email', message: 'Este email ya existe.')]
 class Cliente extends Usuario

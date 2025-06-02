@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Cliente;
 use App\Entity\Empresa;
-use App\Repository\ClienteRepository;
 use App\Repository\UsuarioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,13 +57,14 @@ class RegistroController extends AbstractController
 
                         #Creación del objeto de tipo Empresa
                         $empresaLogueada = new Empresa();
+                        $passwordHasheada = password_hash($password, PASSWORD_DEFAULT);
                         $empresaLogueada->setNombreCompleto($name . " " . $lastName)
                             ->setNombre($name)
                             ->setApellido1($lastName1)
                             ->setApellido2($lastName2)
                             ->setTelefono1($telefono1)
                             ->setEmail($email)
-                            ->setPassword($password)
+                            ->setPassword($passwordHasheada)
                             ->setNombreEmpresa($nombreEmpresa)
                             ->setNifCif($nifCif);
 
@@ -77,13 +77,14 @@ class RegistroController extends AbstractController
                     } else {
                         #Creación del objeto de tipo Empresa
                         $usuarioLogueado = new Cliente();
+                        $passwordHasheada = password_hash($password, PASSWORD_DEFAULT);
                         $usuarioLogueado->setNombreCompleto($name . " " . $lastName)
                             ->setNombre($name)
                             ->setApellido1($lastName1)
                             ->setApellido2($lastName2)
                             ->setEmail($email)
                             ->setTelefono1($telefono1)
-                            ->setPassword($password)
+                            ->setPassword($passwordHasheada)
                             ->setPuntos(0);
 
                         #Se prepara el objeto para insertarlo en la base de datos

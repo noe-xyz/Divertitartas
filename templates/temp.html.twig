@@ -1,0 +1,37 @@
+{% extends 'base.admin.html.twig' %}
+{% block title %}Añadir trabajador{% endblock %}
+{% block body %}
+    {% include '_header.admin.html.twig' %}
+    <br>
+    <form method="POST" action="#">
+        <label for="email">Email</label>
+        <br>
+        <input type="text" name="email"/>
+        <br><br>
+        <label for="pass">Contraseña</label>
+        <br>
+        <input type="password" name="pass"/>
+        <br><br>
+        <label for="nombreCompleto">Nombre completo</label>
+        <br>
+        <input type="text" name="nombreCompleto"/>
+        <br><br>
+        <label for="telefono">Teléfono</label>
+        <br>
+        <input type="tel" name="telefono"/>
+        <br><br>
+        <label for="turno">Turno</label>
+        <br>
+        <select name="turno">
+            <option value="ninguno" name="ninguno">Seleccione...</option>
+            <option value="mañana" name="mañana">Mañana</option>
+            <option value="tarde" name="tarde">Tarde</option>
+        </select>
+        <br><br>
+        <label for="puesto">Puesto</label>
+        <br>
+        <input type="text" name="puesto"/>
+        <br><br>
+        <input type="submit" value="Enviar" name="submit"/>
+    </form>
+{% endblock %}

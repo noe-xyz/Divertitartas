@@ -14,11 +14,6 @@ class Trabajador extends Usuario
     #[ORM\Column(length: 30)]
     private ?string $puesto = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getTurno(): ?string
     {
         return $this->turno;

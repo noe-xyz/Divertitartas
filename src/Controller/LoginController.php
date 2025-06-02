@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Usuario;
 use App\Repository\UsuarioRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +16,7 @@ class LoginController extends AbstractController
     #TODO dividir en funciones para no hacer un pedazo de bloque de código
     #Ruta de la página web
     #[Route('/login', name: 'login')]
-    public function login(UsuarioRepository $usuarioRepository, Request $request, SessionInterface $session): Response
+    public function login(UsuarioRepository $usuarioRepository, Request $request, SessionInterface $session, EntityManagerInterface $entityManager): Response
     {
 
         if ($request->isMethod('POST') && isset($_POST['submit'])) {
@@ -23,16 +25,25 @@ class LoginController extends AbstractController
             $password = $request->request->get('password');
 
             #Query que busca en la base de datos si existe el usuario y lógica por si no lo está (no está registrado)
-            $usuarioExiste = $usuarioRepository->findRegisteredUser($email, $password);
+            $usuarioExiste = $usuarioRepository->findOneBy(['email' => $email]);
             if ($usuarioExiste) {
-                #TODO avisar de haberse logueado correctamente
-                #Crear la sesión del usuario
-                $this->crearSesion($session, $usuarioExiste);
-                #Redirigir al index
-//                if ($usuarioExiste->getTipoUsuario() === "trabajador"){
-//                    return $this->redirectToRoute('mostrar-accion');
-//                }
-                return $this->redirectToRoute('index');
+                if (password_verify($password, $usuarioExiste->getPassword())) {
+                    #TODO avisar de haberse logueado correctamente
+                    #Crear la sesión del usuario
+                    $this->crearSesion($session, $usuarioExiste, $entityManager);
+                    #Redirigir al index
+                    $ruta = $this->conseguirTipoUsuario($entityManager, $usuarioExiste) === "trabajador" ? 'admin' : 'index';
+                    return $this->redirectToRoute($ruta);
+                } else {
+                    return $this->render('login/login.html.twig', [
+                        "error" => true,
+                        "titulo" => "Error",
+                        "mensaje" => 'Las credenciales no existen en nuestra base de datos.',
+                        "boton" => true,
+                        "mensajeBtn" => "¿Quieres registrarte?",
+                        "enlaceBtn" => "registro"
+                    ]);
+                }
             } else {
                 return $this->render('login/login.html.twig', [
                     "error" => true,
@@ -65,11 +76,20 @@ class LoginController extends AbstractController
         return $this->redirectToRoute('index');
     }
 
-    public function crearSesion(SessionInterface $session, $usuario): void
+    public function crearSesion(SessionInterface $session, Usuario $usuario, EntityManagerInterface $entityManager): void
     {
         $session->set('id', $usuario->getId());
         $session->set('email', $usuario->getEmail());
         $session->set('nombreCompleto', $usuario->getNombreCompleto());
-        $session->set('puntos', $usuario->getPuntos());
+        if ($this->conseguirTipoUsuario($entityManager, $usuario) === "cliente") {
+            $session->set('puntos', $usuario->getPuntos());
+        }
+    }
+
+    public function conseguirTipoUsuario(EntityManagerInterface $entityManager, Usuario $usuario): ?string
+    {
+        $classMetadata = $entityManager->getClassMetadata(Usuario::class);
+        $discriminatorMap = $classMetadata->discriminatorMap;
+        return array_search(get_class($usuario), $discriminatorMap, true);
     }
 }
