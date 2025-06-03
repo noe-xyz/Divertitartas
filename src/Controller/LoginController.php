@@ -29,6 +29,9 @@ class LoginController extends AbstractController
                 #Crear la sesión del usuario
                 $this->crearSesion($session, $usuarioExiste);
                 #Redirigir al index
+//                if ($usuarioExiste->getTipoUsuario() === "trabajador"){
+//                    return $this->redirectToRoute('mostrar-accion');
+//                }
                 return $this->redirectToRoute('index');
             } else {
                 return $this->render('login/login.html.twig', [
@@ -52,13 +55,14 @@ class LoginController extends AbstractController
         ]);
     }
 
+    #[Route('/logout', name: 'logout', methods: ['POST'])]
     public function logout(Request $request, SessionInterface $session): Response
     {
         if ($request->isMethod('POST') && $request->request->has('logout')) {
             $session->invalidate();
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('index');
         }
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('index');
     }
 
     public function crearSesion(SessionInterface $session, $usuario): void
@@ -66,5 +70,6 @@ class LoginController extends AbstractController
         $session->set('id', $usuario->getId());
         $session->set('email', $usuario->getEmail());
         $session->set('nombreCompleto', $usuario->getNombreCompleto());
+        $session->set('puntos', $usuario->getPuntos());
     }
 }

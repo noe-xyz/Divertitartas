@@ -1,53 +1,124 @@
-{% extends '_base.admin.html.twig' %}
+<div class="board-title text-center">GESTIÓN DE USUARIOS</div>
+<div class="p-3">
+    <!-- Tabs de Clientes y Trabajadores -->
+    <ul class="nav nav-tabs mb-3" id="userTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="clientes-tab" data-bs-toggle="tab" data-bs-target="#clientes" type="button" role="tab" aria-controls="clientes" aria-selected="true">Clientes</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="trabajadores-tab" data-bs-toggle="tab" data-bs-target="#trabajadores" type="button" role="tab" aria-controls="trabajadores" aria-selected="false">Trabajadores</button>
+        </li>
+    </ul>
 
+    <div class="tab-content" id="userTabsContent">
+        <!-- Tab Clientes -->
+        <div class="tab-pane fade show active" id="clientes" role="tabpanel" aria-labelledby="clientes-tab">
+            <div class="text-center fw-bold mb-2">Clientes</div>
+            <div class="table-responsive" style="max-height: 250px;">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Razón Social</th>
+                        <th>CIF</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for usuario in usuariosRegistrados %}
+                    <tr>
+                        <td>{{ usuario.nombreCompleto }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td>{{ usuario.telefono1 }}</td>
+                        <td>{{ usuario.nombreEmpresa|default('') }}</td>
+                        <td>{{ usuario.nifCif|default('') }}</td>
+                        <td class="text-center">
+                            <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-link p-0" title="Editar"><i class="bi bi-pencil"></i></button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+{#                    <tr>#}
+{#                        <td>Nombre Apellidos</td>#}
+{#                        <td>cliente@mail.com</td>#}
+{#                        <td>646513153</td>#}
+{#                        <td>Hotel Madrid</td>#}
+{#                        <td>B866797942</td>#}
+{#                        <td class="text-center">#}
+{#                            <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i></button>#}
+{#                            <button class="btn btn-link p-0" title="Editar"><i class="bi bi-pencil"></i></button>#}
+{#                        </td>#}
+{#                    </tr>#}
+                    <!-- Más filas -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- Buscador para clientes -->
+            <form class="row g-2 align-items-center mt-3">
+                <div class="col-auto">
+                    <label for="searchName" class="col-form-label">Buscar por:</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="searchName" class="form-control" placeholder="Nombre">
+                </div>
+                <div class="col">
+                    <input type="text" id="searchEmail" class="form-control" placeholder="Correo">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-rosado px-4">Buscar</button>
+                </div>
+            </form>
+        </div>
 
+        <!-- Tab Trabajadores -->
+        <div class="tab-pane fade" id="trabajadores" role="tabpanel" aria-labelledby="trabajadores-tab">
+            <div class="text-center fw-bold mb-2">Trabajadores</div>
+            <div class="table-responsive" style="max-height: 250px;">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Turno</th>
+                        <th>Puesto</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Nombre Apellidos</td>
+                        <td>trabajador@divertitartas.com</td>
+                        <td>646513153</td>
+                        <td>Mañanas</td>
+                        <td>Horno</td>
+                        <td class="text-center">
+                            <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-link p-0" title="Editar"><i class="bi bi-pencil"></i></button>
+                        </td>
+                    </tr>
+                    <!-- Más filas -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- Buscador para trabajadores -->
+            <form class="row g-2 align-items-center mt-3">
+                <div class="col-auto">
+                    <label for="searchNameTrab" class="col-form-label">Buscar por:</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="searchNameTrab" class="form-control" placeholder="Nombre">
+                </div>
+                <div class="col">
+                    <input type="text" id="searchEmailTrab" class="form-control" placeholder="Correo">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-rosado px-4">Buscar</button>
+                </div>
+            </form>
 
-{% block body %}
-    {% include '_header.admin.html.twig'  %}
-
-<div class="board-container">
-    <h2 class="text-center my-4">GESTIÓN DE USUARIOS</h2>
-    <div class="custom-table">
-        <ul class="nav nav-tabs custom-tabs mb-3">
-            <li class="nav-item">
-                <a class="nav-link active" id="clientes-tab" href="#" onclick="mostrarPestaña('clientes'); return false;">Clientes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="trabajadores-tab" href="#" onclick="mostrarPestaña('trabajadores'); return false;">Trabajadores</a>
-            </li>
-        </ul>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Contraseña</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for cliente in clientes %}
-                <tr>
-                    <td>{{ cliente.nombre }}</td>
-                    <td>{{ cliente.apellido1 }}{% if cliente.apellido2 %} {{ cliente.apellido2 }}{% endif %}</td>
-                    <td>{{ cliente.telefono1 }}</td>
-                    <td>
-                        <a href="{{ path('eliminar_cliente', {'id': cliente.id}) }}" class="icon-btn" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este cliente?');">
-                            🗑️
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div id="contenido-trabajadores" style="display:none;">
-        <!-- Aquí la tabla de trabajadores -->
+        </div>
     </div>
 </div>
-    {% block javascripts %}
-
-    <script src="{{ asset('assets/js/pestanas_usuarios.js') }}"></script>
-    {% endblock %}
-{% endblock %}

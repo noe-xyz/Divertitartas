@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
     "usuario" => Usuario::class,
     "empresa" => Empresa::class,
     "cliente" => Cliente::class,
+    "trabajador" => Trabajador::class,
+    "proveedor" => Proveedores::class,
 ])]
 class Usuario
 {
@@ -29,7 +31,7 @@ class Usuario
     #[ORM\Column(length: 255)]
     private ?string $nombreCompleto = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?int $telefono1 = null;
 
     public function getId(): ?int
@@ -82,6 +84,17 @@ class Usuario
     {
         $this->telefono1 = $telefono1;
 
+        return $this;
+    }
+
+    public function getTipoUsuario(): ?string
+    {
+        return $this->tipoUsuario;
+    }
+
+    public function setTipoUsuario(string $tipoUsuario): static
+    {
+        $this->tipoUsuario = $tipoUsuario;
         return $this;
     }
 }

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Privacidad | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    {% include '_header.html.twig' %}
+
+    <!-- Contenido de Política de Privacidad -->
+    <section class="container my-5 legal" id="privacidad">
+        <h1 class="text-center mb-4 titulo-legal">Política de Privacidad</h1>
+        <p>
+            En Divertitartas, respetamos tu privacidad y nos comprometemos a proteger tus datos personales.
+            Esta política explica cómo recopilamos, usamos y protegemos tu información cuando visitas nuestro sitio web.
+        </p>
+        <h3 class="titulo2-legal">1. Información que Recopilamos</h3>
+        <p>
+            Recopilamos información que nos proporcionas directamente, como tu nombre, dirección de correo electrónico,
+            y detalles de pago cuando realizas una compra.
+        </p>
+        <h3 class="titulo2-legal">2. Uso de la Información</h3>
+        <p>
+            Utilizamos tu información para procesar pedidos, mejorar nuestros servicios y comunicarnos contigo sobre
+            promociones y novedades.
+        </p>
+        <h3 class="titulo2-legal">3. Protección de Datos</h3>
+        <p>
+            Implementamos medidas de seguridad para proteger tu información contra el acceso no autorizado y
+            el uso indebido.
+        </p>
+    </section>
+
+    {% include '_footer.html.twig' %}
+
+{% endblock %}

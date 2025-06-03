@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}¿Qué es el CVV? | {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% include '_header.html.twig' %}
+
+
+    <!-- Contenido principal -->
+    <main class="cvv-main">
+        <div class="cvv-container">
+            <h1 class="cvv-title">¿Qué es el CVV?</h1>
+
+            <div class="cvv-content">
+                <p>El <strong>CVV (Card Verification Value)</strong> es un código de seguridad de 3 o 4 dígitos que se
+                    encuentra en tu tarjeta y ayuda a verificar que tienes la tarjeta física al hacer compras en línea.
+                </p>
+
+                <div class="cvv-info">
+                    <h3>Dónde encontrarlo:</h3>
+                    <ul>
+                        <li><strong>Visa, Mastercard y Discover:</strong> 3 dígitos en el <strong>reverso</strong> de tu
+                            tarjeta (en la banda de firma)
+                        </li>
+                        <li><strong>American Express:</strong> 4 dígitos en el <strong>frente</strong> de la tarjeta
+                        </li>
+                    </ul>
+                </div>
+
+                <img src="{{ asset('../assets/images/CVV.png') }}" alt="Ejemplo de ubicación del CVV en tarjetas" class="cvv-image">
+
+                <div class="cvv-alert">
+                    <h4>Importante:</h4>
+                    <p>Nunca compartas este código con nadie por teléfono o email. Las tiendas legítimas nunca te lo
+                        pedirán por estos medios.</p>
+                </div>
+            </div>
+
+            <a href="/pago" class="action-button" style="display: inline-block; margin-top: 20px;">
+                Volver al pago
+            </a>
+        </div>
+    </main>
+
+    {% include '_footer.html.twig' %}
+{% endblock %}

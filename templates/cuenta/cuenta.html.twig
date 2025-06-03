@@ -1,0 +1,252 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tu perfil | {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% include '_header.html.twig' %}
+
+    <!-- Contenido principal -->
+    <main class="container-fluid py-5">
+        <div class="account-container">
+            <h1 class="text-center mb-4" style="color: var(--color-rosa-oscuro);">Mi Cuenta</h1>
+
+            <!-- Botón de edición global -->
+            <div class="text-end mb-4">
+                <button id="toggleEditBtn" class="action-button">Editar información</button>
+            </div>
+
+            <!-- Formulario de cuenta -->
+            <form id="accountForm" method="POST" action="#">
+                <!-- Datos de la cuenta -->
+                <section>
+                    <h2 class="section-title">Datos de la cuenta</h2>
+
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="emailInput" value="{{ usuarioRegistrado.email }}"
+                           name="email" readonly>
+
+                    <label class="form-label">Contraseña</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="passwordInput"
+                               value="{{ usuarioRegistrado.password }}" name="password">
+                        <button class="btn btn-outline-secondary" type="button" id="showPasswordBtn"
+                                onclick="mostrarPassword()" disabled>
+                            <i class="bi bi-eye"></i> Mostrar
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Datos personales -->
+                <section class="mt-5">
+                    <h2 class="section-title">Datos personales</h2>
+
+                    <label class="form-label">Género</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="hombre" name="sexo"
+                                   value="Hombre" {% if usuarioRegistrado.sexo is same as "Hombre" %} checked {% endif %}
+                                   disabled>
+                            <label for="hombre">Hombre</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="mujer" name="sexo"
+                                   value="Mujer" {% if usuarioRegistrado.sexo is same as "Mujer" %} checked {% endif %}
+                                   disabled>
+                            <label for="mujer">Mujer</label>
+                        </div>
+                    </div>
+                    <br>
+
+                    <label class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nameInput" value="{{ usuarioRegistrado.nombre }}"
+                           name="nombre" readonly>
+
+                    <label class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" id="lastnameInput"
+                           value="{{ usuarioRegistrado.apellido1 }} {{ usuarioRegistrado.apellido2 }}" name="apellido"
+                           readonly>
+
+                    <label class="form-label">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control"
+                           value="{{ usuarioRegistrado.fechaNacimiento is defined and usuarioRegistrado.fechaNacimiento ? usuarioRegistrado.fechaNacimiento|date('d/m/Y') : '' }}"
+                           name="fechaNacimiento" placeholder="DD/MM/AAAA" readonly>
+
+                    <label class="form-label">Domicilio</label>
+                    <input type="text" class="form-control" id="addressInput"
+                           value="{{ usuarioRegistrado.domicilio.domicilio|default('') }}" name="domicilio"
+                           placeholder="c/Estrella 3" readonly>
+
+                    <div class="address-grid">
+                        <div>
+                            <label class="form-label">Portal</label>
+                            <input type="text" class="form-control portal"
+                                   value="{{ usuarioRegistrado.domicilio.portal|default('') }}" name="portal"
+                                   placeholder="10" readonly>
+                        </div>
+                        <div>
+                            <label class="form-label">Piso</label>
+                            <input type="text" class="form-control floor"
+                                   value="{{ usuarioRegistrado.domicilio.piso|default('') }}" name="piso"
+                                   placeholder="1" readonly>
+                        </div>
+                        <div>
+                            <label class="form-label">Puerta</label>
+                            <input type="text" class="form-control door"
+                                   value="{{ usuarioRegistrado.domicilio.puerta|default('') }}" name="puerta"
+                                   placeholder="A" readonly>
+                        </div>
+                        <div>
+                            <label class="form-label">CP</label>
+                            <input type="text" class="form-control zipcode"
+                                   value="{{ usuarioRegistrado.domicilio.cp|default('') }}" name="cp"
+                                   placeholder="28801" readonly>
+                        </div>
+                    </div>
+
+                    <label class="form-label">Localidad</label>
+                    <input type="text" class="form-control" id="cityInput"
+                           value="{{ usuarioRegistrado.domicilio.localidad|default('') }}" placeholder="Madrid"
+                           name="localidad" readonly>
+
+                    <label class="form-label">Provincia</label>
+                    <input type="text" class="form-control" id="provinceInput"
+                           value="{{ usuarioRegistrado.domicilio.provincia|default('') }}" placeholder="Madrid"
+                           name="provincia" readonly>
+
+                    <label class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" id="phoneInput" value="{{ usuarioRegistrado.telefono1 }}"
+                           name="telefono1" readonly>
+
+                    <label class="form-label">Teléfono 2</label>
+                    <input type="tel" class="form-control" id="phone2Input"
+                           value="{{ usuarioRegistrado.telefono2|default('') }}" name="telefono2" placeholder="+34 987654321" readonly>
+                </section>
+
+                <!-- Tarjeta de crédito -->
+                <section class="mt-5">
+                    <h2 class="section-title">Tarjeta de Crédito Guardada</h2>
+
+                    <div class="saved-card">
+                        <div class="card-info">
+                            <label class="form-label">Titular de tarjeta</label>
+                            <input type="text" class="form-control" id="cardHolderInput" placeholder="Lionel Messi"
+                                   readonly>
+                        </div>
+
+                        <div class="card-info">
+                            <label class="form-label">Número de tarjeta</label>
+                            <input type="text" class="form-control" id="cardNumberInput"
+                                   placeholder="•••• •••• •••• 0054"
+                                   readonly>
+                        </div>
+
+                        <div class="card-info">
+                            <label class="form-label">Fecha de vencimiento</label>
+                            <input type="text" class="form-control" id="cardExpiryInput" placeholder="05/26" readonly>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- Botones de guardar/cancelar (visible solo en modo edición) -->
+                <div id="formActions" class="action-buttons mt-5" style="display: none;">
+                    <button type="submit" id="confirmEditBtn" class="action-button" name="submit"
+                            style="background-color: var(--color-rosa-oscuro); color: white;">Guardar cambios
+                    </button>
+                    <button type="button" id="cancelEditBtn" class="action-button">Cancelar</button>
+                </div>
+            </form>
+
+            <!-- Eliminar cuenta -->
+            <section class="mt-5">
+                <button class="action-button" style="background-color: #ff6b6b; color: white;">Eliminar mi
+                    cuenta
+                </button>
+            </section>
+        </div>
+
+        {% include 'components/modal-confirmacion.html.twig' %}
+
+    </main>
+
+    {% include '_footer.html.twig' %}
+
+    {% block javascripts %}
+        <script>
+            function mostrarPassword() {
+                const password = document.getElementById('passwordInput');
+                const showPasswordBtn = document.getElementById('showPasswordBtn');
+                if (password.type === 'password') {
+                    password.type = 'text';
+                    showPasswordBtn.innerHTML = 'Ocultar';
+                } else {
+                    password.type = 'password';
+                    showPasswordBtn.innerHTML = 'Mostrar';
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const toggleEditBtn = document.getElementById('toggleEditBtn');
+                const formActions = document.getElementById('formActions');
+                const showPasswordBtn = document.getElementById('showPasswordBtn');
+                const accountForm = document.getElementById('accountForm');
+                const passwordInput = document.getElementById('passwordInput');
+
+                // Seleccionar solo los inputs del formulario de cuenta, no del footer
+                const accountInputs = accountForm.querySelectorAll('input, button:not(.footer-btn)');
+
+                let isEditing = false;
+                let originalValues = {};
+
+                function toggleEditMode() {
+                    isEditing = !isEditing;
+
+                    if (isEditing) {
+                        // Guardar valores originales
+                        originalValues = {
+                            email: document.getElementById('emailInput').value,
+                            password: passwordInput.value,
+                            name: document.getElementById('nameInput').value,
+                            // ... otros campos ...
+                        };
+
+                        toggleEditBtn.textContent = 'Cancelar edición';
+                        formActions.style.display = 'flex';
+
+                        // Habilitar solo los campos del formulario de cuenta
+                        accountInputs.forEach(el => {
+                            el.removeAttribute('readonly');
+                            el.removeAttribute('disabled');
+                        });
+
+                        if (passwordInput.type === 'text') {
+                            passwordInput.type = 'password';
+                            showPasswordBtn.innerHTML = '<i class="bi bi-eye"></i> Mostrar';
+                        }
+                    } else {
+                        toggleEditBtn.textContent = 'Editar información';
+                        formActions.style.display = 'none';
+
+                        // Deshabilitar solo los campos del formulario de cuenta
+                        accountInputs.forEach(el => {
+                            if (el.tagName === 'INPUT') el.setAttribute('readonly', 'true');
+                            if (el.type === 'radio' || el.tagName === 'BUTTON') el.setAttribute('disabled', 'true');
+                        });
+                    }
+                }
+
+                toggleEditBtn.addEventListener('click', function () {
+                    if (isEditing) {
+                        // Restaurar valores originales
+                        document.getElementById('emailInput').value = originalValues.email;
+                        passwordInput.value = originalValues.password;
+                        document.getElementById('nameInput').value = originalValues.name;
+                        // ... otros campos ...
+                    }
+                    toggleEditMode();
+                });
+            });
+        </script>
+    {% endblock %}
+
+{% endblock %}

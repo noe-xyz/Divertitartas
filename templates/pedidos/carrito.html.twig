@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Carrito de compras | {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% include '_header.html.twig' %}
+
+    <!-- Contenido principal -->
+    <section class="hero text-center py-5">
+        <h1 class="mt-3">Carrito de Compras</h1>
+    </section>
+
+    <main class="container my-5" id="mainCarrito">
+        <div class="row">
+            <!-- Productos del carrito -->
+            <div class="col-md-8">
+                <!-- Producto 1 -->
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="card-title">Tarta de Ositos</h4>
+                                <p class="card-text">Precio: €25.00</p>
+                            </div>
+                            <img src="{{ asset('../assets/images/tarta3.png') }}" alt="Tarta de Ositos" class="img-thumbnail"
+                                 style="width: 100px; height: 100px;">
+                        </div>
+                        <div class="d-flex align-items-center mt-3">
+                            <input type="number" class="form-control me-3" value="1" min="1" style="width: 80px;">
+                            <button class="btn btn-outline-danger me-2">Eliminar</button>
+                            <button class="btn btn-outline-secondary">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="card-title">Tarta de Unicornio</h4>
+                                <p class="card-text">Precio: €30.00</p>
+                            </div>
+                            <img src="{{ asset('../assets/images/tarta2.png') }}" alt="Tarta de Unicornio" class="img-thumbnail"
+                                 style="width: 100px; height: 100px;">
+                        </div>
+                        <div class="d-flex align-items-center mt-3">
+                            <input type="number" class="form-control me-3" value="1" min="1" style="width: 80px;">
+                            <button class="btn btn-outline-danger me-2">Eliminar</button>
+                            <button class="btn btn-outline-secondary">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Datos del envío -->
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Datos del envío</h5>
+                        <div class="mb-3">
+                            <p><strong>Cliente:</strong> Nombre Apellidos</p>
+                            <p><strong>Dirección de envío:</strong> Calle Número Piso Puerta</p>
+                            <p><strong>Teléfono:</strong> Número</p>
+                            <p><strong>Fecha de envío:</strong> Fecha</p>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-outline-rosa">Modificar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna derecha con resumen y puntos -->
+            <div class="col-md-4">
+                <!-- Resumen del pedido -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Resumen del Pedido</h5>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal:</span>
+                                <span>€55.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Envío:</span>
+                                <span>€5.00</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold">
+                                <span>Total:</span>
+                                <span>€60.00</span>
+                            </div>
+                        </div>
+                        <a href="/pago" class="btn btn-primary w-100 mt-3">Finalizar Compra</a>
+                    </div>
+                </div>
+
+                <!-- Puntos acumulados -->
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Puntos acumulados: <span class="text-rosa">10pts</span></h5>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="canjearPuntos">
+                            <label class="form-check-label" for="canjearPuntos">Canjear puntos</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="usarCupon">
+                            <label class="form-check-label" for="usarCupon">Utilizar código de descuento</label>
+                            <input type="text" class="form-control mt-2" placeholder="Ejemplo: AAAA-BBBB-CCCC">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% include '_footer.html.twig' %}
+{% endblock %}

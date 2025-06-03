@@ -6,15 +6,379 @@
 
     {% include '_header.html.twig' %}
 
-    <div id="mainIndex">
-        {% if id is not null %}
-            hola <a href="{{ path('perfil') ~ '?id=' ~ id }}">{{ usuarioRegistrado }}</a>
-            <form method="post" action="{{ path('login') }}">
-                <button type="submit" name="logout">Cerrar sesión</button>
-            </form>
-        {% endif %}
+    <!-- Imagen principal con texto -->
+    <section class="herone text-center py-5" style="margin-top: -24px;">
+        <img src="{{ asset('../assets/images/imagen1.jpg') }}" alt="Tartas variadas" class="img-fluid"
+             style="margin-top: -24px; max-height: 400px;">
+        <h1 class="mt-3">Diversión y sabor en cada bocado</h1>
+    </section>
+
+    {% if app.session.get('email') is defined and app.session.get('email') is not null %}
+        <!-- Sección de botones -->
+        <section class="container-fluid text-center py-4" style="background-color: hsla(340, 84%, 94%, 0.7);">
+            <div class="row align-items-center justify-content-center">
+                <!-- Botón Ver Pedidos -->
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <a href="/pedidos" class="text-decoration-none">
+                        <button class="custom-btn" style="padding: 15px 30px; font-size: 1.5rem;">
+                            <i class="bi bi-cart-check"></i> Ver Pedidos
+                        </button>
+                    </a>
+                </div>
+
+                <!-- Recuadro de Puntos Acumulados -->
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <div class="card shadow-sm" style="background-color: white; border-radius: 15px;">
+                        <div class="card-body">
+                            <h4 class="card-title">Puntos Acumulados</h4>
+                            <div class="display-4 text-rosa">{{ app.session.get('puntos') }} pts</div>
+                            <p class="text-muted">Disponibles para canjear</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón Mi Cuenta -->
+                <div class="col-md-3">
+                    <a href="{{ path('cuenta') ~ '?id=' ~ app.session.get('id') }}"
+                       style="color: #ff1493; text-decoration: none" class="text-decoration-none">
+                        <button class="custom-btn" style="padding: 15px 30px; font-size: 1.5rem;">
+                            <i class="bi bi-person-circle"></i> Mi Cuenta
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </section>
+    {% else %}
+        <!-- Sección de introducción -->
+        <section class="container-fluid text-center" style="background-color: hsla(340, 84%, 94%, 0.7);">
+            <div class="row align-items-center">
+                <!-- Columna de la imagen -->
+                <div class="col-md-4 text-center text-md-start">
+                    <div class="rotar-container">
+                        <img src="{{ asset('../assets/images/pastel.png') }}" alt="Pastel" class="img-fluid rotar"
+                             style="max-width: 50%; height: auto; margin-left: auto; margin-right: auto;">
+                    </div>
+                </div>
+
+                <!-- Columna de texto -->
+                <div class="col-md-7">
+                    <p style="font-size: 2rem; line-height: 1.6;">
+                        En Divertitartas, creamos tartas únicas y llenas de imaginación. Cada uno de nuestros pasteles
+                        combina deliciosos sabores con diseños divertidos y personalizados, perfectos para hacer de
+                        cualquier ocasión un momento inolvidable. ¡Endulza tus celebraciones con un toque creativo y
+                        original!
+                    </p>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    <!--banner carousel-->
+    <div class="container mt-4">
+        <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{{ asset('../assets/images/baner1.png') }}" class="d-block w-100" alt="Banner 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('../assets/images/banner2.png') }}" class="d-block w-100" alt="Banner 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('../assets/images/banner3.png') }}" class="d-block w-100" alt="Banner 3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Sección de tartas -->
+    <div class="tarta">
+        <img src="{{ asset('../assets/images/ribete1.png') }}" alt="Ribete decorativo" class="ribete">
+        <h2>Algunas de nuestras elaboraciones</h2>
+    </div>
+
+    <!-- Tarjetas de tartas -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-img-container">
+                        <img src="{{ asset('../assets/images/tarta4.png') }}" class="card-img-top" alt="1">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-end">
+                        <h5 class="card-title">Sonic</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-img-container">
+                        <img src="{{ asset('../assets/images/dulce1.png') }}" class="card-img-top" alt="2">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-end">
+                        <h5 class="card-title">Cupcake</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-img-container">
+                        <img src="{{ asset('../assets/images/dulce5.png') }}" class="card-img-top" alt="3">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-end">
+                        <h5 class="card-title">Alfajores</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-img-container">
+                        <img src="{{ asset('../assets/images/tarta2.png') }}" class="card-img-top" alt="4">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-end">
+                        <h5 class="card-title">Unicornio</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <a href="/productos" style="text-decoration: none;">
+            <button class="custom-btn mt-3 mx-auto d-block">Ver más</button>
+        </a>
+    </div>
+
+    <!-- Sección de comentarios -->
+    <section id="comentarios" class="py-5 text-center" style="background-color: #fbd1f0; margin: 20px;">
+        <div class="container">
+            <h2 class="mb-4">Lo que dicen nuestros clientes</h2>
+            <div class="row comentarios">
+                <!-- Comentario de ejemplo 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-3">
+                                <!-- 3.5 estrellas -->
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"
+                                     class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella vacía"
+                                     class="estrella">
+                            </div>
+                            <p class="card-text">"De lo mejor que he visto. Esta página esta aprobada"</p>
+                            <p class="text-muted">- Por Chayanne.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Comentario de ejemplo 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-3">
+                                <!-- 4 estrellas -->
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía"
+                                     class="estrella">
+                            </div>
+                            <p class="card-text">"El pastel de cumpleaños fue un éxito. Casi como ganar un mundial."</p>
+                            <p class="text-muted">- Lionel Andres M.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comentario de ejemplo 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-3">
+                                <!-- 3.5 estrellas -->
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía"
+                                     class="estrella">
+                            </div>
+                            <p class="card-text">"Muy bueno, aunque esperaba un poco más de relleno. La decoración
+                                perfecta."</p>
+                            <p class="text-muted">- Chicote.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Comentario de ejemplo 4 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-3">
+                                <!-- 3.5 estrellas -->
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"
+                                     class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella vacía"
+                                     class="estrella">
+                            </div>
+                            <p class="card-text">"El mejor croissant que comi en mi vida"</p>
+                            <p class="text-muted">- Mbappé.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Comentario de ejemplo 5 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-3">
+                                <!-- 3.5 estrellas -->
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía"
+                                     class="estrella">
+                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía"
+                                     class="estrella">
+                            </div>
+                            <p class="card-text">"Muy buen precio, casi lo compro todo!"</p>
+                            <p class="text-muted">- Florentino P.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Comentario de ejemplo 6 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-3">
+                                <!-- 5 estrellas -->
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
+                            </div>
+                            <p class="card-text">"Las tartas son increíbles, tanto en sabor como en presentación.
+                                ¡Volveré!"</p>
+                            <p class="text-muted">- Diego Armando M.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if app.session.get('email') is defined and app.session.get('email') is not null %}
+                <button class="custom-btn mt-3" data-bs-toggle="modal" data-bs-target="#comentarioModal">Deja tu
+                    valoración
+                </button>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Modal para valoraciones -->
+    <div class="modal fade" id="comentarioModal" tabindex="-1" aria-labelledby="comentarioModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="comentarioModalLabel">Añade tu valoración</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formValoracion">
+                        <div class="mb-3">
+                            <label for="nombreValoracion" class="form-label">Tu nombre</label>
+                            <input type="text" class="form-control" id="nombreValoracion" value="{{ app.session.get('nombreCompleto') }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tu valoración</label>
+                            <div class="rating">
+                                <input type="radio" id="star1" name="rating" value="1">
+                                <label for="star1"><span class="estrella"></span></label>
+                                <input type="radio" id="star2" name="rating" value="2">
+                                <label for="star2"><span class="estrella"></span></label>
+                                <input type="radio" id="star3" name="rating" value="3">
+                                <label for="star3"><span class="estrella"></span></label>
+                                <input type="radio" id="star4" name="rating" value="4">
+                                <label for="star4"><span class="estrella"></span></label>
+                                <input type="radio" id="star5" name="rating" value="5">
+                                <label for="star5"><span class="estrella"></span></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="comentarioValoracion" class="form-label">Tu comentario</label>
+                            <textarea class="form-control" id="comentarioValoracion" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarValoracion()">Enviar
+                        valoración
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     {% include '_footer.html.twig' %}
+
+    {% block javascripts %}
+        <script>
+            function guardarValoracion() {
+                const nombre = document.getElementById('nombreValoracion').value;
+                const rating = document.querySelector('input[name="rating"]:checked')?.value;
+                const comentario = document.getElementById('comentarioValoracion').value;
+
+                if (!nombre || !rating || !comentario) {
+                    alert('Por favor completa todos los campos');
+                    return;
+                }
+
+                // Crear elemento HTML para el nuevo comentario
+                const nuevoComentario = document.createElement('div');
+                nuevoComentario.className = 'col-md-4 mb-4';
+                nuevoComentario.innerHTML = `
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-center mb-3">
+                    ${'<img src="{{ asset('../assets/images/estrella.png') }}" class="estrella">'.repeat(rating)}
+                    ${'<img src="{{ asset('../assets/images/estrella_vacia.png') }}" class="estrella">'.repeat(5 - rating)}
+                </div>
+                <p class="card-text">"${comentario}"</p>
+                <p class="text-muted">- ${nombre}</p>
+            </div>
+        </div>
+    `;
+
+                // Añadir al contenedor de comentarios
+                document.querySelector('.row.comentarios').prepend(nuevoComentario);
+
+                // Cerrar modal y limpiar formulario
+                const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('comentarioModal'));
+                modal.hide();
+
+                alert('¡Gracias por tu valoración!');
+            }
+        </script>
+    {% endblock %}
 
 {% endblock %}

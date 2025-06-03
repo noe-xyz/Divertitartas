@@ -1,0 +1,69 @@
+//antes de cargar el DOM, sanitizar es por si algún usuario intenta meter un script en el campo de mensajes, con esto lo conviertes a caracteres inofensivos
+function sanitize(input) {
+    return input
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
+function saveMessages() {
+    const messagesContainer = document.getElementById('messages');
+    const currentTimestamp = Date.now();
+    localStorage.setItem('divertitartas_messages_timestamp', currentTimestamp);
+    localStorage.setItem('divertitartas_messages', messagesContainer.innerHTML);
+}
+
+function loadMessages() {
+    const messagesContainer = document.getElementById('messages');
+    const savedTimestamp = localStorage.getItem('divertitartas_messages_timestamp');
+    if (savedTimestamp) {
+        const now = Date.now();
+        const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
+        if (now - savedTimestamp < TWO_DAYS_MS) {
+            const savedMessages = localStorage.getItem('divertitartas_messages');
+            if (savedMessages) {
+                messagesContainer.innerHTML = savedMessages;
+            }
+        } else {
+            localStorage.removeItem('divertitartas_messages');
+            localStorage.removeItem('divertitartas_messages_timestamp');
+        }
+    }
+}
+
+function initMensajes() {
+    // Cargar mensajes guardados
+    loadMessages();
+
+    // Asignar evento al formulario
+    const sendForm = document.getElementById('sendForm');
+    if (sendForm) {
+        sendForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = document.getElementById('msgInput');
+            const msg = sanitize(input.value.trim());
+            if(msg) {
+                const now = new Date();
+                const date = now.toLocaleDateString('es-ES', { day: '2-digit', month: 'long' });
+                const time = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+                const author = document.querySelector('.user-panel span').textContent.trim();
+                const messageHTML = `
+                  <div class="message-block">
+                    <i class="bi bi-person message-icon"></i>
+                    <div class="message-content">
+                      <a href="#" class="message-author">${author}</a>
+                      <div class="message-meta">${date} ${time}</div>
+                      <div class="message-box">${msg}</div>
+                    </div>
+                  </div>
+                `;
+                document.getElementById('messages').innerHTML += messageHTML;
+                input.value = '';
+                document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+                saveMessages();
+            }
+        });
+    }
+}

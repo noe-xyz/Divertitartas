@@ -23,10 +23,12 @@ class RegistroController extends AbstractController
         #Comprobar que se envían los datos por POST y guardarlos en variables
         if ($request->isMethod('POST')) {
             #Recoger los datos comunes a un cliente habitual y a una empresa
-            $fullName = $request->request->get('nombre');
+            $name = $request->request->get('nombre');
+            $lastName = $request->request->get('apellidos');
             $email = $request->request->get('email');
             $password = $request->request->get('password');
             $passwordConfirmar = $request->request->get('passwordConfirmar');
+            $telefono1 = $request->request->get('telefono1');
 
             #Query que busca en la base de datos si existe el usuario y lógica por si lo está/no lo está
             $usuarioExiste = $usuarioRepository->findRegisteredUser($email, $password);
@@ -40,27 +42,27 @@ class RegistroController extends AbstractController
                     "enlaceBtn" => "login"
                 ]);
             } else {
-                #Separar el nombre completo a nombre/apellido/apellido
-                $arrNombreApellidos = explode(' ', $fullName);
-                $name = $arrNombreApellidos[0];
-                $lastName1 = $arrNombreApellidos[1] ?? "";
-                $lastName2 = $arrNombreApellidos[2] ?? "";
+                #Separar apellidos
+                $arrApellidos = explode(' ', $lastName);
+                $lastName1 = $arrApellidos[0] ?? "";
+                $lastName2 = $arrApellidos[1] ?? "";
 
                 #Comprobación de que la contraseña esté confirmada correctamente: si está bien se ejecuta la lógica
                 $confirmar = $this->comprobarPassword($password, $passwordConfirmar);
                 if ($confirmar) {
                     #TODO: Añadir qué pasa cuando no se introducen valores correctos (aunque creo que html lo pilla ya) o repetidos (ya existe la cuenta)
-                    if ($_POST['nombreEmpresa'] !== "" && $_POST['nifCif'] !== "") {
+                    if ((isset($_POST['nombreEmpresa'])) && (isset($_POST['nifCif']))) {
                         #Si se incluyen en el formulario los datos exclusivos a una empresa, se tratará como empresa
                         $nombreEmpresa = $request->request->get('nombreEmpresa');
                         $nifCif = $request->request->get('nifCif');
 
                         #Creación del objeto de tipo Empresa
                         $empresaLogueada = new Empresa();
-                        $empresaLogueada->setNombreCompleto($fullName)
+                        $empresaLogueada->setNombreCompleto($name . " " . $lastName)
                             ->setNombre($name)
                             ->setApellido1($lastName1)
                             ->setApellido2($lastName2)
+                            ->setTelefono1($telefono1)
                             ->setEmail($email)
                             ->setPassword($password)
                             ->setNombreEmpresa($nombreEmpresa)
@@ -75,12 +77,14 @@ class RegistroController extends AbstractController
                     } else {
                         #Creación del objeto de tipo Empresa
                         $usuarioLogueado = new Cliente();
-                        $usuarioLogueado->setNombreCompleto($fullName)
+                        $usuarioLogueado->setNombreCompleto($name . " " . $lastName)
                             ->setNombre($name)
                             ->setApellido1($lastName1)
                             ->setApellido2($lastName2)
                             ->setEmail($email)
-                            ->setPassword($password);
+                            ->setTelefono1($telefono1)
+                            ->setPassword($password)
+                            ->setPuntos(0);
 
                         #Se prepara el objeto para insertarlo en la base de datos
                         $entityManager->persist($usuarioLogueado);
@@ -132,5 +136,6 @@ class RegistroController extends AbstractController
         $session->set('id', $usuario->getId());
         $session->set('email', $usuario->getEmail());
         $session->set('nombreCompleto', $usuario->getNombreCompleto());
+        $session->set('puntos', $usuario->getPuntos());
     }
 }

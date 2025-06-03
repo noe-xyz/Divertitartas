@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Quiénes somos | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    {% include '_header.html.twig' %}
+
+    <!-- Imagen principal con texto -->
+    <section class="hero text-center py-5">
+        <h1 class="mt-3">Contacto</h1>
+    </section>
+
+
+    <!-- cuerpo -->
+
+
+    <section class="container my-5">
+        <div class="row text-center mb-5">
+            <div class="col-md-4 horarios" style="font-size: 20px;padding: 30px;">
+                <h3>Horarios</h3>
+                <p><strong>Lunes:</strong> CERRADO</p>
+                <p><strong>Martes - Viernes:</strong> 09:00 - 13:00 / 16:00 - 19:00</p>
+                <p><strong>Sábado:</strong> 09:00 - 13:00 / 17:00 - 20:00</p>
+                <p><strong>Domingo:</strong> CERRADO</p>
+            </div>
+            <div class="col-md-4" style="font-size: 20px;">
+                <form class="formulario">
+                    <h3>Enviar Mensaje</h3>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" rows="4" placeholder="Mensaje" required></textarea>
+                    </div>
+                    <button type="submit" class="custom-btn w-50">Enviar</button>
+                </form>
+            </div>
+            <div class="col-md-4 direccion" style="font-size: 20px;padding: 30px;">
+                <h3>Dónde Estamos</h3>
+                <p>Carretera Torrejón a Ajalvir, s/n,<br>28850 Torrejón de Ardoz, Madrid</p>
+                <p><strong>Teléfono:</strong> 638 567 591 / 620 968 711</p>
+                <p><strong>Email:</strong> <a
+                            href="mailto:divertitartasfuncake@gmail.com">divertitartasfuncake@gmail.com</a></p>
+                <p>S&iacute;guenos en:
+                    <a href="#"><img src="{{ asset('../assets/images/Facebook_logo_(square).png') }}" alt="Facebook"
+                                     style="width: 30px;"></a>
+                    <a href="#"><img src="{{ asset('../assets/images/Instagram-Logo-PNG-File.png') }}" alt="Instagram"
+                                     style="width: 30px;"></a>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3038.8109819031573!2d-3.468193884601647!3d40.45576097936088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4236160c03271f%3A0x13b9f2c8a091731a!2sCentro%20Comercial%20Parque%20Corredor!5e0!3m2!1ses!2ses!4v1699989372340!5m2!1ses!2ses"
+                        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    {% include '_footer.html.twig' %}
+
+{% endblock %}
