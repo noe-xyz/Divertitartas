@@ -14,15 +14,15 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
                 <div class="navbar-nav gap-2" id="mainMenu">
-                    <button class="btn btn-uniforme mx-1"><a href="/administracion/usuarios">Gestión de usuarios</a>
+                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'usuarios' ? 'tab-activa' : '' }}" onclick="location.href='/administracion/usuarios'">Gestión de usuarios
                     </button>
-                    <button class="btn btn-uniforme mx-1"><a href="/administracion/proveedores">Proveedores</a>
+                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'proveedores' ? 'tab-activa' : '' }}" onclick="location.href='/administracion/proveedores'">Proveedores
                     </button>
-                    <button class="btn btn-uniforme mx-1"><a href="/administracion/contabilidad">Contabilidad</a>
+                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'contabilidad' ? 'tab-activa' : '' }}" onclick="location.href='/administracion/contabilidad'">Contabilidad
                     </button>
-                    <button class="btn btn-uniforme mx-1"><a href="/administracion/pedidos">Pedidos</a>
+                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'pedidos' ? 'tab-activa' : '' }}" onclick="location.href='/administracion/pedidos'">Pedidos
                     </button>
-                    <button class="btn btn-uniforme mx-1"><a href="/administracion/stock">Stock de productos</a>
+                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'stock' ? 'tab-activa' : '' }}" onclick="location.href='/administracion/stock'">Stock de productos
                     </button>
                     {# {% if isAdmin %}
                         <button class="btn btn-uniforme mx-1"><a href="/administracion/configuracion">Configuración de datos</a>
@@ -40,7 +40,9 @@
                          Pepe
                      {% endif %}
                 </span>
-                <button class="btn btn-uniforme">Cerrar sesión</button>
+                <form action="/logout" method="POST">
+                    <button class="btn btn-uniforme" name="logout">Cerrar sesión</button>
+                </form>
             </div>
         </div>
     </nav>

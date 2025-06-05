@@ -49,17 +49,18 @@ class ProductosController extends AbstractController
         ]);
     }
 
-    #[Route('/productos/{categoria}/{nombre}', name: 'producto')]
-    public function mostrarUnProducto($nombre, ProductoRepository $repository): Response
+    #[Route('/productos/{categoria}/{slug}', name: 'producto')]
+    public function mostrarUnProducto(string $slug, ProductoRepository $repository): Response
     {
         #TODO esto está cogiendo bien el nombre de la URL?
-        $productoAMostrar = $repository->findOneByNombre($nombre);
+        $productoAMostrar = $repository->findOneBySlug($slug);
+
         if (!$productoAMostrar) {
             throw $this->createNotFoundException('No encontramos esta página...');
         }
 
         return $this->render('productos/detalle-producto.html.twig', [
-            'nombre' => $productoAMostrar->getNombre(),
+            'productoAMostrar' => $productoAMostrar,
         ]);
     }
 
