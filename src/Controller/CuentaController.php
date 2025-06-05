@@ -23,12 +23,12 @@ class CuentaController extends AbstractController
 
         $usuarioRegistrado = $usuarioRepository->findOneById($id);
         if (!$usuarioRegistrado) {
-            throw $this->createNotFoundException('No encontramos esta página...');
+            throw $this->createAccessDeniedException('No encontramos esta página...');
         }
 
         $idUsuarioRegistrado = $session->get('id');
         if ($id != $idUsuarioRegistrado) {
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute("cuenta", ["id" => $usuarioRegistrado->getId()]);
         }
 
         if ($request->isMethod('POST') && isset($_POST['submit'])) {

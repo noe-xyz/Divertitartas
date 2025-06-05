@@ -3,10 +3,14 @@
     <!-- Tabs de Clientes y Trabajadores -->
     <ul class="nav nav-tabs mb-3" id="userTabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="clientes-tab" data-bs-toggle="tab" data-bs-target="#clientes" type="button" role="tab" aria-controls="clientes" aria-selected="true">Clientes</button>
+            <button class="nav-link active" id="clientes-tab" data-bs-toggle="tab" data-bs-target="#clientes"
+                    type="button" role="tab" aria-controls="clientes" aria-selected="true">Clientes
+            </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="trabajadores-tab" data-bs-toggle="tab" data-bs-target="#trabajadores" type="button" role="tab" aria-controls="trabajadores" aria-selected="false">Trabajadores</button>
+            <button class="nav-link" id="trabajadores-tab" data-bs-toggle="tab" data-bs-target="#trabajadores"
+                    type="button" role="tab" aria-controls="trabajadores" aria-selected="false">Trabajadores
+            </button>
         </li>
     </ul>
 
@@ -27,31 +31,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for usuario in usuariosRegistrados %}
-                    <tr>
-                        <td>{{ usuario.nombreCompleto }}</td>
-                        <td>{{ usuario.email }}</td>
-                        <td>{{ usuario.telefono1 }}</td>
-                        <td>{{ usuario.nombreEmpresa|default('') }}</td>
-                        <td>{{ usuario.nifCif|default('') }}</td>
-                        <td class="text-center">
-                            <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i></button>
-                            <button class="btn btn-link p-0" title="Editar"><i class="bi bi-pencil"></i></button>
-                        </td>
-                    </tr>
+                    {% for cliente in clientesRegistrados %}
+                        <tr>
+                            <td>{{ cliente.nombreCompleto }}</td>
+                            <td>{{ cliente.email }}</td>
+                            <td>{{ cliente.telefono1 }}
+                                {% if cliente.telefono2 %}
+                                    <br />
+                                    {{ cliente.telefono2 }}
+                                {% endif %}
+                            </td>
+                            <td>{{ cliente.nombreEmpresa|default('-') }}</td>
+                            <td>{{ cliente.nifCif|default('-') }}</td>
+                            <td class="text-center">
+                                <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-link p-0" title="Editar"><i class="bi bi-pencil"></i></button>
+                            </td>
+                        </tr>
                     {% endfor %}
-{#                    <tr>#}
-{#                        <td>Nombre Apellidos</td>#}
-{#                        <td>cliente@mail.com</td>#}
-{#                        <td>646513153</td>#}
-{#                        <td>Hotel Madrid</td>#}
-{#                        <td>B866797942</td>#}
-{#                        <td class="text-center">#}
-{#                            <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i></button>#}
-{#                            <button class="btn btn-link p-0" title="Editar"><i class="bi bi-pencil"></i></button>#}
-{#                        </td>#}
-{#                    </tr>#}
-                    <!-- Más filas -->
                     </tbody>
                 </table>
             </div>
@@ -88,18 +85,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Nombre Apellidos</td>
-                        <td>trabajador@divertitartas.com</td>
-                        <td>646513153</td>
-                        <td>Mañanas</td>
-                        <td>Horno</td>
-                        <td class="text-center">
-                            <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i></button>
-                            <button class="btn btn-link p-0" title="Editar"><i class="bi bi-pencil"></i></button>
-                        </td>
-                    </tr>
-                    <!-- Más filas -->
+                    {% for trabajador in trabajadoresRegistrados %}
+                        <tr>
+                            <td>{{ trabajador.nombreCompleto }}</td>
+                            <td>{{ trabajador.email }}</td>
+                            <td>{{ trabajador.telefono1 }}</td>
+                            <td>{{ trabajador.turno|capitalize }}</td>
+                            <td>{{ trabajador.puesto|capitalize }}</td>
+                            <td class="text-center">
+                                <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-link p-0" title="Editar"><i class="bi bi-pencil"></i></button>
+                            </td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
