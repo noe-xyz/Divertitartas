@@ -164,18 +164,114 @@ section.py-5.text-center {
     position: relative;
 }
 
-/* Estilo base de las estrellas */
-.rating label .estrella {
-    width: 18px;
-    height: 18px;
-    display: block;
-    content: url('../images/estrella_vacia.png'); /* Imagen por defecto */
+/* =============== SISTEMA DE VALORACIÓN CON ESTRELLAS (INVERTIDO) =============== */
+.rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 15px 0;
+    flex-direction: row-reverse;
+}
+
+.rating-stars input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.rating-stars label {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    background-image: url('../images/estrella_vacia.png');
+    background-size: contain;
+    background-repeat: no-repeat;
     transition: all 0.2s ease;
 }
 
-.comentarios .card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+/* seleccionada y todas las anteriores (visualmente a la derecha) */
+.rating-stars input[type="radio"]:checked ~ label,
+.rating-stars input[type="radio"]:checked + label {
+    background-image: url('../images/estrella.png');
+}
+
+/* todas las estrellas desde la que tiene hover hacia la derecha */
+.rating-stars:hover label {
+    background-image: url('../images/estrella_vacia.png');
+}
+
+.rating-stars label:hover,
+.rating-stars label:hover ~ label {
+    background-image: url('../images/estrella.png');
+    transform: scale(1.1);
+}
+
+/* Para mantener el estado seleccionado al salir del hover */
+.rating-stars input[type="radio"]:checked ~ label,
+.rating-stars input[type="radio"]:checked + label {
+    background-image: url('../images/estrella.png') !important;
+}
+
+/* Estilo para el modal de valoración */
+.modal-valoracion .modal-content {
+    background-color: #fff9fc;
+    border: 2px solid #ff1493;
+    border-radius: 12px;
+}
+
+.modal-valoracion .modal-header {
+    border-bottom: 2px solid #ff1493;
+    background-color: #fbd1f0;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-valoracion .modal-footer {
+    border-top: 2px solid #ff1493;
+    background-color: #fbd1f0;
+    border-radius: 0 0 10px 10px;
+}
+
+.modal-valoracion .form-label {
+    color: #ff1493;
+    font-weight: 600;
+}
+
+.modal-valoracion .btn-primary, .btn-outline-secondary {
+    background-color: var(--color-gris-claro);
+    border-color: rgba(148, 144, 144, 0.47);
+    color: var(--color-negro);
+}
+
+.modal-valoracion .btn-primary:hover,.btn-outline-secondary:hover{
+    background-color: #ff1493;
+    border-color: #ff1493;
+    color: #ffffff;
+}
+/* Estilo minimalista para el modal */
+.modal-content {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-footer {
+    border-top: 1px solid #f0f0f0;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+}
+
+.form-control:focus {
+    border-color: #fbd1f0;
+    box-shadow: 0 0 0 0.25rem rgba(251, 209, 240, 0.25);
 }
 
 /* Estilos del modal compacto */
