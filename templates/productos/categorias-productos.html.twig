@@ -1,0 +1,194 @@
+{% extends 'base.html.twig' %}
+
+{% set categoriaLegible = {
+    'mas-productos': 'Más Productos',
+    'preferencias': 'Especiales con Preferencias Alimenticias',
+    'tartas-creativas': 'Tartas Creativas'
+}[categoria] %}
+
+{% block title %}{{ categoriaLegible }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    {% include '_header.html.twig' %}
+
+    <!-- Contenido específico de la categoría -->
+    <main class="container my-5">
+        <div class="category-header text-center mb-5">
+            <h1>{{ mensajes.titulo }}</h1>
+            <p class="lead">{{ mensajes.subtitulo }}</p>
+        </div>
+
+        {% if productosMostrados is empty %}
+
+            <h2 style="color: #333; width: 100%; margin: auto">No encontramos tartas en esta categoría...</h2>
+
+        {% else %}
+            {% for producto in productosMostrados %}
+                <div class="row" id="rowProductos">
+                    <!-- Contenedor de producto -->
+                    <div class="col-md-4 col-sm-6 mb-4">
+                        <div class="card h-100 shadow-sm product-card">
+                            <div class="card-img-container">
+                                <img src="Imagenes/tarta1.png" class="card-img-top" alt="Tarta Boda 1">
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ producto.nombre }}</h5>
+                                <a href="/productos/{{ producto.categoria }}/{{ producto.slug }}" class="stretched-link"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <a href="/productos" class="custom-btn" style="text-decoration: none;">Volver a todos los productos</a>
+        </div>
+    </main>
+
+    {% include '_footer.html.twig' %}
+{% endblock %}
+
+        {#            <!-- Producto 2 --> #}
+        {#            <div class="col-md-4 col-sm-6 mb-4"> #}
+        {#                <div class="card h-100 shadow-sm product-card"> #}
+        {#                    <div class="card-img-container"> #}
+        {#                        <img src="Imagenes/tarta2.png" class="card-img-top" alt="Tarta Unicornio"> #}
+        {#                    </div> #}
+        {#                    <div class="card-body text-center"> #}
+        {#                        <h5 class="card-title">Tarta Unicornio</h5> #}
+        {#                        <a href="Producto_SunnyBannies.html" class="stretched-link"></a> #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}
+
+        {#            <!-- Producto 3 --> #}
+        {#            <div class="col-md-4 col-sm-6 mb-4"> #}
+        {#                <div class="card h-100 shadow-sm product-card"> #}
+        {#                    <div class="card-img-container"> #}
+        {#                        <img src="Imagenes/tarta6.png" class="card-img-top" alt="Tarta Sunny Bannies"> #}
+        {#                    </div> #}
+        {#                    <div class="card-body text-center"> #}
+        {#                        <h5 class="card-title">Tarta Sunny Bannies</h5> #}
+        {#                        <a href="Producto_SunnyBannies.html" class="stretched-link"></a> #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}
+
+        {#            <!-- Producto 4 --> #}
+        {#            <div class="col-md-4 col-sm-6 mb-4"> #}
+        {#                <div class="card h-100 shadow-sm product-card"> #}
+        {#                    <div class="card-img-container"> #}
+        {#                        <img src="Imagenes/tarta7.png" class="card-img-top" alt="Tarta caballo"> #}
+        {#                    </div> #}
+        {#                    <div class="card-body text-center"> #}
+        {#                        <h5 class="card-title">Tarta Caballo</h5> #}
+        {#                        <a href="Producto_SunnyBannies.html" class="stretched-link"></a> #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}
+
+        {#            <!-- Producto 5 --> #}
+        {#            <div class="col-md-4 col-sm-6 mb-4"> #}
+        {#                <div class="card h-100 shadow-sm product-card"> #}
+        {#                    <div class="card-img-container"> #}
+        {#                        <img src="Imagenes/tarta3.png" class="card-img-top" alt="Tarta baby"> #}
+        {#                    </div> #}
+        {#                    <div class="card-body text-center"> #}
+        {#                        <h5 class="card-title">Tarta Baby</h5> #}
+        {#                        <a href="Producto_SunnyBannies.html" class="stretched-link"></a> #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}
+
+        {#            <!-- Producto 6 --> #}
+        {#            <div class="col-md-4 col-sm-6 mb-4"> #}
+        {#                <div class="card h-100 shadow-sm product-card"> #}
+        {#                    <div class="card-img-container"> #}
+        {#                        <img src="Imagenes/tarta5.png" class="card-img-top" alt="Tarta Simpson"> #}
+        {#                    </div> #}
+        {#                    <div class="card-body text-center"> #}
+        {#                        <h5 class="card-title">Tarta Simpson</h5> #}
+        {#                        <a href="Producto_SunnyBannies.html" class="stretched-link"></a> #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}
+
+        {#            <!-- Producto 7 --> #}
+        {#            <div class="col-md-4 col-sm-6 mb-4"> #}
+        {#                <div class="card h-100 shadow-sm product-card"> #}
+        {#                    <div class="card-img-container"> #}
+        {#                        <img src="Imagenes/tarta4.png" class="card-img-top" alt="Tarta sonic"> #}
+        {#                    </div> #}
+        {#                    <div class="card-body text-center"> #}
+        {#                        <h5 class="card-title">Tarta Sonic</h5> #}
+        {#                        <a href="Producto_SunnyBannies.html" class="stretched-link"></a> #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}
+
+        {#            <!-- Producto 8 --> #}
+        {#            <div class="col-md-4 col-sm-6 mb-4"> #}
+        {#                <div class="card h-100 shadow-sm product-card"> #}
+        {#                    <div class="card-img-container"> #}
+        {#                        <img src="Imagenes/tarta9.png" class="card-img-top" alt="Tarta pokemon"> #}
+        {#                    </div> #}
+        {#                    <div class="card-body text-center"> #}
+        {#                        <h5 class="card-title">Tarta Pokemon</h5> #}
+        {#                        <a href="Producto_SunnyBannies.html" class="stretched-link"></a> #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}
+
+        {#            <!-- Producto 9 --> #}
+        {#            <div class="col-md-4 col-sm-6 mb-4"> #}
+        {#                <div class="card h-100 shadow-sm product-card"> #}
+        {#                    <div class="card-img-container"> #}
+        {#                        <img src="Imagenes/tarta12.png" class="card-img-top" alt="Tarta funko"> #}
+        {#                    </div> #}
+        {#                    <div class="card-body text-center"> #}
+        {#                        <h5 class="card-title">Tarta Boda Funko</h5> #}
+        {#                        <a href="Producto_SunnyBannies.html" class="stretched-link"></a> #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}
+
+        {#            <!-- Producto 10 --> #}
+        {#            <div class="col-md-4 col-sm-6 mb-4"> #}
+        {#                <div class="card h-100 shadow-sm product-card"> #}
+        {#                    <div class="card-img-container"> #}
+        {#                        <img src="Imagenes/tarta10.png" class="card-img-top" alt="Tarta Mario"> #}
+        {#                    </div> #}
+        {#                    <div class="card-body text-center"> #}
+        {#                        <h5 class="card-title">Tarta Mario Bross</h5> #}
+        {#                        <a href="Producto_SunnyBannies.html" class="stretched-link"></a> #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}
+
+        {#            <!-- Producto 11 --> #}
+        {#            <div class="col-md-4 col-sm-6 mb-4"> #}
+        {#                <div class="card h-100 shadow-sm product-card"> #}
+        {#                    <div class="card-img-container"> #}
+        {#                        <img src="Imagenes/tarta8.png" class="card-img-top" alt="Tarta emoji"> #}
+        {#                    </div> #}
+        {#                    <div class="card-body text-center"> #}
+        {#                        <h5 class="card-title">Tarta Emoji</h5> #}
+        {#                        <a href="Producto_SunnyBannies.html" class="stretched-link"></a> #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}
+
+        {#            <!-- Producto 12 --> #}
+        {#            <div class="col-md-4 col-sm-6 mb-4"> #}
+        {#                <div class="card h-100 shadow-sm product-card"> #}
+        {#                    <div class="card-img-container"> #}
+        {#                        <img src="Imagenes/tarta11.png" class="card-img-top" alt="Tarta gimnasia"> #}
+        {#                    </div> #}
+        {#                    <div class="card-body text-center"> #}
+        {#                        <h5 class="card-title">Tarta Gimnasia</h5> #}
+        {#                        <a href="Producto_SunnyBannies.html" class="stretched-link"></a> #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}

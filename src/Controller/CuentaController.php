@@ -11,24 +11,24 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
-class PerfilController extends AbstractController
+class CuentaController extends AbstractController
 {
-    #[Route('/perfil', name: 'perfil')]
-    public function perfil(SessionInterface $session, UsuarioRepository $usuarioRepository, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/cuenta', name: 'cuenta')]
+    public function cuenta(SessionInterface $session, UsuarioRepository $usuarioRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $id = $request->query->get('id');
         if (!$id || !is_numeric($id)) {
             throw $this->createNotFoundException('ID de usuario no válido');
         }
 
-        $usuarioRegistrado = $usuarioRepository->findUserById($id);
+        $usuarioRegistrado = $usuarioRepository->findOneById($id);
         if (!$usuarioRegistrado) {
-            throw $this->createNotFoundException('No encontramos esta página...');
+            throw $this->createAccessDeniedException('No encontramos esta página...');
         }
 
         $idUsuarioRegistrado = $session->get('id');
         if ($id != $idUsuarioRegistrado) {
-            throw $this->createAccessDeniedException('No encontramos esta página...');
+            return $this->redirectToRoute("cuenta", ["id" => $usuarioRegistrado->getId()]);
         }
 
         if ($request->isMethod('POST') && isset($_POST['submit'])) {
@@ -38,12 +38,13 @@ class PerfilController extends AbstractController
             $entityManager->persist($usuarioModificado);
             $entityManager->flush();
 
-            return $this->redirectToRoute("perfil", ["id" => $usuarioRegistrado->getId()]);
+            return $this->redirectToRoute("cuenta", ["id" => $usuarioRegistrado->getId()]);
         }
 
-        return $this->render('perfil/perfil.html.twig', [
+        return $this->render('cuenta/cuenta.html.twig', [
             'usuarioRegistrado' => $usuarioRegistrado,
-            'idUsuarioRegistrado' => $idUsuarioRegistrado
+            'idUsuarioRegistrado' => $idUsuarioRegistrado,
+            'submit' => true
         ]);
     }
 

@@ -1,67 +1,107 @@
-/*Body, general*/
+/* Variables CSS */
+:root {
+    --color-rosa-claro: #fbd1f0;
+    --color-rosa-oscuro: #ff1493;
+    --color-gris-claro: #e6e6e6;
+    --color-texto: #333;
+    --color-blanco: #fff;
+    --color-negro: #000;
+    --transition-time: 0.3s;
+    --border-radius: 10px;
+}
+
+/* Estructura base */
 body {
-    background-image: url("../images/fondo.jpg");
     font-family: 'Kaushan Script', cursive;
+    background-image: url('../images/fondo.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    background-repeat: no-repeat;
     color: var(--color-texto);
-}
-
-html, body {
-    height: 100%;
-    margin: 0;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/*-----------Variables CSS para colores */
-:root {
-    --color-rosa-claro: #fbd1f0;
-    --color-rosa-oscuro: #ff1493;
-    --color-gris-claro: #e6e4e4;
-    --color-texto: #333;
-    --color-blanco: #fff;
-    --color-negro: #000;
+/* Efecto de scroll suave */
+html {
+    scroll-behavior: smooth;
 }
 
-/*Header*/
-.logo {
-    width: 200px;
-    position: relative;
-    top: 5px;
-    z-index: 1000;
-    border-radius: 50%;
-}
-
+/* Header */
 .header-fino {
-    font-size: 30px;
     height: 150px;
     background-color: var(--color-rosa-claro);
+    display: flex;
+    align-items: center;
+    font-size: 30px;
 }
 
+.logo {
+    width: 230px;
+    border-radius: 50%;
+    position: relative;
+    top:25px;
+    z-index: 1000;
+}
+
+/* Navegación */
 .nav-link {
     margin-left: 23px;
     color: var(--color-negro);
     text-decoration: none;
+    transition: color var(--transition-time);
 }
 
 .nav-link:hover {
     color: var(--color-rosa-oscuro);
 }
 
-/*-----------Estilos para el menú offcanvas */
-.offcanvas-body a {
+/* Hero Section */
+.hero h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--color-rosa-oscuro);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Estilos para el pie de página */
+footer {
+    background-color: var(--color-rosa-claro);
+    color: var(--color-negro);
+    padding: 20px 0;
+}
+
+
+footer ul li a ,h5{
     color: var(--color-negro);
     text-decoration: none;
+    display: block;
+    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
-.offcanvas-body a:hover {
-    color: var(--color-rosa-oscuro);
+footer ul {
+    text-align: center;
+    list-style: none;
+    padding: 0;
 }
 
-/*Botones*/
+footer form input,
+footer form textarea {
+    color: var(--color-negro);
+}
+
+.ribete {
+    width: 100%;
+    /* La imagen ocupa el ancho del contenedor */
+    max-width: 300px;
+    /* Tamaño máximo de la imagen */
+    margin-bottom: 20px;
+    /* Espaciado inferior */
+}
+
+/* Estilos para todos los botones */
 .custom-btn {
     padding: 10px 30px;
     /* Espaciado interno (ajusta según necesites) */
@@ -87,6 +127,7 @@ html, body {
     /* Transición suave */
 }
 
+/* Efecto hover para los botones */
 .custom-btn:hover {
     background-color: var(--color-rosa-oscuro);
     /* Fondo rosa oscuro */
@@ -94,6 +135,7 @@ html, body {
     /* Texto blanco */
 }
 
+/* Estilos para botones deshabilitados */
 .custom-btn:disabled {
     background-color: #ccc;
     /* Fondo gris */
@@ -101,88 +143,6 @@ html, body {
     /* Texto gris oscuro */
     cursor: not-allowed;
     /* Cursor de "no permitido" */
-}
-
-/*Modal*/
-#linkModal, #linkModal:visited, #linkModal:active {
-    color: var(--color-negro);
-    text-decoration: none;
-}
-
-#linkModal:hover {
-    color: var(--color-blanco);
-    text-decoration: none;
-}
-
-/*Página login*/
-#mainLogin {
-    flex: 1;
-    padding-top: 100px;
-    padding-bottom: 100px;
-}
-
-/*Página registro*/
-#mainRegistro {
-    flex: 1;
-    padding-top: 100px;
-    padding-bottom: 100px;
-}
-
-/*Página inicio*/
-#mainIndex {
-    flex: 1;
-    padding-top: 100px;
-    padding-bottom: 100px;
-}
-
-/*Página perfil*/
-#mainPerfil {
-    flex: 1;
-    padding-top: 100px;
-    padding-bottom: 100px;
-    float: left;
-}
-
-#mainPerfil input{
-    width: 300px;
-}
-
-#mainPerfil label{
-    margin-right: 23px;
-}
-
-#mainPerfilDatos{
-    float: left;
-}
-
-#mainPerfilTarjeta{
-    float: right;
-}
-
-/*Footer*/
-footer {
-    background-color: var(--color-rosa-claro);
-    color: var(--color-negro);
-    padding: 20px 0;
-}
-
-footer ul li a, h5 {
-    color: var(--color-negro);
-    text-decoration: none;
-    display: block;
-    margin-bottom: 25px;
-    margin-top: 25px;
-}
-
-footer ul {
-    text-align: center;
-    list-style: none;
-    padding: 0;
-}
-
-footer form input,
-footer form textarea {
-    color: var(--color-negro);
 }
 
 .footer-btn {
@@ -206,6 +166,7 @@ footer form textarea {
     /* Ancho del botón */
 }
 
+/* Efecto hover para los botones */
 .footer-btn:hover {
     background-color: #555;
     /* Fondo gris oscuro */
@@ -213,14 +174,48 @@ footer form textarea {
     /* Texto blanco */
 }
 
-/*-----------Mapa*/
+/* Botón de los modals */
+a#linkModal{
+    text-decoration: none;
+    color: black;
+}
 
+/* Estilos para el mapa con borde bonito */
 .mapa-estilizado {
     border: 1px solid #ff1493; /* Borde sólido de 3px con color rosa */
     transition: all 0.3s ease; /* Transición suave para efectos hover */
 }
 
+/* Efecto hover para el mapa */
 .mapa-estilizado:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Aumenta la sombra al pasar el mouse */
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform var(--transition-time);
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.form-control:focus {
+    border-color: var(--color-rosa-oscuro);
+    box-shadow: 0 0 0 0.25rem rgba(255,20,147,0.25);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .header-fino { height: 100px; }
+    .logo { width: 120px; }
+    .hero h1 { font-size: 2.5rem; }
+}
+
+@media (max-width: 767px) {
+    .hero h1 { font-size: 2rem; }
 }
 

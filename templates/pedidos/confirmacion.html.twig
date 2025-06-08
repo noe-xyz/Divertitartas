@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compra Exitosa | {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% include '_header.html.twig' %}
+
+    <!-- Contenido principal -->
+    <main class="confirmation-main">
+        <div class="confirmation-container">
+            <div class="confirmation-card">
+                <div class="confirmation-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#28a745" viewBox="0 0 16 16">
+                        <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                </div>
+                <h1>¡Compra realizada con éxito!</h1>
+                <p class="confirmation-text">Tu pedido ha sido procesado correctamente.</p>
+                <p class="confirmation-details">Recibirás un correo electrónico con los detalles de tu compra.</p>
+
+                <div class="order-summary">
+                    <h3>Resumen de tu pedido</h3>
+                    <ul>
+                        <li>Tarta de Ositos <span>€25.00</span></li>
+                        <li>Tarta de Unicornio <span>€30.00</span></li>
+                        <li>Envio a Domicilio<span>€5.00</span></li>
+                        <li class="total">Total <span>€60.00</span></li>
+                    </ul>
+                </div>
+
+                <div class="confirmation-actions">
+                    <a href="/" class="btn btn-rosa">Volver al inicio</a>
+                    <a href="/productos" class="btn btn-rosa">Ver más productos</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include '_footer.html.twig' %}
+{% endblock %}

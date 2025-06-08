@@ -6,23 +6,13 @@ use App\Repository\TrabajadorRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TrabajadorRepository::class)]
-class Trabajador
+class Trabajador extends Usuario
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column(length: 40)]
     private ?string $turno = null;
 
     #[ORM\Column(length: 30)]
     private ?string $puesto = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getTurno(): ?string
     {

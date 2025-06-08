@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Política de venta y cancelación | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    {% include '_header.html.twig' %}
+
+    <!-- Contenido de Política de Venta y Cancelación -->
+    <section class="container my-5 legal" id="ventaCancelacion">
+        <h1 class="text-center mb-4 titulo-legal">Política de Venta y Cancelación</h1>
+        <p>
+            En Divertitartas, nos esforzamos por ofrecer un servicio de alta calidad.
+            Esta política describe los términos de venta y las condiciones para cancelar pedidos.
+        </p>
+        <h3 class="titulo2-legal">1. Proceso de Compra</h3>
+        <p>
+            Al realizar un pedido, aceptas proporcionar información precisa y completa.
+            Una vez confirmado el pedido, te enviaremos un correo electrónico con los detalles.
+        </p>
+        <h3 class="titulo2-legal">2. Cancelación de Pedidos</h3>
+        <p>
+            Puedes cancelar un pedido antes de que sea enviado. Excepto tartas que solo se podrán cancelar hasta 24hs de
+            antelación,
+            deberás seguir nuestro proceso de devolución.
+        </p>
+        <h3 class="titulo2-legal">3. Devoluciones y Reembolsos</h3>
+        <p>
+            No se admiten devoluciones de tartas, cupcakes u otros alimentos. Los envíos a domicilio podrán
+            ser reembolsados siempre y cuando se demuestre que el producto llegó en mal estado o con ingredientes
+            equivocados. En ningún caso se admiten reembolsos de alimentos comprados en tienda física, salvo mal estado
+            del producto.
+        </p>
+    </section>
+
+    {% include '_footer.html.twig' %}
+
+{% endblock %}

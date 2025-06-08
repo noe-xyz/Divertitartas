@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Cliente;
+use App\Entity\Trabajador;
+use App\Entity\Usuario;
 use App\Repository\UsuarioRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +18,7 @@ class LoginController extends AbstractController
     #TODO dividir en funciones para no hacer un pedazo de bloque de código
     #Ruta de la página web
     #[Route('/login', name: 'login')]
-    public function login(UsuarioRepository $usuarioRepository, Request $request, SessionInterface $session): Response
+    public function login(UsuarioRepository $usuarioRepository, Request $request, SessionInterface $session, EntityManagerInterface $entityManager): Response
     {
 
         if ($request->isMethod('POST') && isset($_POST['submit'])) {
@@ -27,8 +31,11 @@ class LoginController extends AbstractController
             if ($usuarioExiste) {
                 #TODO avisar de haberse logueado correctamente
                 #Crear la sesión del usuario
-                $this->crearSesion($session, $usuarioExiste);
+                $this->crearSesion($session, $usuarioExiste, $entityManager);
                 #Redirigir al index
+                if (get_class($usuarioExiste) === Trabajador::class) {
+                    return $this->redirectToRoute('mostrar-accion', ['accion' => 'comunicados']);
+                }
                 return $this->redirectToRoute('index');
             } else {
                 return $this->render('login/login.html.twig', [
@@ -52,13 +59,16 @@ class LoginController extends AbstractController
         ]);
     }
 
+    #[Route('/logout', name: 'logout', methods: ['POST'])]
     public function logout(Request $request, SessionInterface $session): Response
     {
+        print_r($request->request->all());
         if ($request->isMethod('POST') && $request->request->has('logout')) {
             $session->invalidate();
-            return $this->redirectToRoute('login');
+            print_r($request->request->all());
+            return $this->redirectToRoute('index');
         }
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('index');
     }
 
     public function crearSesion(SessionInterface $session, $usuario): void
@@ -66,5 +76,8 @@ class LoginController extends AbstractController
         $session->set('id', $usuario->getId());
         $session->set('email', $usuario->getEmail());
         $session->set('nombreCompleto', $usuario->getNombreCompleto());
+        if (get_class($usuario) === Cliente::class) {
+            $session->set('puntos', $usuario->getPuntos());
+        }
     }
 }

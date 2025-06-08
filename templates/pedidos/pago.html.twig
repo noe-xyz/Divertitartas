@@ -1,0 +1,314 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Método de pago | {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% include '_header.html.twig' %}
+    <!-- Contenido principal -->
+    <main id="mainPago">
+        <div class="container-fluid my-5">
+            <div class="payment-container">
+                <div class="payment-header">
+                    <h1>Seleccione el método de pago</h1>
+                </div>
+                <div class="pagoseguro">
+                    <h1>pago seguro <img src="{{ asset('../assets/images/pagoSeguro.png') }}" alt="Pago seguro"
+                                         style="height: 40px;"></h1>
+                </div>
+
+                <!-- Métodos de pago - Contenedor centrado -->
+                <div class="payment-options-container">
+                    <div class="payment-methods">
+                        <!-- Opción Tarjeta -->
+                        <div class="method-option">
+                            <input type="radio" id="tarjeta" name="metodoPago" checked>
+                            <label for="tarjeta">Tarjeta</label>
+                        </div>
+
+                        <!-- Opción PayPal -->
+                        <div class="method-option">
+                            <input type="radio" id="paypal" name="metodoPago">
+                            <label for="paypal">PayPal</label>
+                        </div>
+                    </div>
+
+                    <p class="security-note">Pago seguro con tarjeta de crédito o débito</p>
+
+                    <div class="accepted-cards">
+                        <img src="{{ asset('../assets/images/TARJETAS.png') }}" alt="Tarjetas aceptadas"
+                             class="img-fluid">
+                    </div>
+                </div>
+
+                <!-- Formulario de tarjeta -->
+                <div class="card-form" id="paymentForm">
+                    <div class="form-group">
+                        <h3 class="section-title text-center">Titular de tarjeta</h3>
+                        <input type="text" id="cardName" class="form-input" placeholder="Nombre completo" required>
+                        <div id="nameError" class="error-message text-center">Por favor ingresa el nombre del titular
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3 class="section-title">Número de tarjeta</h3>
+                        <input type="text" id="cardNumber" class="form-input" placeholder="Ejemplo: 1111 1111 1111 0054"
+                               required>
+                        <div id="numberError" class="error-message">Ingresa un número de tarjeta válido (16 dígitos)
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <h3 class="section-title">Fecha de vencimiento</h3>
+                            <div class="date-inputs">
+                                <input type="text" id="cardMonth" class="form-input" placeholder="MM" required
+                                       maxlength="2">
+                                <span>/</span>
+                                <input type="text" id="cardYear" class="form-input" placeholder="AA" required
+                                       maxlength="2">
+                            </div>
+                            <div id="dateError" class="error-message">Fecha inválida</div>
+                        </div>
+                        <div class="form-group cvv-container">
+                            <h3 class="section-title">CVV
+                                <a href="/pago/cvv" class="cvv-link">¿Qué es?</a>
+                            </h3>
+                            <input type="password" id="cardCvv" class="form-input" placeholder="***" required
+                                   maxlength="4">
+                            <div id="cvvError" class="error-message">CVV debe tener 3-4 dígitos</div>
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="recordarTarjeta">
+                        <label for="recordarTarjeta">Recordar esta tarjeta para el futuro</label>
+                    </div>
+
+                    <button type="button" id="submitPayment" class="payment-button">Pagar y finalizar</button>
+                </div>
+                <!-- Formulario de PayPal (oculto inicialmente) -->
+                <div class="paypal-form" id="paypalForm" style="display: none;">
+                    <img src="{{ asset('../assets/images/Paypal.png') }}" alt="PayPal" class="paypal-logo">
+
+                    <div class="form-group">
+                        <label for="paypalEmail" class="section-title">Correo de PayPal</label>
+                        <input type="email" id="paypalEmail" class="form-input" placeholder="tucuenta@example.com"
+                               required>
+                        <div id="paypalEmailError" class="error-message">Debes ingresar un correo válido de PayPal</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paypalPassword" class="section-title">Contraseña</label>
+                        <input type="password" id="paypalPassword" class="form-input" placeholder="••••••••" required
+                               minlength="6">
+                        <div id="paypalPasswordError" class="error-message">La contraseña debe tener al menos 6
+                            caracteres
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input type="checkbox" id="rememberPaypal" class="form-check-input">
+                        <label for="rememberPaypal" class="form-check-label">Mantener sesión iniciada</label>
+                    </div>
+
+                    <button type="button" id="submitPaypal" class="payment-button">Iniciar sesión y pagar</button>
+
+                    <p class="security-note mt-3">
+                        <img src="{{ asset('../assets/images/candado.jpg') }}" alt="Seguridad" width="16">
+                        Protegido por PayPal
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include '_footer.html.twig' %}
+
+    {% block javascripts %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Elementos del DOM
+                const cardForm = document.getElementById('paymentForm');
+                const paypalForm = document.getElementById('paypalForm');
+                const paypalOption = document.getElementById('paypal');
+                const cardOption = document.getElementById('tarjeta');
+                const submitPaymentBtn = document.getElementById('submitPayment');
+                const submitPaypalBtn = document.getElementById('submitPaypal');
+
+                // Mostrar formulario según método seleccionado
+                function toggleForms() {
+                    if (paypalOption.checked) {
+                        cardForm.style.display = 'none';
+                        paypalForm.style.display = 'block';
+                    } else {
+                        cardForm.style.display = 'block';
+                        paypalForm.style.display = 'none';
+                    }
+                }
+
+                // Event listeners para cambio de método
+                paypalOption.addEventListener('change', toggleForms);
+                cardOption.addEventListener('change', toggleForms);
+
+                // Máscara para número de tarjeta (formato 4444 4444 4444 4444)
+                document.getElementById('cardNumber').addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/g, '');
+                    if (value.length > 16) value = value.substr(0, 16);
+                    value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+                    e.target.value = value.trim();
+                });
+
+                // Validación y envío del formulario de tarjeta
+                submitPaymentBtn.addEventListener('click', function () {
+                    if (validateCardForm()) {
+                        this.disabled = true;
+                        this.innerHTML = 'Procesando <span class="payment-processing"></span>';
+
+                        // Simular procesamiento (reemplazar con lógica real)
+                        setTimeout(() => {
+                            window.location.href = '{{ path(name = 'confirmacion') }}';
+                        }, 1500);
+                    }
+                });
+
+                // Acción para botón de PayPal
+                submitPaypalBtn.addEventListener('click', function () {
+                    if (validatePaypalForm()) {
+                        this.disabled = true;
+                        this.innerHTML = 'Verificando <span class="payment-processing"></span>';
+
+                        // Simular autenticación (en producción usarías el SDK de PayPal)
+                        setTimeout(() => {
+                            window.location.href = '{{ path(name = 'confirmacion') }}';
+                        }, 2000);
+                    }
+                });
+
+                function validatePaypalForm() {
+                    let isValid = true;
+                    const email = document.getElementById('paypalEmail').value.trim();
+                    const password = document.getElementById('paypalPassword').value;
+
+                    // Validar correo
+                    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                        document.getElementById('paypalEmailError').style.display = 'block';
+                        document.getElementById('paypalEmail').classList.add('invalid');
+                        isValid = false;
+                    } else {
+                        document.getElementById('paypalEmailError').style.display = 'none';
+                        document.getElementById('paypalEmail').classList.remove('invalid');
+                    }
+
+                    // Validar contraseña (mínimo 6 caracteres)
+                    if (!password || password.length < 6) {
+                        document.getElementById('paypalPasswordError').style.display = 'block';
+                        document.getElementById('paypalPassword').classList.add('invalid');
+                        isValid = false;
+                    } else {
+                        document.getElementById('paypalPasswordError').style.display = 'none';
+                        document.getElementById('paypalPassword').classList.remove('invalid');
+                    }
+
+                    return isValid;
+                }
+
+                document.getElementById('submitPaypal').addEventListener('click', function () {
+                    if (validatePaypalForm()) {
+                        this.disabled = true;
+                        this.innerHTML = 'Verificando <span class="payment-processing"></span>';
+
+                        // Simular autenticación (en producción usar SDK de PayPal)
+                        setTimeout(() => {
+                            window.location.href = '{{ path(name = 'confirmacion') }}';
+                        }, 1500);
+                    }
+                });
+
+                // Función de validación para tarjeta
+                function validateCardForm() {
+                    let isValid = true;
+                    resetErrors();
+
+                    // Validar nombre
+                    const cardName = document.getElementById('cardName').value.trim();
+                    if (!cardName) {
+                        showError('nameError', 'Por favor ingresa el nombre del titular');
+                        isValid = false;
+                    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(cardName)) {
+                        showError('nameError', 'El nombre solo puede contener letras y espacios');
+                        isValid = false;
+                    }
+
+                    // Validar número de tarjeta (16 dígitos)
+                    const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+                    if (!cardNumber || !/^\d{16}$/.test(cardNumber)) {
+                        showError('numberError', 'Ingresa un número de tarjeta válido (16 dígitos)');
+                        isValid = false;
+                    }
+
+                    // Validar fecha (MM/AA)
+                    const month = document.getElementById('cardMonth').value;
+                    const year = document.getElementById('cardYear').value;
+                    if (!month || !year || !/^\d{2}$/.test(month) || !/^\d{2}$/.test(year)) {
+                        showError('dateError', 'Fecha inválida (MM/AA)');
+                        isValid = false;
+                    }
+
+                    // Validar CVV (3-4 dígitos)
+                    const cvv = document.getElementById('cardCvv').value;
+                    if (!cvv || !/^\d{3,4}$/.test(cvv)) {
+                        showError('cvvError', 'CVV debe tener 3-4 dígitos');
+                        isValid = false;
+                    }
+
+                    return isValid;
+                }
+
+                function showError(id, message) {
+                    const errorElement = document.getElementById(id);
+                    errorElement.textContent = message;
+                    errorElement.style.display = 'block';
+                    errorElement.previousElementSibling.style.borderColor = 'red';
+                }
+
+                function resetErrors() {
+                    document.querySelectorAll('.error-message').forEach(el => {
+                        el.style.display = 'none';
+                    });
+                    document.querySelectorAll('.form-input').forEach(input => {
+                        input.style.borderColor = '';
+                    });
+                }
+
+                // Validación en tiempo real para campos
+                document.getElementById('cardMonth').addEventListener('input', function (e) {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+
+                document.getElementById('cardYear').addEventListener('input', function (e) {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+
+                document.getElementById('cardCvv').addEventListener('input', function (e) {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+
+                document.getElementById('cardName').addEventListener('input', function (e) {
+                    this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúñÑ\s]/g, '');
+                });
+
+                document.getElementById('paypalEmail').addEventListener('input', function () {
+                    this.classList.remove('invalid');
+                    document.getElementById('paypalEmailError').style.display = 'none';
+                });
+
+                document.getElementById('paypalPassword').addEventListener('input', function () {
+                    this.classList.remove('invalid');
+                    document.getElementById('paypalPasswordError').style.display = 'none';
+                });
+            });
+        </script>
+
+    {% endblock %}
+
+{% endblock %}

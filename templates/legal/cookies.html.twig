@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Política de cookies | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    {% include '_header.html.twig' %}
+
+    <!-- Contenido de Política de Cookies -->
+    <section class="container my-5 legal" id="cookies">
+        <h1 class="text-center mb-4 titulo-legal">Política de Cookies</h1>
+        <p>
+            Este sitio web utiliza cookies para mejorar la experiencia del usuario.
+            Al continuar navegando, aceptas el uso de cookies de acuerdo con esta política.
+        </p>
+        <h3 class="titulo2-legal">1. ¿Qué son las Cookies?</h3>
+        <p>
+            Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo
+            cuando visitas un sitio web. Nos ayudan a recordar tus preferencias y mejorar
+            la funcionalidad del sitio.
+        </p>
+        <h3 class="titulo2-legal">2. Tipos de Cookies que Utilizamos</h3>
+        <p>
+            Utilizamos cookies esenciales para el funcionamiento del sitio y cookies
+            de análisis para entender cómo los usuarios interactúan con nuestro contenido.
+        </p>
+        <h3 class="titulo2-legal">3. Cómo Controlar las Cookies</h3>
+        <p>
+            Puedes gestionar o eliminar las cookies a través de la configuración de tu navegador.
+            Sin embargo, desactivar las cookies puede afectar la funcionalidad del sitio.
+        </p>
+    </section>
+
+    {% include '_footer.html.twig' %}
+
+{% endblock %}
