@@ -308,24 +308,29 @@
                             <label for="nombreValoracion" class="form-label">Tu nombre</label>
                             <input type="text" class="form-control" id="nombreValoracion" value="{{ app.session.get('nombreCompleto') }}" required>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Tu valoración</label>
-                            <div class="rating">
-                                <input type="radio" id="star1" name="rating" value="1">
-                                <label for="star1"><span class="estrella"></span></label>
-                                <input type="radio" id="star2" name="rating" value="2">
-                                <label for="star2"><span class="estrella"></span></label>
-                                <input type="radio" id="star3" name="rating" value="3">
-                                <label for="star3"><span class="estrella"></span></label>
-                                <input type="radio" id="star4" name="rating" value="4">
-                                <label for="star4"><span class="estrella"></span></label>
-                                <input type="radio" id="star5" name="rating" value="5">
-                                <label for="star5"><span class="estrella"></span></label>
+                        <div class="mb-4">
+                            <label class="form-label">Selecciona tu valoración</label>
+                            <div class="rating-stars">
+                                <input type="radio" id="rate5" name="rating" value="5">
+                                <label for="rate5" title="Excelente - 5 estrellas"></label>
+
+                                <input type="radio" id="rate4" name="rating" value="4">
+                                <label for="rate4" title="Muy bueno - 4 estrellas"></label>
+
+                                <input type="radio" id="rate3" name="rating" value="3">
+                                <label for="rate3" title="Bueno - 3 estrellas"></label>
+
+                                <input type="radio" id="rate2" name="rating" value="2">
+                                <label for="rate2" title="Regular - 2 estrellas"></label>
+
+                                <input type="radio" id="rate1" name="rating" value="1">
+                                <label for="rate1" title="Malo - 1 estrella"></label>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="comentarioValoracion" class="form-label">Tu comentario</label>
-                            <textarea class="form-control" id="comentarioValoracion" rows="3" required></textarea>
+                            <textarea class="form-control" id="comentarioValoracion" rows="3" required
+                                      placeholder="Cuéntanos tu experiencia..."></textarea>
                         </div>
                     </form>
                 </div>
