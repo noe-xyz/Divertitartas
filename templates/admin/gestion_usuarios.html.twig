@@ -36,10 +36,6 @@
                             <td>{{ cliente.nombreCompleto }}</td>
                             <td>{{ cliente.email }}</td>
                             <td>{{ cliente.telefono1 }}
-                                {% if cliente.telefono2 %}
-                                    <br />
-                                    {{ cliente.telefono2 }}
-                                {% endif %}
                             </td>
                             <td>{{ cliente.nombreEmpresa|default('-') }}</td>
                             <td>{{ cliente.nifCif|default('-') }}</td>
@@ -114,6 +110,31 @@
                 </div>
                 <div class="col-auto">
                     <button type="submit" class="btn btn-rosado px-4">Buscar</button>
+                </div>
+            </form>
+
+            <!-- Formulario para añadir un nuevo trabajador -->
+            <form class="row g-2 align-items-center mt-4" method="post" action="ruta_al_controlador_que_guarda_trabajador.php">
+                <div class="col">
+                    <input type="text" name="nombreCompleto" class="form-control" placeholder="Nombre completo" required>
+                </div>
+                <div class="col">
+                    <input type="email" name="email" class="form-control" placeholder="Correo" required>
+                </div>
+                <div class="col">
+                    <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
+                </div>
+                <div class="col">
+                    <input type="text" name="telefono1" class="form-control" placeholder="Teléfono" required>
+                </div>
+                <div class="col">
+                    <input type="text" name="turno" class="form-control" placeholder="Turno" required>
+                </div>
+                <div class="col">
+                    <input type="text" name="puesto" class="form-control" placeholder="Puesto" required>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-uniforme px-4">Añadir trabajador</button>
                 </div>
             </form>
 
