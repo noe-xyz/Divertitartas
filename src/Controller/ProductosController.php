@@ -52,7 +52,6 @@ class ProductosController extends AbstractController
     #[Route('/productos/{categoria}/{slug}', name: 'producto')]
     public function mostrarUnProducto(string $slug, ProductoRepository $repository): Response
     {
-        #TODO esto está cogiendo bien el nombre de la URL?
         $productoAMostrar = $repository->findOneBySlug($slug);
 
         if (!$productoAMostrar) {
@@ -64,7 +63,7 @@ class ProductosController extends AbstractController
         ]);
     }
 
-#TODO mover al lugar donde se crearán las tartas
+#TODO mover al lugar donde se crearán las tartas si no se quiere hacer manualmente
 //    private function crearSlug(EntityManagerInterface $entityManager, SluggerInterface $slugger): string
 //    {
 //        $slug = $slugger->slug($producto->getNombre())->lower();

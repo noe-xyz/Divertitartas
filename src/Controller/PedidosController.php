@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Producto;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class PedidosController extends AbstractController
@@ -26,6 +30,31 @@ class PedidosController extends AbstractController
     {
         return $this->render('pedidos/carrito.html.twig');
     }
+
+    #[Route('/carrito/add', name: 'add-carrito', methods: ['POST'])]
+    public function agregarAlCarrito(Request $request, SessionInterface $session, EntityManagerInterface $entityManager): Response
+    {
+        $productoId = $request->request->get('productoId');
+        $sabor = $request->request->get('sabor');
+        $relleno = $request->request->get('relleno');
+
+        $productoSeleccionado = $entityManager->getRepository(Producto::class)->findOneBy(['id' => $productoId]);
+
+        $carritoSesion = $session->get('carrito', []);
+        $carritoSesion[] = [
+            'id' => $productoSeleccionado->getId(),
+            'nombre' => $productoSeleccionado->getNombre(),
+            'precio' => $productoSeleccionado->getPrecio(),
+            'sabor' => $sabor,     //$productoSeleccionado->getSabor(),
+            'relleno' => $relleno,
+        ];
+
+        $session->set('carrito', $carritoSesion);
+
+        return $this->redirectToRoute('carrito');
+    }
+
+    //public function calcularPrecioTotal
 
     #[Route('/pago', name: 'pago')]
     public function pago(): Response
