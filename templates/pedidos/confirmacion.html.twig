@@ -22,10 +22,11 @@
                 <div class="order-summary">
                     <h3>Resumen de tu pedido</h3>
                     <ul>
-                        <li>Tarta de Ositos <span>€25.00</span></li>
-                        <li>Tarta de Unicornio <span>€30.00</span></li>
-                        <li>Envio a Domicilio<span>€5.00</span></li>
-                        <li class="total">Total <span>€60.00</span></li>
+                        {% for productoCarrito in carrito %}
+                            <li>{{ productoCarrito.nombre|capitalize }} <span>{{ productoCarrito.precio|format_number({fraction_digit: 2}) }}€</span></li>
+                        {% endfor %}
+                        <li>Envío a domicilio <span>5.00€</span></li>
+                        <li class="total">Total <span>{{ total|format_number({fraction_digit: 2}) }}€</span></li>
                     </ul>
                 </div>
 
