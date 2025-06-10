@@ -22,8 +22,9 @@ class DetallesPedido
     #[ORM\Column]
     private ?int $cantidad = null;
 
-    #[ORM\Column]
-    private ?int $id_pedido = null;
+    #[ORM\ManyToOne(targetEntity: Pedido::class, inversedBy: 'detalles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Pedido $pedido = null;
 
     public function getId(): ?int
     {
@@ -66,15 +67,14 @@ class DetallesPedido
         return $this;
     }
 
-    public function getIdPedido(): ?int
+    public function getPedido(): ?Pedido
     {
-        return $this->id_pedido;
+        return $this->pedido;
     }
 
-    public function setIdPedido(int $id_pedido): static
+    public function setPedido(?Pedido $pedido): static
     {
-        $this->id_pedido = $id_pedido;
-
+        $this->pedido = $pedido;
         return $this;
     }
 }

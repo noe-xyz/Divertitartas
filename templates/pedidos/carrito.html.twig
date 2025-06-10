@@ -65,13 +65,11 @@
                     <div class="card-body">
                         <h5 class="card-title mb-3">Datos del envío</h5>
                         <div class="mb-3">
-                            <p><strong>Cliente:</strong> {{ app.session.get('nombreCompleto') }}</p>
-                            {% if cliente.domicilio is iterable %}
-                                {% set direccion = cliente.domicilio|filter(v => v is not empty)|join(', ') %}
-                                <p><strong>Dirección de envío:</strong> {{ direccion }}</p>
-                            {% else %}
-                                <p><strong>Dirección de envío:</strong> Por favor, añade una dirección de envío</p>
-                            {% endif %} <p><strong>Teléfono:</strong> {{ cliente.telefono1 }}</p>
+                            <p><strong>Cliente:</strong> {{ cliente.nombreCompleto }}</p>
+                            <p><strong>Dirección de
+                                    envío:</strong> {% if domicilioStr is not empty and not domicilioStr %}{{ domicilioStr }}{% else %}Por
+                                favor, añade una dirección de envío{% endif %}</p>
+                            <p><strong>Teléfono:</strong> {{ cliente.telefono1 }}</p>
                             <p><strong>Fecha de envío estimada:</strong> {{ fechaDeEnvio|date('d/m/Y') }}</p>
                         </div>
                         <div class="text-end">
@@ -93,19 +91,23 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Subtotal:</span>
-                                <span>{{ subtotal|format_number({fraction_digit: 2}) }}€</span>
+                                <span>{% if app.session.get('carrito') is empty %}<small>Añade un producto para calcular el subtotal</small>{% else %}{{ subtotal|format_number({fraction_digit: 2}) }}€{% endif %}</span>
                             </div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Envío:</span>
-                                <span>5.00€</span>
+                                <span>{% if app.session.get('carrito') is empty %}<small>Añade un producto para calcular los gastos de envío</small>{% else %}5.00€{% endif %}</span>
                             </div>
                             <hr>
                             <div class="d-flex justify-content-between fw-bold">
                                 <span>Total:</span>
-                                <span>{{ total|format_number({fraction_digit: 2}) }}€</span>
+                                <span>{% if app.session.get('carrito') is empty %}<small>Añade un producto para calcular el precio total</small>{% else %}{{ total|format_number({fraction_digit: 2}) }}€{% endif %}</span>
                             </div>
                         </div>
-                        <a href="/pago" class="btn btn-primary w-100 mt-3">Finalizar Compra</a>
+                        {# <a href="/pago" class="btn btn-primary w-100 mt-3">Finalizar Compra</a>  #}
+                        <button onclick="location.href='/pago'"
+                                class="btn btn-primary w-100 mt-3" {% if app.session.get('carrito') is empty %} disabled {% endif %}>
+                            Finalizar Compra
+                        </button>
                     </div>
                 </div>
 

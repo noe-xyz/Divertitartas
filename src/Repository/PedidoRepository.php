@@ -16,6 +16,18 @@ class PedidoRepository extends ServiceEntityRepository
         parent::__construct($registry, Pedido::class);
     }
 
+    public function findPedidoByEstadoAndCliente(string $estado, int $cliente): array
+        {
+            return $this->createQueryBuilder('p')
+                ->where('p.estado = :estado')
+                ->andWhere('p.id_cliente = :cliente')
+                ->setParameter('estado', $estado)
+                ->setParameter('cliente', $cliente)
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
     //    /**
     //     * @return Pedido[] Returns an array of Pedido objects
     //     */

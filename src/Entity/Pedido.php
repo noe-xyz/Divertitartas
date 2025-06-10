@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PedidoRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PedidoRepository::class)]
@@ -24,6 +25,9 @@ class Pedido
 
     #[ORM\Column]
     private ?int $id_cliente = null;
+
+    #[ORM\OneToMany(mappedBy: 'pedido', targetEntity: DetallesPedido::class, cascade: ['persist', 'remove'])]
+    private Collection $detalles;
 
     public function getId(): ?int
     {
@@ -75,6 +79,30 @@ class Pedido
     {
         $this->id_cliente = $id_cliente;
 
+        return $this;
+    }
+
+    public function getDetalles(): Collection
+    {
+        return $this->detalles;
+    }
+
+    public function addDetalle(DetallesPedido $detalle): static
+    {
+        if (!$this->detalles->contains($detalle)) {
+            $this->detalles[] = $detalle;
+            $detalle->setPedido($this);
+        }
+        return $this;
+    }
+
+    public function removeDetalle(DetallesPedido $detalle): static
+    {
+        if ($this->detalles->removeElement($detalle)) {
+            if ($detalle->getPedido() === $this) {
+                $detalle->setPedido(null);
+            }
+        }
         return $this;
     }
 }
