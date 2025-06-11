@@ -1,0 +1,172 @@
+/* ================ PÁGINA DE CUENTA ================ */
+@import url('global.css');
+
+.account-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.section-title {
+    color: var(--color-rosa-oscuro);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-rosa-claro);
+}
+
+.form-control {
+    margin-bottom: 15px;
+    border: 1px solid var(--color-rosa-claro);
+    background-color: var(--color-blanco);
+    padding: 10px;
+    border-radius: 8px;
+    font-family: 'Kaushan Script', cursive;
+}
+
+
+
+/* Estilo unificado para botones */
+.action-button {
+    padding: 10px 30px;
+    background-color: var(--color-gris-claro);
+    color: var(--color-negro);
+    border-radius: 10px;
+    border: 1px solid rgba(148, 144, 144, 0.47);
+    font-family: 'Kaushan Script', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all var(--transition-time);
+    text-align: center;
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 5px auto;
+    text-decoration: none !important; /* Elimina subrayado */
+}
+
+.action-button:hover {
+    background-color: var(--color-rosa-oscuro);
+    color: var(--color-blanco);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-decoration: none !important; /* Asegura no subrayado en hover */
+}
+
+/* Botón de eliminar */
+.delete-button {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+}
+
+.delete-button:hover {
+    background-color: #cc0000;
+}
+
+/* Contenedor de botones */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* Estilos para enlaces que contienen botones */
+.button-group a {
+    text-decoration: none !important;
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Botones de acción */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Estilo específico para el botón de eliminar */
+.delete-button {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    text-decoration: none !important; /* Elimina cualquier subrayado residual */
+    cursor: pointer; /* Mantiene el cursor como pointer */
+    display: inline-block; /* Mejor manejo del espaciado */
+}
+
+.delete-button:hover {
+    background-color: #cc0000;
+    text-decoration: none !important;
+}
+
+/* Contenedor del campo de contraseña */
+.input-group {
+    display: flex;
+    align-items: stretch; /* Asegura misma altura */
+}
+
+/* Campo de contraseña */
+#passwordInput {
+    flex: 1;
+    height: auto; /* Altura automática */
+    min-height: 45px; /* Altura mínima consistente */
+}
+
+/* Botón Mostrar */
+#showPasswordBtn {
+    height: 45px; /* Misma altura que el input */
+    padding: 0 15px; /* Padding horizontal */
+    border: 1px solid var(--color-rosa-claro);
+    border-left: none; /* Elimina borde doble */
+    border-radius: 0 8px 8px 0; /* Bordes redondeados solo a la derecha */
+    background-color: var(--color-gris-claro);
+    color: var(--color-negro);
+    transition: all var(--transition-time);
+    display: flex;
+    align-items: center; /* Centra el ícono verticalmente */
+}
+
+#showPasswordBtn:hover {
+    background-color: var(--color-rosa-oscuro);
+    color: white;
+}
+
+/* Ajuste para ícono */
+#showPasswordBtn i {
+    margin-right: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .account-container {
+        padding: 20px;
+    }
+    
+    .action-button, 
+    .button-group a {
+        max-width: 100%;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Elimina subrayado en todos los estados del enlace */
+.no-underline,
+.no-underline:hover,
+.no-underline:focus,
+.no-underline:active {
+    text-decoration: none !important;
+}
+

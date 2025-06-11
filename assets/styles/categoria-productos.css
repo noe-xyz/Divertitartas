@@ -1,0 +1,98 @@
+/* ================ CATEGORÍA DE PRODUCTOS ================ */
+@import url('global.css');
+
+/* Encabezado de categoría */
+.category-header {
+    padding: 30px;
+    background-color: hsla(340, 84%, 94%, 0.7);
+    border-radius: 15px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.category-header h1 {
+    color: var(--color-rosa-oscuro);
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+}
+
+.category-header p {
+    font-size: 1.5rem;
+    color: var(--color-texto);
+}
+
+/* Contenedor principal de productos - 3 por línea */
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Exactamente 3 columnas */
+    gap: 25px;
+    padding: 15px 0;
+}
+
+/* Tarjetas de producto */
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.card-img-container {
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255,255,255,0.8);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--color-rosa-oscuro);
+}
+
+/* Responsive - Mantener 3 columnas en tablet, 2 en móvil grande, 1 en móvil pequeño */
+@media (max-width: 1024px) {
+    .products-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .products-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .products-container {
+        grid-template-columns: 1fr;
+    }
+
+    .category-header {
+        padding: 20px;
+    }
+
+    .category-header h1 {
+        font-size: 2rem;
+    }
+
+    .category-header p {
+        font-size: 1.2rem;
+    }
+}

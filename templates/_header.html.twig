@@ -2,7 +2,7 @@
 
 {% block body %}
     <header class="fondo-rosa header-fino " style="background-color: #fbd1f0;">
-        <div class="container d-flex justify-content-between align-items-center">
+        <div class="container d-flex justify-content-between align-items-center ">
             <button class="btn btn-outline-secondary d-lg-none" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu" style="color: #000000;">
                 ☰
@@ -21,41 +21,46 @@
                    style="{{ app.request.attributes.get('_route') =='contacto' ? 'color: #FF1493FF;' : 'color: black;' }}">Contacto</a>
             </div>
 
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-1">
+
+                <a href="/carrito"><img src="{{ asset('../assets/images/Carrito.png') }}" alt="Carrito" class="icon" style="height: 30px;"></a>
+
                 {% if app.session.get('email') is defined and app.session.get('email') is not null %}
-                    <div class="text-center" style="margin-right: -5px;">
+
+                    <div class="text-center" style="line-height: 1;margin-left: 20px" >
                         <div class="messi-text">
                             <a href="{{ path('cuenta') ~ '?id=' ~ app.session.get('id') }}"
-                               style="color: #ff1493; text-decoration: none">{{ app.session.get('nombreCompleto') }}</a>
+                               style="margin-bottom:10px; color: #ff1493; text-decoration: none">{{ app.session.get('nombreCompleto') }}</a>
                         </div>
                         <form method="post" action="/logout">
-                            <button class="btn btn-sm btn-inicio" name="logout">Cerrar sesión</button>
+                            <button class="btn btn-sm btn-inicio" name="logout" style="font-size: 1rem;">Cerrar sesión</button>
                         </form>
                     </div>
                 {% else %}
-                    <a href="/login" style="margin-left: 20px;"><img src="{{ asset('../assets/images/login.png') }}"
-                                                                     alt="login" class="icon"
-                                                                     style="height: 30px;"></a>
+                    <a href="/login" style="margin-left: 20px;"><img src="{{ asset('../assets/images/login.png') }}" alt="login" class="icon" style="height: 30px;"></a>
                 {% endif %}
-                <a href="/carrito"><img src="{{ asset('../assets/images/Carrito.png') }}" alt="Carrito" class="icon"
-                                            style="height: 30px;"></a>
+
             </div>
+
+
         </div>
 
         <!-- Offcanvas Menu -->
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel"
-             style="background-color: #fbd1f0;">
-            <div class="offcanvas-header">
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu"
+             data-bs-backdrop="true" aria-labelledby="offcanvasMenuLabel"
+             style="background-color: rgb(251,209,240); max-height: 300px; max-width: 250px; border-bottom-right-radius: 20px;border-bottom:1px solid deeppink;border-right:1px solid deeppink">
+
+            <!--<div class="offcanvas-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>-->
+                <div class="offcanvas-body">
+                    <a href="/" class="d-block mb-2" >Inicio</a>
+                    <a href="/quienes-somos" class="d-block mb-2">Quiénes Somos</a>
+                    <a href="/servicios" class="d-block mb-2">Servicios</a>
+                    <a href="/productos" class="d-block mb-2">Productos</a>
+                    <a href="/contacto" class="d-block mb-2">Contacto</a>
+                </div>
             </div>
-            <div class="offcanvas-body">
-                <a href="/" class="d-block mb-2" style="color: #ff1493;">Home</a>
-                <a href="/quienes-somos" class="d-block mb-2">Quiénes Somos</a>
-                <a href="/servicios" class="d-block mb-2">Servicios</a>
-                <a href="/productos" class="d-block mb-2">Productos</a>
-                <a href="/contacto" class="d-block mb-2">Contacto</a>
-            </div>
-        </div>
-    </header>
+        </header>
 
 {% endblock %}

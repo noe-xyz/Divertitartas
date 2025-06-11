@@ -1,0 +1,331 @@
+/* ================ PÁGINA DE INICIO ================ */
+@import url('global.css');
+
+/* Contenedor de imágenes */
+.card-img-container {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-img-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.herone {
+    position: relative;
+    text-align: center;
+    color: var(--color-blanco);
+    margin-bottom: 50px;    
+}
+
+.herone img {
+    width: 100%;
+    height: auto;
+}
+
+.herone h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    font-weight: bold;
+    width: 80%;
+    max-width: 800px;
+    margin-top: 100px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Sección de tartas */
+.tarta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+}
+
+.tarta h2 {
+    margin-top: 30px;
+    font-size: 60px;
+    color: var(--color-texto);
+}
+
+/* Animaciones */
+@keyframes girar {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.rotar {
+    transition: transform 1s linear;
+    will-change: transform;
+}
+
+.rotar:hover {
+    animation: girar 1s linear;
+}
+
+/* Responsive general */
+@media (max-width: 767px) {
+    .tarta h2 { font-size: 40px; }
+    .herone h1 { font-size: 2.5rem; }
+}
+
+/* =============== SECCIÓN DE VALORACIONES COMPACTAS =============== */
+section.py-5.text-center {
+    padding: 2rem 0 !important;
+}
+
+.row.comentarios {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 15px 5px;
+    scrollbar-width: thin;
+    justify-content: flex-start;
+    margin: 0 -5px;
+}
+
+.row.comentarios > [class*='col-'] {
+    padding: 0;
+    flex: 0 0 auto;
+    width: auto;
+}
+
+.comentarios .card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    width: 220px;
+    min-height: 160px;
+    margin: 0;
+    transition: all 0.2s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.comentarios .card-body {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.comentarios .d-flex.justify-content-center.mb-3 {
+    margin-bottom: 6px !important;
+    padding: 0 10px;
+}
+
+.estrella {
+    width: 16px;
+    height: 16px;
+    margin: 0 0.5px;
+}
+
+.comentarios .card-text {
+    font-style: italic;
+    margin-bottom: 6px;
+    font-size: 0.78rem;
+    line-height: 1.3;
+    flex: 1;
+    padding: 0 5px;
+}
+
+.comentarios .text-muted {
+    font-size: 0.7rem;
+    margin-top: auto;
+    padding: 0 5px;
+}
+
+
+/* =============== SISTEMA DE VALORACIÓN CON ESTRELLAS (INVERTIDO) =============== */
+.rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 15px 0;
+    flex-direction: row-reverse; 
+}
+
+.rating-stars input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.rating-stars label {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    background-image: url('../images/estrella_vacia.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: all 0.2s ease;
+}
+
+/* seleccionada y todas las anteriores (visualmente a la derecha) */
+.rating-stars input[type="radio"]:checked ~ label,
+.rating-stars input[type="radio"]:checked + label {
+    background-image: url('../images/estrella.png');
+}
+
+/* todas las estrellas desde la que tiene hover hacia la derecha */
+.rating-stars:hover label {
+    background-image: url('../images/estrella_vacia.png');
+}
+
+.rating-stars label:hover,
+.rating-stars label:hover ~ label {
+    background-image: url('../images/estrella.png');
+    transform: scale(1.1);
+}
+
+/* Para mantener el estado seleccionado al salir del hover */
+.rating-stars input[type="radio"]:checked ~ label,
+.rating-stars input[type="radio"]:checked + label {
+    background-image: url('../images/estrella.png') !important;
+}
+
+/* Estilo para el modal de valoración */
+.modal-valoracion .modal-content {
+    background-color: #fff9fc;
+    border: 2px solid #ff1493;
+    border-radius: 12px;
+}
+
+.modal-valoracion .modal-header {
+    border-bottom: 2px solid #ff1493;
+    background-color: #fbd1f0;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-valoracion .modal-footer {
+    border-top: 2px solid #ff1493;
+    background-color: #fbd1f0;
+    border-radius: 0 0 10px 10px;
+}
+
+.modal-valoracion .form-label {
+    color: #ff1493;
+    font-weight: 600;
+}
+
+.modal-valoracion .btn-primary, .btn-outline-secondary {
+    background-color: var(--color-gris-claro);
+    border-color: rgba(148, 144, 144, 0.47);
+    color: var(--color-negro);
+}
+
+.modal-valoracion .btn-primary:hover,.btn-outline-secondary:hover{
+    background-color: #ff1493;
+    border-color: #ff1493;
+    color: #ffffff;
+}
+/* Estilo minimalista para el modal */
+.modal-content {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-footer {
+    border-top: 1px solid #f0f0f0;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+}
+
+.form-control:focus {
+    border-color: #fbd1f0;
+    box-shadow: 0 0 0 0.25rem rgba(251, 209, 240, 0.25);
+}
+
+/* Estilos del modal compacto */
+.modal-content {
+    background-color: #fbd1f0;
+    border: 2px solid #ff1493;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.modal-header, .modal-footer {
+    padding: 12px 15px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #ff1493;
+}
+
+.modal-footer {
+    border-top: 1px solid #ff1493;
+}
+
+/* Responsive para valoraciones */
+@media (max-width: 991px) {
+    .row.comentarios {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 20px;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .comentarios .card {
+        width: 200px;
+        min-height: 150px;
+    }
+}
+
+@media (max-width: 767px) {
+    .herone h1 {
+        font-size: 2rem;
+        margin-top: 70px;
+    }
+    
+    .tarta h2 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 575px) {
+    .row.comentarios {
+        gap: 8px;
+    }
+    
+    .comentarios .card {
+        width: 180px;
+        min-height: 140px;
+        padding: 6px;
+    }
+    
+    .estrella {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .comentarios .card-text {
+        font-size: 0.72rem;
+    }
+    
+    .rating label {
+        font-size: 16px;
+    }
+    
+    .modal-content {
+        margin: 0 10px;
+    }
+}

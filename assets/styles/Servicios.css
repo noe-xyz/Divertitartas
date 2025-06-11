@@ -1,0 +1,17 @@
+/* ================ PÁGINA DE SERVICIOS ================ */
+@import url('global.css');
+
+/* Animación de moneda */
+@keyframes moneda {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(180deg); }
+    100% { transform: rotateY(360deg); }
+}
+
+.coin {
+    transition: transform 1s ease-in-out;
+}
+
+.coin:hover {
+    animation: moneda 1s linear;
+}

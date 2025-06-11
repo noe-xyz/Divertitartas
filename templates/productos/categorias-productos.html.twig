@@ -24,13 +24,14 @@
             <h2 style="color: #333; width: 100%; margin: auto">No encontramos tartas en esta categoría...</h2>
 
         {% else %}
+            <div class="row" id="rowProductos">
+
             {% for producto in productosMostrados %}
-                <div class="row" id="rowProductos">
                     <!-- Contenedor de producto -->
                     <div class="col-md-4 col-sm-6 mb-4">
                         <div class="card h-100 shadow-sm product-card">
                             <div class="card-img-container">
-                                <img src="Imagenes/tarta1.png" class="card-img-top" alt="Tarta Boda 1">
+                                <img src="images/tarta1.png" class="card-img-top" alt="Tarta ">
                             </div>
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ producto.nombre|capitalize }}</h5>
@@ -38,8 +39,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+
             {% endfor %}
+                </div>
         {% endif %}
 
         <div class="text-center mt-4">
