@@ -3,8 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Divertitartas{% endblock %}</title>
-    <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('styles/clienteStyle.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/global.css') }}">
+
+    {% if app.request.attributes.get('_route') =='index' %}
+        <link rel="stylesheet" href="{{ asset('styles/inicio.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='quienes-somos' %}
+        <link rel="stylesheet" href="{{ asset('styles/QuienesSomos.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='servicios' %}
+        <link rel="stylesheet" href="{{ asset('styles/Servicios.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='productos' %}
+        <link rel="stylesheet" href="{{ asset('styles/Productos.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='categorias' %}
+        <link rel="stylesheet" href="{{ asset('styles/categoria-productos.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='producto' %}
+        <link rel="stylesheet" href="{{ asset('styles/producto-detalle.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='carrito' %}
+        <link rel="stylesheet" href="{{ asset('styles/Carrito.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='pago' %}
+        <link rel="stylesheet" href="{{ asset('styles/Pago.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='cvv' %}
+        <link rel="stylesheet" href="{{ asset('styles/CVV.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='confirmacion' %}
+        <link rel="stylesheet" href="{{ asset('styles/Confirmacion.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='contacto' %}
+        <link rel="stylesheet" href="{{ asset('styles/Contacto.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='cuenta' %}
+        <link rel="stylesheet" href="{{ asset('styles/Cuenta.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='pedido' %}
+        <link rel="stylesheet" href="{{ asset('styles/Pedidos.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='factura' %}
+        <link rel="stylesheet" href="{{ asset('styles/Factura.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='login' %}
+        <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='registro' %}
+        <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+
+    {% elseif app.request.attributes.get('_route') =='error' %}
+        <link rel="stylesheet" href="{{ asset('styles/Error.css') }}">
+
+    {% endif %}
+
+    {#    <link rel="stylesheet" href="{{ asset('styles/clienteStyle.css') }}"> #}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">

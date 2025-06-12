@@ -1,0 +1,27 @@
+/* ================ QUIÉNES SOMOS ================ */
+@import url('global.css');
+
+/* Imágenes circulares */
+.img-circular {
+    background-color: hsla(340, 84%, 94%, 0.7);
+    border-radius: 50%;
+    border: 5px solid var(--color-rosa-oscuro);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: all var(--transition-time);
+    margin-bottom: 30px;
+}
+
+.img-circular:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+/* Animación */
+@keyframes movimiento {
+    0%, 100% { transform: translateX(-80px); }
+    50% { transform: translateX(80px); }
+}
+
+.mover {
+    animation: movimiento 2s infinite ease-in-out;
+}

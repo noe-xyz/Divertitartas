@@ -1,0 +1,64 @@
+/* ================ EXPLICACIÓN CVV ================ */
+@import url('global.css');
+
+.cvv-main {
+    padding: 40px 0;
+    background-color: #fff9fc;
+}
+
+.cvv-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center; /* Centrar todo el contenido */
+}
+
+.cvv-title {
+    color: var(--color-rosa-oscuro);
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cvv-content {
+    text-align: left; /* Alinear texto a la izquierda */
+    margin-bottom: 30px;
+}
+
+.cvv-image {
+    max-width: 100%;
+    border: 1px solid #fbd1f0;
+    border-radius: 10px;
+    margin: 20px auto; /* Centrar la imagen */
+    display: block;
+}
+
+/* Estilo para el botón (usando los estilos globales) */
+.action-button {
+    padding: 10px 30px;
+    background-color: var(--color-gris-claro);
+    color: var(--color-negro);
+    border-radius: 10px;
+    border: 1px solid rgba(148, 144, 144, 0.47);
+    font-family: 'Kaushan Script', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all var(--transition-time);
+    text-decoration: none !important;
+}
+
+.action-button:hover {
+    background-color: var(--color-rosa-oscuro);
+    color: var(--color-blanco);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cvv-container { padding: 20px; }
+    .cvv-title { font-size: 1.8rem; }
+}

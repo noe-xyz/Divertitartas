@@ -1,0 +1,53 @@
+/* ================ PÁGINA DE CONFIRMACIÓN ================ */
+@import url('global.css');
+
+.confirmation-main {
+    display: grid;
+    place-items: center;
+    min-height: calc(100vh - 250px);
+    padding: 20px;
+    background-color: #fff9fc;
+}
+
+.confirmation-card {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.confirmation-icon {
+    margin-bottom: 20px;
+    color: var(--color-rosa-oscuro);
+    font-size: 3rem;
+}
+
+.confirmation-card h1 {
+    color: var(--color-rosa-oscuro);
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+/* Resumen del pedido */
+.order-summary {
+    background-color: #fff9fc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 30px 0;
+    text-align: left;
+}
+
+.order-summary .total {
+    font-weight: bold;
+    border-top: 2px solid var(--color-rosa-oscuro);
+    padding-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .confirmation-card { padding: 30px 20px; }
+    .confirmation-card h1 { font-size: 1.8rem; }
+}

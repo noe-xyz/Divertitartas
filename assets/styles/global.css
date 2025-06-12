@@ -1,3 +1,8 @@
+/* ================ GLOBAL CSS ================ */
+/* Importaciones */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
 /* Variables CSS */
 :root {
     --color-rosa-claro: #fbd1f0;
@@ -21,11 +26,6 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-}
-
-/* Efecto de scroll suave */
-html {
-    scroll-behavior: smooth;
 }
 
 /* Header */
@@ -57,6 +57,21 @@ html {
     color: var(--color-rosa-oscuro);
 }
 
+/* offcanvas */
+
+.offcanvas-body a {
+    text-decoration: none;
+    color: black;
+}
+
+.offcanvas-body a:hover {
+    color: var(--color-rosa-oscuro);
+    text-decoration: none;
+}
+.offcanvas-backdrop.show {
+    background-color: transparent;
+}
+
 /* Hero Section */
 .hero h1 {
     font-size: 4rem;
@@ -70,8 +85,6 @@ footer {
     background-color: var(--color-rosa-claro);
     color: var(--color-negro);
     padding: 20px 0;
-    width: 100%;
-    margin-top: auto;
 }
 
 
@@ -176,21 +189,15 @@ footer form textarea {
     /* Texto blanco */
 }
 
-/* Botón de los modals */
-a#linkModal{
-    text-decoration: none;
-    color: black;
-}
-
 /* Estilos para el mapa con borde bonito */
 .mapa-estilizado {
-    border: 1px solid #ff1493; /* Borde sólido de 3px con color rosa */
+    border: 1px solid #ff1493; /* Borde sólido de 3px con color rosa */  
     transition: all 0.3s ease; /* Transición suave para efectos hover */
 }
 
 /* Efecto hover para el mapa */
 .mapa-estilizado:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Aumenta la sombra al pasar el mouse */
+       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Aumenta la sombra al pasar el mouse */
 }
 
 .card {
@@ -248,3 +255,4 @@ a#linkModal{
 @media (max-width: 767px) {
     .hero h1 { font-size: 2rem; }
 }
+

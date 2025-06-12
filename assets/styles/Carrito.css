@@ -1,0 +1,54 @@
+/* ================ CARRITO DE COMPRAS ================ */
+@import url('global.css');
+
+/* Ajustes específicos del carrito */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.card-title {
+    color: var(--color-rosa-oscuro);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.text-rosa {
+    color: var(--color-rosa-oscuro);
+    font-weight: bold;
+}
+
+/* Botones específicos */
+.btn-outline-rosa {
+    background-color: var(--color-gris-claro);
+    color: var(--color-negro);
+    border: none;
+    width: 30%;
+    margin-top: 10px;
+}
+
+.btn-outline-rosa:hover {
+    background-color: var(--color-rosa-oscuro);
+    color: white;
+}
+
+.btn-primary {
+    background-color: var(--color-gris-claro);
+    color: var(--color-negro);
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #ff1493;
+    color: white;
+}
+
+
+/* Responsive */
+@media (max-width: 767px) {
+    .btn-outline-rosa { width: 30%; }
+}

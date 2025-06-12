@@ -1,0 +1,150 @@
+/* ================ ESTILOS DE FACTURA ================ */
+@import url('global.css');
+
+/* Contenedor principal */
+.invoice-container {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    padding: 30px;
+    max-width: 800px;
+    margin: 30px auto;
+    border: 2px solid var(--color-rosa-oscuro);
+}
+
+/* Encabezado de la factura */
+.invoice-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px dashed var(--color-rosa-oscuro);
+}
+
+.invoice-title {
+    color: var(--color-rosa-oscuro);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* Detalles de cliente y factura */
+.invoice-details {
+    margin-bottom: 30px;
+}
+
+/* Tabla de productos */
+.invoice-table {
+    width: 100%;
+    margin-bottom: 30px;
+    border-collapse: collapse;
+}
+
+.invoice-table th {
+    background-color: var(--color-rosa-claro);
+    color: var(--color-negro);
+    padding: 12px;
+    text-align: left;
+}
+
+.invoice-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Totales y puntos */
+.invoice-totals {
+    margin-left: auto;
+    width: 300px;
+    border-top: 2px dashed var(--color-rosa-oscuro);
+    padding-top: 20px;
+}
+
+/* Pie de factura */
+.invoice-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px dashed var(--color-rosa-oscuro);
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Badge de estado */
+.badge-paid {
+    background-color: #28a745;
+    color: white;
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .invoice-details .col-md-6 {
+        margin-bottom: 20px;
+    }
+    
+    .invoice-totals {
+        width: 100%;
+    }
+    
+    .invoice-title {
+        font-size: 2rem;
+    }
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .invoice-container, .invoice-container * {
+        visibility: visible;
+    }
+    .invoice-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border: none;
+        box-shadow: none;
+    }
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* ================ BOTÓN VOLVER ================ */
+/* Botones de Factura - Usando los estilos globales de custom-btn */
+.no-print {
+    margin-top: 30px;
+    padding: 20px 0;
+    border-top: 2px dashed var(--color-rosa-oscuro);
+}
+
+/* Quitar subrayado de los botones que son enlaces */
+.custom-btn {
+    text-decoration: none !important;
+}
+
+/* Opcional: Para asegurarnos en todos los estados */
+.custom-btn:hover, 
+.custom-btn:focus, 
+.custom-btn:active {
+    text-decoration: none !important;
+}
+
+@media (max-width: 767px) {
+    .custom-btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}
+
