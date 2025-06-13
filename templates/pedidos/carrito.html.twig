@@ -5,12 +5,15 @@
 {% block body %}
     {% include '_header.html.twig' %}
 
-    <!-- Contenido principal -->
-    <section class="hero text-center py-5">
-        <h1 class="mt-3">Carrito de Compras</h1>
-    </section>
 
-    <main class="container my-5" id="mainCarrito">
+    <main class="main-content">
+        <!-- Hero section -->
+        <section class="hero text-center py-5">
+            <h1 class="mt-3">Carrito de Compras</h1>
+        </section>
+
+        <!-- Contenido principal del carrito -->
+        <div class="container my-5" id="mainCarrito">
         <div class="row">
             <!-- Productos del carrito -->
             <div class="col-md-8">
@@ -154,6 +157,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </main>
     {% include '_footer.html.twig' %}

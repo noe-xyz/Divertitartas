@@ -191,7 +191,7 @@ footer form textarea {
 
 /* Estilos para el mapa con borde bonito */
 .mapa-estilizado {
-    border: 1px solid #ff1493; /* Borde sólido de 3px con color rosa */  
+    border: 1px solid #ff1493; /* Borde sólido de 3px con color rosa */
     transition: all 0.3s ease; /* Transición suave para efectos hover */
 }
 
@@ -218,41 +218,44 @@ footer form textarea {
 }
 
 /* Responsive */
-@media (max-width: 991px) {
+@media  (max-width: 1200px) {
     .header-fino {
-        height: 100px;
-        position: relative; /* Añadido para mejor control */
+        height: 130px;
+        font-size: 25px;
     }
 
     .logo {
-        width: 120px;
-        position: absolute; /* Posicionamiento absoluto para centrado perfecto */
-        left: 50%;
+        width: 200px;
+        top: 25px;
+    }
+
+    .nav-link {
+        margin-left: 18px;
+    }
+}
+
+@media (max-width: 991px) {
+    .logo {
+        position: relative; /* Posicionamiento absoluto para centrado perfecto */
+        left: 70%;
         transform: translateX(-50%);
-        top: 25px; /* Ajusta según necesites */
+        top: 25px;
     }
 
-    /* Asegura que el botón de menú y los iconos no se superpongan */
-    .header-fino .container > .btn:first-child {
-        position: relative;
-        z-index: 100;
+    .nav-container {
+        margin-top: 0;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
-    .header-fino .container > div:last-child {
-        position: relative;
-        z-index: 100;
-    }
-    body {
-        padding-bottom: 0; /* Elimina cualquier padding que pueda afectar */
+    .nav-link {
+        margin: 0 10px 10px;
+        font-size: 20px;
     }
 
-    footer {
-        position: relative; /* Asegura que no sea fixed o absolute */
-        bottom: 0;
+    .user-section {
+        margin: 10px 0 0;
+        justify-content: center;
+        width: 100%;
     }
 }
-
-@media (max-width: 767px) {
-    .hero h1 { font-size: 2rem; }
-}
-
