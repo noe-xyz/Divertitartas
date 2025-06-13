@@ -19,12 +19,15 @@ class PedidosController extends AbstractController
     public function pedidos(EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         $cliente = $session->get('id');
-        $pedidosRealizadosPorClienteEnCurso = $entityManager->getRepository(Pedido::class)->findPedidoByEstadoAndCliente('en-proceso', $cliente);
+        $pedidosRealizadosPorClienteEnCurso = $entityManager->getRepository(Pedido::class)->findPedidoByEstadoAndCliente('en-proceso', $cliente, 'pendiente');
         $detallesPedido = [];
         foreach ($pedidosRealizadosPorClienteEnCurso as $pedido) {
             $detallesIdProd = [];
             foreach ($pedido->getDetalles() as $detalle) {
-                $detallesIdProd[] = $detalle->getIdProducto();
+                $producto = $detalle->getProducto();
+                if ($producto) {
+                    $detallesIdProd[] = $producto;
+                }
             }
 
             $detallesPedido[] = [
@@ -33,50 +36,145 @@ class PedidosController extends AbstractController
             ];
         }
 
+        $pedidosRealizadosPorClienteFinalizados = $entityManager->getRepository(Pedido::class)->findPedidoByEstadoAndCliente('listo', $cliente);
+        $detallesPedidoFin = [];
+        foreach ($pedidosRealizadosPorClienteFinalizados as $pedido) {
+            $detallesIdProd = [];
+            foreach ($pedido->getDetalles() as $detalle) {
+                $producto = $detalle->getProducto();
+                if ($producto) {
+                    $detallesIdProd[] = $producto;
+                }
+            }
+
+            $detallesPedidoFin[] = [
+                'pedido' => $pedido,
+                'detalles' => $detallesIdProd
+            ];
+        }
+
         return $this->render('pedidos/pedidos.html.twig', [
             'pedidosEnCurso' => $pedidosRealizadosPorClienteEnCurso,
-            'detallesPedido' => $detallesPedido
+            'pedidosFinalizados' => $pedidosRealizadosPorClienteFinalizados,
+            'detallesPedido' => $detallesPedido,
+            'detallesPedidoFin' => $detallesPedidoFin
         ]);
     }
 
     //TODO Algo con getIdPedido... para mostrarlo en la url y que redirija al pedido exacto
-    #[Route('/factura', name: 'factura')]
-    public function factura(): Response
+    #[Route('/factura/{id}', name: 'factura')]
+    public function factura(int $id, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
-        return $this->render('pedidos/factura.html.twig');
+        $pedido = $entityManager->getRepository(Pedido::class)->find($id);
+
+        if (!$pedido) {
+            throw $this->createNotFoundException('El pedido no existe');
+        }
+
+
+        $clienteId = $session->get('id');
+        $cliente = $entityManager->getRepository(Cliente::class)->find($pedido->getIdCliente());
+        if (!$cliente || $cliente->getId() !== $clienteId) {
+            throw $this->createAccessDeniedException('No tienes permiso para ver esta factura.');
+        }
+
+        $detalles = $pedido->getDetalles();
+        $productos = [];
+
+        foreach ($detalles as $detalle) {
+            $producto = $detalle->getProducto();
+            if ($producto) {
+                $productos[] = $producto;
+            }
+        }
+
+        return $this->render('pedidos/factura.html.twig', [
+            'pedido' => $pedido,
+            'productos' => $productos,
+            'cliente' => $cliente
+        ]);
     }
 
     #[Route('/carrito', name: 'carrito')]
-    public function carrito(EntityManagerInterface $entityManager, SessionInterface $session): Response
+    public function carrito(EntityManagerInterface $entityManager, SessionInterface $session, Request $request): Response
     {
         $clienteRegistrado = $session->get('nombreCompleto');
-        $cliente = $entityManager->getRepository(Cliente::class)->findOneBy(['nombreCompleto' => $clienteRegistrado]);
-        if (is_array($cliente->getDomicilio())) {
-            $direccion = $cliente->getDomicilio();
-            $orden = ['domicilio', 'piso', 'portal', 'puerta', 'cp', 'localidad', 'provincia'];
-            $direccionOrdenada = [];
+        $cliente = null;
+        $domicilioStr = null;
 
-            foreach ($orden as $campo) {
-                if (!empty($direccion[$campo])) {
-                    $direccionOrdenada[] = $direccion[$campo];
+        if ($clienteRegistrado) {
+            $cliente = $entityManager->getRepository(Cliente::class)->findOneBy(['nombreCompleto' => $clienteRegistrado]);
+
+            if ($cliente && is_array($cliente->getDomicilio())) {
+                $direccion = $cliente->getDomicilio();
+                $orden = ['domicilio', 'piso', 'portal', 'puerta', 'cp', 'localidad', 'provincia'];
+                $direccionOrdenada = [];
+
+                foreach ($orden as $campo) {
+                    if (!empty($direccion[$campo])) {
+                        $direccionOrdenada[] = $direccion[$campo];
+                    }
                 }
-            }
+                $domicilioStr = implode(', ', $direccionOrdenada);
 
-            $domicilioStr = implode(', ', $direccionOrdenada);
-        } else {
-            $domicilioStr = $cliente->getDomicilio();
+            } elseif ($cliente) {
+                $domicilioStr = $cliente->getDomicilio();
+            }
         }
-        $fechaDeEnvio = $this->calcularFechaEnvio();
+
+        $canjearPuntos = $request->query->getBoolean('canjearPuntos', false);
+        $session->set('canjearPuntos', $canjearPuntos);
+
         $subtotal = $this->calcularPrecioTotal($session);
-        $total = $this->calcularPrecioConEnvio($session);
+        $puntosDescontados = $this->canjearPuntos($cliente, $session, $subtotal);
+
+        $session->set('descuento', $puntosDescontados['descuento']);
+
+        $fechaDeEnvio = $this->calcularFechaEnvio();
 
         return $this->render('pedidos/carrito.html.twig', [
             'cliente' => $cliente,
             'fechaDeEnvio' => $fechaDeEnvio,
             'domicilioStr' => $domicilioStr,
             'subtotal' => $subtotal,
-            'total' => $total,
+            'total' => $puntosDescontados['total'],
+            'puntosCanjeados' => $canjearPuntos,
+            'descuento' => $puntosDescontados['descuento'],
         ]);
+    }
+
+    public function canjearPuntos(?Cliente $cliente, SessionInterface $session, float $subtotal): array
+    {
+        $canjearPuntos = $session->get('canjearPuntos', false);
+        $descuento = 0;
+
+        if ($canjearPuntos && $cliente) {
+            $puntos = $cliente->getPuntos();
+
+            if ($puntos >= 10) {
+                $bloques = intdiv($puntos, 10); // bloques de 10 pts para canjear
+                $descuento = $bloques * 2;
+
+                if ($descuento > $subtotal) {
+                    $descuento = floor($subtotal);
+                }
+
+                $session->set('puntosCanjeadosCantidad', $bloques * 10);
+            } else {
+                $session->set('puntosCanjeadosCantidad', 0);
+            }
+        } else {
+            $session->set('puntosCanjeadosCantidad', 0);
+        }
+
+        $subtotalConDescuento = max(0, $subtotal - $descuento);
+        $total = $subtotalConDescuento + 5;
+
+        return [
+            'descuento' => $descuento,
+            'subtotalConDescuento' => $subtotalConDescuento,
+            'total' => $total
+        ];
     }
 
     #[Route('/carrito/add', name: 'add-carrito', methods: ['POST'])]
@@ -100,6 +198,7 @@ class PedidosController extends AbstractController
                 'precio' => $productoSeleccionado->getPrecio(),
                 'sabor' => $sabor,     //$productoSeleccionado->getSabor(),
                 'relleno' => $relleno,
+                'imagen' => $productoSeleccionado->getImagen(),
             ];
 
             $session->set('carrito', $carritoSesion);
@@ -110,7 +209,7 @@ class PedidosController extends AbstractController
     }
 
     #[Route('/carrito/eliminar/{id}', name: 'eliminar-carrito', methods: ['POST'])]
-    public function eliminarDelCarrito(int $id, Request $request): Response
+    public function eliminarDelCarrito(int $id, Request $request, SessionInterface $session): Response
     {
         $carrito = $request->getSession()->get('carrito', []);
 
@@ -118,7 +217,11 @@ class PedidosController extends AbstractController
             return $producto['id'] != $id;
         });
 
-        $request->getSession()->set('carrito', $nuevoCarrito);
+        if (empty($nuevoCarrito)) {
+            $session->remove('carrito');
+        } else {
+            $session->set('carrito', $nuevoCarrito);
+        }
 
         return $this->redirectToRoute('carrito');
     }
@@ -137,9 +240,13 @@ class PedidosController extends AbstractController
 
     public function calcularPrecioConEnvio(SessionInterface $session): float
     {
-        $precioTotal = $this->calcularPrecioTotal($session) + 5;
+        $subtotal = $this->calcularPrecioTotal($session);
+        $descuento = $session->get('puntosCanjeadosCantidad', 0) / 10 * 2;
 
-        return $precioTotal;
+        $subtotalConDescuento = max(0, $subtotal - $descuento);
+        $envio = 5;
+
+        return $subtotalConDescuento + $envio;
     }
 
     public function calcularFechaEnvio(): \DateTime
@@ -167,36 +274,57 @@ class PedidosController extends AbstractController
     {
         $carritoSesion = $session->get('carrito', []);
         $clienteSesion = $session->get('id');
-        //$cliente = $entityManager->getRepository(Cliente::class)->findOneBy(['id' => $clienteSesion]);
-        $total = $this->calcularPrecioConEnvio($session);
+        $cliente = $entityManager->getRepository(Cliente::class)->findOneBy(['id' => $clienteSesion]);
+
+        $subtotal = $this->calcularPrecioTotal($session);
+        $descuento = $session->get('descuento', 0);
+        $total = max(0, $subtotal - $descuento) + 5;
 
         $pedido = new Pedido();
         $pedido->setFecha(new \DateTime())
-            ->setEstado('en-proceso')
+            ->setEstado('pendiente')
             ->setCosteTotal($total)
             ->setIdCliente($clienteSesion);
 
+        $puntosCanjeados = $session->get('puntosCanjeadosCantidad', 0);
+        $puntosPrevios = $cliente->getPuntos();
+        $puntosActualizados = max(0, $puntosPrevios - $puntosCanjeados);
+
+        $puntosGanados = count($carritoSesion) * 5; // Podrías usar cantidad real
+        $cliente->setPuntos($puntosActualizados + $puntosGanados);
+
         foreach ($carritoSesion as $carrito) {
+            $producto = $entityManager->getRepository(Producto::class)->find($carrito['id']);
+            if (!$producto) {
+                continue;
+            }
+
             $detallesPedido = new DetallesPedido();
             $detallesPedido->setPedido($pedido)
-                ->setIdProducto($carrito['id'])
+                ->setProducto($producto)
                 ->setPrecioUnitario($carrito['precio'])
-                ->setCantidad(1); //cambiar por el input numérico de carrito
+                ->setCantidad(1); // Cambiar para manejar cantidad real input
 
             $pedido->addDetalle($detallesPedido);
-
             $entityManager->persist($detallesPedido);
         }
 
+        $entityManager->persist($cliente);
         $entityManager->persist($pedido);
         $entityManager->flush();
 
+        $session->set('puntos', $cliente->getPuntos());
         $session->remove('carrito');
-
+        $session->remove('puntosCanjeadosCantidad');
+        $session->remove('canjearPuntos');
+        $session->remove('descuento');
 
         return $this->render('pedidos/confirmacion.html.twig', [
             'carrito' => $carritoSesion,
             'total' => $total,
+            'descuento' => $descuento,
+            'subtotal' => $subtotal,
+            'puntosGanados' => $puntosGanados,
         ]);
     }
 }

@@ -17,11 +17,11 @@
                     <tbody>
                     {% for proveedor in proveedores %}
                         <tr>
-                            <td>{{ proveedor.nombre }}</td>
-                            <td>{{ proveedor.correo }}</td>
+                            <td>{{ proveedor.nombre|capitalize }}</td>
+                            <td>{{ proveedor.correo|capitalize }}</td>
                             <td>{{ proveedor.telefono }}</td>
-                            <td>{{ proveedor.direccion }}</td>
-                            <td>{{ proveedor.notas }}</td>
+                            <td>{{ proveedor.direccion|capitalize }}</td>
+                            <td>{{ proveedor.notas|capitalize }}</td>
                         </tr>
                     {% endfor %}
                     <!-- Repite las filas según sea necesario -->

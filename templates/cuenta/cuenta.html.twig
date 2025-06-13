@@ -74,43 +74,43 @@
                     <label class="form-label">Domicilio</label>
                     <input type="text" class="form-control" id="addressInput"
                            value="{{ usuarioRegistrado.domicilio.domicilio|default('') }}" name="domicilio"
-                           placeholder="c/Estrella " readonly>
+                           placeholder="Ej. c/Estrella 3" readonly>
 
                     <div class="address-grid">
                         <div>
                             <label class="form-label">Portal</label>
                             <input type="text" class="form-control portal"
                                    value="{{ usuarioRegistrado.domicilio.portal|default('') }}" name="portal"
-                                   placeholder="10" readonly>
+                                   placeholder="Ej. 10" readonly>
                         </div>
                         <div>
                             <label class="form-label">Piso</label>
                             <input type="text" class="form-control floor"
                                    value="{{ usuarioRegistrado.domicilio.piso|default('') }}" name="piso"
-                                   placeholder="1" readonly>
+                                   placeholder="Ej. 1" readonly>
                         </div>
                         <div>
                             <label class="form-label">Puerta</label>
                             <input type="text" class="form-control door"
                                    value="{{ usuarioRegistrado.domicilio.puerta|default('') }}" name="puerta"
-                                   placeholder="A" readonly>
+                                   placeholder="Ej. A" readonly>
                         </div>
                         <div>
                             <label class="form-label">CP</label>
                             <input type="text" class="form-control zipcode"
                                    value="{{ usuarioRegistrado.domicilio.cp|default('') }}" name="cp"
-                                   placeholder="28801" readonly>
+                                   placeholder="Ej. 28801" readonly>
                         </div>
                     </div>
 
                     <label class="form-label">Localidad</label>
                     <input type="text" class="form-control" id="cityInput"
-                           value="{{ usuarioRegistrado.domicilio.localidad|default('') }}" placeholder="Madrid"
+                           value="{{ usuarioRegistrado.domicilio.localidad|default('') }}" placeholder="Ej. Madrid"
                            name="localidad" readonly>
 
                     <label class="form-label">Provincia</label>
                     <input type="text" class="form-control" id="provinceInput"
-                           value="{{ usuarioRegistrado.domicilio.provincia|default('') }}" placeholder="Madrid"
+                           value="{{ usuarioRegistrado.domicilio.provincia|default('') }}" placeholder="Ej. Madrid"
                            name="provincia" readonly>
 
                     <label class="form-label">Teléfono</label>
@@ -119,7 +119,7 @@
 
                     <label class="form-label">Teléfono 2</label>
                     <input type="tel" class="form-control" id="phone2Input"
-                           value="{{ usuarioRegistrado.telefono2|default('') }}" name="telefono2" placeholder="+34 987654321" readonly>
+                           value="{{ usuarioRegistrado.telefono2|default('') }}" name="telefono2" placeholder="Ej. 987654321" readonly>
                 </section>
 
                 <!-- Tarjeta de crédito -->
@@ -129,20 +129,20 @@
                     <div class="saved-card">
                         <div class="card-info">
                             <label class="form-label">Titular de tarjeta</label>
-                            <input type="text" class="form-control" id="cardHolderInput" placeholder="Lionel Messi"
+                            <input type="text" class="form-control" id="cardHolderInput" placeholder="Ej. Lionel Messi"
                                    readonly>
                         </div>
 
                         <div class="card-info">
                             <label class="form-label">Número de tarjeta</label>
                             <input type="text" class="form-control" id="cardNumberInput"
-                                   placeholder="•••• •••• •••• 0054"
+                                   placeholder="Ej. •••• •••• •••• 0054"
                                    readonly>
                         </div>
 
                         <div class="card-info">
                             <label class="form-label">Fecha de vencimiento</label>
-                            <input type="text" class="form-control" id="cardExpiryInput" placeholder="05/26" readonly>
+                            <input type="text" class="form-control" id="cardExpiryInput" placeholder="Ej. 05/26" readonly>
                         </div>
                     </div>
 

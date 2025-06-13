@@ -31,7 +31,7 @@
                     <div class="col-md-4 col-sm-6 mb-4">
                         <div class="card h-100 shadow-sm product-card">
                             <div class="card-img-container">
-                                <img src="images/tarta1.png" class="card-img-top" alt="Tarta ">
+                                <img src="{{ asset('uploads/productos/' ~ producto.imagen) }}" class="card-img-top" alt="Tarta ">
                             </div>
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ producto.nombre|capitalize }}</h5>

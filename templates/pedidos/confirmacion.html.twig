@@ -23,11 +23,20 @@
                     <h3>Resumen de tu pedido</h3>
                     <ul>
                         {% for productoCarrito in carrito %}
-                            <li>{{ productoCarrito.nombre|capitalize }} <span>{{ productoCarrito.precio|format_number({fraction_digit: 2}) }}€</span></li>
+                            <li>{{ productoCarrito.nombre|capitalize }}
+                                <span>{{ productoCarrito.precio|format_number({fraction_digit: 2}) }}€</span></li>
                         {% endfor %}
                         <li>Envío a domicilio <span>5.00€</span></li>
+                        {% if descuento > 0 %}
+                            <li>Descuento aplicado <span>-{{ descuento|format_number({fraction_digit: 2}) }}€</span>
+                            </li>
+                        {% endif %}
                         <li class="total">Total <span>{{ total|format_number({fraction_digit: 2}) }}€</span></li>
+                        <br/>
                     </ul>
+                </div>
+                <div class="mt-4">
+                    <h4>¡Has ganado {{ puntosGanados }} puntos con esta compra!</h4>
                 </div>
 
                 <div class="confirmation-actions">

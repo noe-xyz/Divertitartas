@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pedido #1 | {{ parent() }}{% endblock %}
-{# TODO dejar de harcodear el número de pedido #}
+{% block title %}Pedido #{{ pedido.id }} | {{ parent() }}{% endblock %}
 
 {% block body %}
     {% include '_header.html.twig' %}
@@ -23,18 +22,18 @@
             <div class="row invoice-details">
                 <div class="col-md-6">
                     <h5 class="text-rosa">Datos del Cliente</h5>
-                    <p><strong>Nombre:</strong> Lionel Messi</p>
-                    <p><strong>Dirección:</strong> Calle Número, Piso Puerta</p>
-                    <p><strong>Código Postal:</strong> 28000</p>
-                    <p><strong>Teléfono:</strong> +34 600 123 456</p>
-                    <p><strong>Email:</strong> lionel_10@gmail.ar</p>
+                    <p><strong>Nombre:</strong> {{ cliente.nombreCompleto }}</p>
+                    <p><strong>Dirección:</strong> {{ cliente.domicilio|default('') }}</p>
+                    <p><strong>Código Postal:</strong> {{ cliente.domicilio.cp|default('') }}</p>
+                    <p><strong>Teléfono:</strong> {{ cliente.telefono1 }}</p>
+                    <p><strong>Email:</strong> {{ cliente.email }}</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <h5 class="text-rosa">Datos de la Factura</h5>
-                    <p><strong>Número de Factura:</strong> DIV-2025-00123</p>
-                    <p><strong>Fecha:</strong> 21/05/2025</p>
-                    <p><strong>Método de Pago:</strong> Tarjeta Visa ****1234</p>
-                    <p><strong>Referencia de Pago:</strong> PAY-789456123</p>
+                    <p><strong>Número de Factura:</strong> DIV-2025-{{ pedido.id|format('%05d') }}</p>
+                    <p><strong>Fecha:</strong> {{ pedido.fecha|date('d/m/Y') }}</p>
+                    <p><strong>Método de Pago:</strong> {{ pedido.metodoPago ?? 'No especificado' }}</p>
+                    <p><strong>Referencia de Pago:</strong> {{ pedido.referenciaPago ?? 'N/C' }}</p>
                 </div>
             </div>
 
@@ -48,36 +47,31 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Tarta de Ositos</td>
-                    <td>€25.00</td>
-                    <td>1</td>
-                    <td>€25.00</td>
-                </tr>
-                <tr>
-                    <td>Tarta de Unicornio</td>
-                    <td>€30.00</td>
-                    <td>1</td>
-                    <td>€30.00</td>
-                </tr>
+                {% for detalle in pedido.detalles %}
+                    <tr>
+                        <td>{{ detalle.producto.nombre|capitalize }}</td>
+                        <td>{{ detalle.precioUnitario|number_format(2, ',', '.') }}€</td>
+                        <td>{{ detalle.cantidad }}</td>
+                        <td>{{ (detalle.precioUnitario * detalle.cantidad)|number_format(2, ',', '.') }}€</td>
+                    </tr>
+                {% endfor %}
                 <tr>
                     <td colspan="3" class="text-end"><strong>Subtotal:</strong></td>
-                    <td>€55.00</td>
+                    <td>{{ (pedido.costeTotal - 5) |number_format(2, ',', '.') }} €</td>
                 </tr>
                 <tr>
                     <td colspan="3" class="text-end"><strong>Envío:</strong></td>
-                    <td>€5.00</td>
+                    <td>5,00€</td>
                 </tr>
                 <tr>
                     <td colspan="3" class="text-end"><strong>Total:</strong></td>
-                    <td class="text-rosa">€60.00</td>
+                    <td class="text-rosa">{{ pedido.costeTotal|number_format(2, ',', '.') }}€</td>
                 </tr>
                 </tbody>
             </table>
 
             <div class="invoice-totals">
-                <p><strong>Puntos obtenidos con esta compra:</strong> 10 pts</p>
-                <p><strong>Puntos acumulados:</strong> 30 pts</p>
+                <p><strong>Puntos obtenidos con esta compra:</strong> {{ (pedido.detalles|length) * 10 }} pts</p>
             </div>
 
             <div class="invoice-footer">

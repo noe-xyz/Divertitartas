@@ -84,7 +84,8 @@ class RegistroController extends AbstractController
                             ->setEmail($email)
                             ->setTelefono1($telefono1)
                             ->setPassword($password)
-                            ->setPuntos(0);
+                            ->setPuntos(0)
+                            ->setEliminado(0);
 
                         #Se prepara el objeto para insertarlo en la base de datos
                         $entityManager->persist($usuarioLogueado);
@@ -136,6 +137,7 @@ class RegistroController extends AbstractController
         $session->set('id', $usuario->getId());
         $session->set('email', $usuario->getEmail());
         $session->set('nombreCompleto', $usuario->getNombreCompleto());
+        $session->set('nombre', $usuario->getNombre());
         $session->set('puntos', $usuario->getPuntos());
     }
 }

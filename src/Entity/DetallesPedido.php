@@ -13,8 +13,9 @@ class DetallesPedido
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_producto = null;
+    #[ORM\ManyToOne(targetEntity: Producto::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Producto $producto = null;
 
     #[ORM\Column]
     private ?float $precio_unitario = null;
@@ -31,15 +32,14 @@ class DetallesPedido
         return $this->id;
     }
 
-    public function getIdProducto(): ?int
+    public function getProducto(): ?Producto
     {
-        return $this->id_producto;
+        return $this->producto;
     }
 
-    public function setIdProducto(int $id_producto): static
+    public function setProducto(?Producto $producto): static
     {
-        $this->id_producto = $id_producto;
-
+        $this->producto = $producto;
         return $this;
     }
 

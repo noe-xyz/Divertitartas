@@ -77,6 +77,7 @@ class LoginController extends AbstractController
         $session->set('email', $usuario->getEmail());
         $session->set('nombreCompleto', $usuario->getNombreCompleto());
         if (get_class($usuario) === Cliente::class) {
+            $session->set('nombre', $usuario->getNombre());
             $session->set('puntos', $usuario->getPuntos());
         }
     }

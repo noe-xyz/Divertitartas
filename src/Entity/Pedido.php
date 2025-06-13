@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PedidoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +29,11 @@ class Pedido
 
     #[ORM\OneToMany(mappedBy: 'pedido', targetEntity: DetallesPedido::class, cascade: ['persist', 'remove'])]
     private Collection $detalles;
+
+    public function __construct()
+    {
+        $this->detalles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {

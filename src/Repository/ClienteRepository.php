@@ -18,6 +18,23 @@ class ClienteRepository extends ServiceEntityRepository
         parent::__construct($registry, Cliente::class);
     }
 
+    public function findClienteByNombreYCorreo(?string $nombreCompleto, ?string $email): array
+    {
+        $qb = $this->createQueryBuilder('t');
+
+        if ($nombreCompleto) {
+            $qb->andWhere('LOWER(t.nombreCompleto) LIKE :nombreCompleto')
+                ->setParameter('nombreCompleto', '%' . strtolower($nombreCompleto) . '%');
+        }
+
+        if ($email) {
+            $qb->andWhere('LOWER(t.email) LIKE :email')
+                ->setParameter('email', '%' . strtolower($email) . '%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Cliente[] Returns an array of Cliente objects
     //     */

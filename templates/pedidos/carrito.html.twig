@@ -24,7 +24,7 @@
                                     <p class="card-text">
                                         Precio: {{ productoCarrito.precio|format_number({fraction_digit: 2}) }}€</p>
                                 </div>
-                                <img src="{{ asset('../assets/images/tarta1.png') }}" alt="Tarta de Ositos"
+                                <img src="{{ asset('uploads/productos/' ~ productoCarrito.imagen) }}" alt="Tarta de Ositos"
                                      class="img-thumbnail"
                                      style="width: 100px; height: 100px;">
                             </div>
@@ -38,43 +38,33 @@
                         </div>
                     </div>
                 {% else %}
-                    <p>El carrito está vacío.</p>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-8 py-3">
+                                    <h4 class="card-title mt-2">¡El carrito está vacío!</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
-
-                {#                <!-- Producto 2 --> #}
-                {#                <div class="card mb-4 shadow-sm"> #}
-                {#                    <div class="card-body"> #}
-                {#                        <div class="d-flex justify-content-between"> #}
-                {#                            <div> #}
-                {#                                <h4 class="card-title">Tarta de Unicornio</h4> #}
-                {#                                <p class="card-text">Precio: €30.00</p> #}
-                {#                            </div> #}
-                {#                            <img src="{{ asset('../assets/images/tarta2.png') }}" alt="Tarta de Unicornio" class="img-thumbnail" #}
-                {#                                 style="width: 100px; height: 100px;"> #}
-                {#                        </div> #}
-                {#                        <div class="d-flex align-items-center mt-3"> #}
-                {#                            <input type="number" class="form-control me-3" value="1" min="1" style="width: 80px;"> #}
-                {#                            <button class="btn btn-outline-danger me-2">Eliminar</button> #}
-                {#                            <button class="btn btn-outline-secondary">Guardar</button> #}
-                {#                        </div> #}
-                {#                    </div> #}
-                {#                </div> #}
 
                 <!-- Datos del envío -->
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title mb-3">Datos del envío</h5>
                         <div class="mb-3">
-                            <p><strong>Cliente:</strong> {{ cliente.nombreCompleto }}</p>
+                            <p><strong>Cliente:</strong> {{ cliente.nombreCompleto|default('Por favor, identifícate') }}
+                            </p>
                             <p><strong>Dirección de
-                                    envío:</strong> {% if domicilioStr is not empty and not domicilioStr %}{{ domicilioStr }}{% else %}Por
-                                favor, añade una dirección de envío{% endif %}</p>
-                            <p><strong>Teléfono:</strong> {{ cliente.telefono1 }}</p>
+                                    envío:</strong> {% if domicilioStr is defined and domicilioStr is not empty %}{{ domicilioStr }}{% else %}Por
+                                    favor, añade una dirección de envío{% endif %}</p>
+                            <p><strong>Teléfono:</strong> {{ cliente.telefono1|default('Por favor, identifícate') }}</p>
                             <p><strong>Fecha de envío estimada:</strong> {{ fechaDeEnvio|date('d/m/Y') }}</p>
                         </div>
                         <div class="text-end">
                             <button class="btn btn-outline-rosa"
-                                    onclick="location.href='{{ path('cuenta') ~ '?id=' ~ app.session.get('id') }}'">
+                                    onclick="location.href='{{ path('cuenta') ~ '?id=' ~ app.session.get('id') }}'" {% if not app.session.get('id') %} disabled {% endif %}>
                                 Modificar
                             </button>
                         </div>
@@ -93,6 +83,12 @@
                                 <span>Subtotal:</span>
                                 <span>{% if app.session.get('carrito') is empty %}<small>Añade un producto para calcular el subtotal</small>{% else %}{{ subtotal|format_number({fraction_digit: 2}) }}€{% endif %}</span>
                             </div>
+                            {% if puntosCanjeados %}
+                                <div class="d-flex justify-content-between mb-2 text-success">
+                                    <span>Descuento pts: </span>
+                                    <span>-{{ descuento|format_number({fraction_digit: 2}) }} €</span>
+                                </div>
+                            {% endif %}
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Envío:</span>
                                 <span>{% if app.session.get('carrito') is empty %}<small>Añade un producto para calcular los gastos de envío</small>{% else %}5.00€{% endif %}</span>
@@ -114,16 +110,46 @@
                 <!-- Puntos acumulados -->
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Puntos acumulados: <span class="text-rosa">{{ cliente.puntos }}pts</span>
+                        <h5 class="card-title">Puntos acumulados:
+                            <span class="text-rosa" id="puntos-actuales"
+                                  data-puntos="{{ cliente.puntos|default('0') }}">{{ cliente.puntos|default('0') }}pts</span>
                         </h5>
                         <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="canjearPuntos">
+                            <input class="form-check-input" type="checkbox" id="canjearPuntos"
+                                   onchange="location.href='{{ path('carrito') }}?canjearPuntos=' + (this.checked ? '1' : '0')"
+                                    {% if puntosCanjeados|default(false) %} checked {% endif %}
+                                    {% if app.session.get('carrito') is empty or cliente.puntos < 10 %} disabled {% endif %}>
                             <label class="form-check-label" for="canjearPuntos">Canjear puntos</label>
                         </div>
+                        {% if puntosCanjeados %}
+                            {% set puntosRedimidos = (cliente.puntos // 10) * 10 %}
+                            {% set puntosRestantes = cliente.puntos - puntosRedimidos %}
+                            <div class="alert alert-success mt-3 mb-0 p-2">
+                                Has canjeado <strong>{{ puntosRedimidos }}</strong> puntos
+                                ({{ descuento|format_number({fraction_digit: 2}) }}€ de descuento).
+                                <br>
+                                Te quedarán <strong>{{ puntosRestantes }}</strong> puntos después de esta compra.
+                            </div>
+                        {% else %}
+                            {% if cliente is not null and cliente.puntos >= 10 %}
+                                <div class="alert alert-secondary mt-3 mb-0 p-2">
+                                    Puedes canjear hasta <strong>{{ (cliente.puntos // 10) * 10 }}</strong> puntos
+                                    ({{ ((cliente.puntos // 10) * 2)|format_number({fraction_digit: 2}) }}€ de
+                                    descuento).
+                                </div>
+                            {% else %}
+                                <div class="alert alert-warning mt-3 mb-0 p-2">
+                                    Necesitas al menos <strong>10 puntos</strong> para poder canjear.
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <br>
                         <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="usarCupon">
+                            <input class="form-check-input" type="checkbox"
+                                   id="usarCupon" {% if app.session.get('carrito') is empty %} disabled {% endif %}>
                             <label class="form-check-label" for="usarCupon">Utilizar código de descuento</label>
-                            <input type="text" class="form-control mt-2" placeholder="Ejemplo: AAAA-BBBB-CCCC">
+                            <input type="text" class="form-control mt-2"
+                                   placeholder="Ejemplo: AAAA-BBBB-CCCC" {% if app.session.get('carrito') is empty %} readonly {% endif %}>
                         </div>
                     </div>
                 </div>
@@ -131,4 +157,43 @@
         </div>
     </main>
     {% include '_footer.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkbox = document.getElementById('canjearPuntos');
+
+            checkbox.addEventListener('change', function () {
+                const url = new URL(window.location.href);
+                if (this.checked) {
+                    url.searchParams.set('canjearPuntos', 'true');
+                } else {
+                    url.searchParams.set('canjearPuntos', 'false');
+                }
+                window.location.href = url.toString();
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkbox = document.getElementById('canjearPuntos');
+            const puntosSpan = document.getElementById('puntos-actuales');
+
+            if (!checkbox || !puntosSpan) return;
+
+            const puntosOriginales = parseInt(puntosSpan.dataset.puntos);
+
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    puntosSpan.textContent = '0pts';
+                } else {
+                    puntosSpan.textContent = puntosOriginales + 'pts';
+                }
+            });
+
+            if (checkbox.checked) {
+                puntosSpan.textContent = '0pts';
+            }
+        });
+    </script>
 {% endblock %}

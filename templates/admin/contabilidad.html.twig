@@ -1,21 +1,24 @@
 <div class="board-title text-center">REGISTRO DE VENTAS</div>
 <div class="p-3">
     <!-- Selección de periodo -->
-    <form class="row g-2 align-items-center justify-content-center mb-4">
+    <form class="row g-2 align-items-center justify-content-center mb-4" method="get">
         <div class="col-auto fw-semibold">
-            Seleccionar periodo
+            Seleccionar periodo:
         </div>
         <div class="col-auto">
             <label for="fechaInicio" class="form-label mb-0">Inicio:</label>
         </div>
         <div class="col-auto">
-            <input type="date" class="form-control" id="fechaInicio" >
+            <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
         </div>
         <div class="col-auto">
             <label for="fechaFin" class="form-label mb-0">Fin:</label>
         </div>
         <div class="col-auto">
-            <input type="date" class="form-control" id="fechaFin" >
+            <input type="date" class="form-control" id="fechaFin" name="fechaFin">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-rosado px-4">Buscar</button>
         </div>
     </form>
 
@@ -31,39 +34,22 @@
             </tr>
             </thead>
             <tbody>
+            {% for item in pedidosYClientes %}
             <tr>
-                <td>1</td>
-                <td>13/04/25</td>
-                <td>Manolo Backer</td>
-                <td>60.89€</td>
+                <td>{{ item.pedido.id }}</td>
+                <td>{{ item.pedido.fecha|date('d/m/Y') }}</td>
+                <td>{{ item.clienteNombre ? item.clienteNombre.nombre : 'No cliente' }}</td>
+                <td>{{ item.pedido.costeTotal|format_number({fraction_digit: 2}) }}€</td>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>13/04/25</td>
-                <td>Manolo Backer</td>
-                <td>60.89€</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>13/04/25</td>
-                <td>Manolo Backer</td>
-                <td>60.89€</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>13/04/25</td>
-                <td>Manolo Backer</td>
-                <td>60.89€</td>
-            </tr>
-            <!-- Más filas si lo necesitas -->
+            {% endfor %}
             </tbody>
         </table>
     </div>
 
     <!-- Total -->
     <div class="d-flex justify-content-between align-items-center mt-2 px-2 flex-wrap">
-        <div class="fw-semibold" >
-            Total ventas: <span>243.56€</span>
+        <div class="fw-semibold">
+            Total ventas: <span>{{ totalVentas|format_number({fraction_digit: 2}) }}€</span>
         </div>
     </div>
 </div>

@@ -17,76 +17,92 @@
                 <!-- Pedidos en curso -->
                 <h2 class="mb-4">Pedidos en curso</h2>
 
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-md-8">
-                                <h4 class="card-title">Tarta de Unicornio</h4>
-                                <p><strong>Nombre en la tarta:</strong> Luiza</p>
-                                <p><strong>Fecha de entrega:</strong> 2 de enero de 2025</p>
-                                <p><strong>Tamaño:</strong> 20 cm de diámetro - 15-18 porciones</p>
-                                <p><strong>Sabor del bizcocho:</strong> Chocolate</p>
-                                <p><strong>Relleno:</strong> Fresas</p>
-                                <p><strong>Cubierta:</strong> Nata vegetal</p>
-                                <span class="text-muted">Estado: En preparación</span>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <img src="{{ asset('../assets/images/tarta2.png') }}" alt="Tarta de Unicornio" class="img-fluid rounded mb-3"
-                                     style="max-height: 200px;">
-                                <a href="/factura">
-                                    <button class="btn btn-outline-rosa">Detalles</button>
-                                </a>
+                {% for item in detallesPedido %}
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h4 class="card-title">Pedido #{{ item.pedido.id }}</h4>
+                                    <ul>
+                                        {% for producto in item.detalles %}
+                                            <li>{{ producto.nombre|capitalize }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {#<p><strong>Nombre en la tarta:</strong> Luiza</p> #}
+                                    <p><strong>Fecha de entrega:</strong> {{ item.pedido.fecha|date_modify('+5 days')|date('d/m/Y') }}</p>
+                                    {#<p><strong>Tamaño:</strong> 20 cm de diámetro - 15-18 porciones</p> #}
+                                    {#<p><strong>Sabor del bizcocho:</strong> Chocolate</p> #}
+                                    {#<p><strong>Relleno:</strong> Fresas</p> #}
+                                    {#<p><strong>Cubierta:</strong> Nata vegetal</p> #}
+                                    {% set partes = item.pedido.estado|split('-') %}
+                                    {% set primera = partes[0]|capitalize %}
+                                    {% set resto = partes|slice(1) %}
+                                    <span class="text-muted">Estado: {{ [primera]|merge(resto)|join(' ') }}</span>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <img src="{{ asset('../assets/images/logo_circulo.png') }}" alt="Tarta de Unicornio"
+                                         class="img-fluid rounded mb-3"
+                                         style="max-height: 200px;">
+                                    <a href="{{ path('factura', {id: item.pedido.id}) }}">
+                                        <button class="btn btn-outline-rosa">Detalles</button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% else %}
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-8 py-3">
+                                    <h4 class="card-title">¡No hay ningún pedido en curso!</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
 
                 <!-- Pedidos finalizados -->
                 <h2 class="mb-4 mt-5">Pedidos finalizados</h2>
-
+                {% for item in detallesPedidoFin %}
                 <div class="card mb-4 shadow-sm">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-md-8">
-                                <h4 class="card-title">Tarta de Bautizo</h4>
-                                <p><strong>Nombre en la tarta:</strong> Martina</p>
-                                <p><strong>Fecha de entrega:</strong> 15 de abril de 2025</p>
-                                <p><strong>Tamaño:</strong> 3 pisos - 25-30 porciones</p>
-                                <p><strong>Sabor del bizcocho:</strong> Vainilla</p>
-                                <p><strong>Relleno:</strong> Dulce de leche</p>
-                                <p><strong>Cubierta:</strong> Fondant</p>
-                                <span class="text-success">Entregado</span>
+                                <h4 class="card-title">Pedido #{{ item.pedido.id }}</h4>
+                                <ul>
+                                    {% for producto in item.detalles %}
+                                        <li>{{ producto.nombre|capitalize }}</li>
+                                    {% endfor %}º
+                                </ul>
+                                {#<p><strong>Nombre en la tarta:</strong> Martina</p>#}
+                                <p><strong>Fecha de entrega:</strong> {{ item.pedido.fecha|date_modify('+5 days')|date('d/m/Y') }} </p>
+                                {#<p><strong>Tamaño:</strong> 3 pisos - 25-30 porciones</p>#}
+                                {#<p><strong>Sabor del bizcocho:</strong> Vainilla</p>#}
+                                {#<p><strong>Relleno:</strong> Dulce de leche</p>#}
+                                {#<p><strong>Cubierta:</strong> Fondant</p>#}
+                                <span class="text-success">Estado: {{ item.pedido.estado|capitalize }}</span>
                             </div>
                             <div class="col-md-4 d-flex flex-column align-items-center">
-                                <img src="{{ asset('../assets/images/tarta3.png') }}" alt="Tarta de Bautizo" class="img-fluid rounded mb-3"
+                                <img src="{{ asset('../assets/images/logo_circulo.png') }}" alt="Tarta de Bautizo"
+                                     class="img-fluid rounded mb-3"
                                      style="max-height: 200px;">
                                 <a href="/#comentarios" class="btn btn-outline-rosa">Valorar</a>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-md-8">
-                                <h4 class="card-title">Tarta de Gimnasia rítmica</h4>
-                                <p><strong>Nombre en la tarta:</strong> Abril</p>
-                                <p><strong>Fecha de entrega:</strong> 2 de noviembre de 2024</p>
-                                <p><strong>Tamaño:</strong> 20 cm de diámetro - 20-25 porciones</p>
-                                <p><strong>Sabor del bizcocho:</strong> Limón</p>
-                                <p><strong>Relleno:</strong> Nata</p>
-                                <p><strong>Cubierta:</strong> Fondant y buttercream</p>
-                                <span class="text-success">Entregado</span>
-                            </div>
-                            <div class="col-md-4 d-flex flex-column align-items-center">
-                                <img src="{{ asset('../assets/images/tarta11.png') }}" alt="Tarta de Gimnasia" class="img-fluid rounded mb-3"
-                                     style="max-height: 200px;">
-                                <a href="/#comentarios" class="btn btn-outline-rosa">Valorar</a>
+                {% else %}
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-8 py-3">
+                                    <h4 class="card-title">¡No hay ningún pedido finalizado!</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
 
             </div>
         </div>

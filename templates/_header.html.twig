@@ -2,7 +2,7 @@
 
 {% block body %}
     <header class="fondo-rosa header-fino " style="background-color: #fbd1f0;">
-        <div class="container d-flex justify-content-between align-items-center ">
+        <div class="container d-flex justify-content-between align-items-center">
             <button class="btn btn-outline-secondary d-lg-none" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu" style="color: #000000;">
                 ☰
@@ -23,14 +23,15 @@
 
             <div class="d-flex gap-1">
 
-                <a href="/carrito"><img src="{{ asset('../assets/images/Carrito.png') }}" alt="Carrito" class="icon" style="height: 30px;"></a>
+                {% set carritoImagen = app.session.get('carrito') is not null ? asset('../assets/images/carrito_lleno.png') : asset('../assets/images/Carrito.png') %}
+                <a href="/carrito"><img src="{{ carritoImagen }}" alt="Carrito" class="icon" style="height: 30px;"></a>
 
                 {% if app.session.get('email') is defined and app.session.get('email') is not null %}
 
                     <div class="text-center" style="line-height: 1;margin-left: 20px" >
                         <div class="messi-text">
                             <a href="{{ path('cuenta') ~ '?id=' ~ app.session.get('id') }}"
-                               style="margin-bottom:10px; color: #ff1493; text-decoration: none">{{ app.session.get('nombreCompleto') }}</a>
+                               style="margin-bottom:10px; color: #ff1493; text-decoration: none">{{ app.session.get('nombre') }}</a>
                         </div>
                         <form method="post" action="/logout">
                             <button class="btn btn-sm btn-inicio" name="logout" style="font-size: 1rem;">Cerrar sesión</button>
@@ -55,10 +56,10 @@
                 </div>-->
                 <div class="offcanvas-body">
                     <a href="/" class="d-block mb-2" >Inicio</a>
-                    <a href="/quienes-somos" class="d-block mb-2">Quiénes Somos</a>
-                    <a href="/servicios" class="d-block mb-2">Servicios</a>
-                    <a href="/productos" class="d-block mb-2">Productos</a>
-                    <a href="/contacto" class="d-block mb-2">Contacto</a>
+                    <a href="/quienes-somos" class="d-block mb-2" style="text-decoration: none">Quiénes Somos</a>
+                    <a href="/servicios" class="d-block mb-2" style="text-decoration: none">Servicios</a>
+                    <a href="/productos" class="d-block mb-2" style="text-decoration: none">Productos</a>
+                    <a href="/contacto" class="d-block mb-2" style="text-decoration: none">Contacto</a>
                 </div>
             </div>
         </header>

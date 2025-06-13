@@ -16,6 +16,18 @@ class ProductoRepository extends ServiceEntityRepository
         parent::__construct($registry, Producto::class);
     }
 
+    public function findNameById(int $id)
+    {
+        $result = $this->createQueryBuilder('p')
+            ->select('p.nombre')
+            ->where('p.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $result ? $result['nombre'] : null;
+    }
+
     //    /**
     //     * @return Producto[] Returns an array of Producto objects
     //     */

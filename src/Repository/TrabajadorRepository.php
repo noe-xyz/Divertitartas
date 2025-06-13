@@ -16,6 +16,23 @@ class TrabajadorRepository extends ServiceEntityRepository
         parent::__construct($registry, Trabajador::class);
     }
 
+    public function findTrabajadorByNombreYCorreo(?string $nombreCompleto, ?string $email): array
+    {
+        $qb = $this->createQueryBuilder('t');
+
+        if ($nombreCompleto) {
+            $qb->andWhere('LOWER(t.nombreCompleto) LIKE :nombreCompleto')
+                ->setParameter('nombreCompleto', '%' . strtolower($nombreCompleto) . '%');
+        }
+
+        if ($email) {
+            $qb->andWhere('LOWER(t.email) LIKE :email')
+                ->setParameter('email', '%' . strtolower($email) . '%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Trabajador[] Returns an array of Trabajador objects
     //     */

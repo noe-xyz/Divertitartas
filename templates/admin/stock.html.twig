@@ -1,290 +1,31 @@
-
 <form id="formActualizarStock">
     <div class="board-title text-center mb-4">STOCK</div>
-    <div class="d-flex justify-content-end align-items-center mb-4 flex-wrap">
-        <button type="submit" class="btn btn-rosado px-4">Actualizar datos</button>
+    <div class="d-flex justify-content-center mb-4 flex-wrap">
+        <button type="submit" class="btn btn-rosado px-5">Actualizar datos</button>
     </div>
 
     <!-- Contenedor scrollable -->
     <div style="max-height: 480px; overflow-y: auto; border: 1.5px solid lightgrey; border-radius: 8px; background: #fff; padding: 16px;">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-            <!-- Producto 1 -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto 1" class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" >
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="5">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto 2 -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto 2" class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
+            {% for producto in productos %}
+                <div class="col">
+                    <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
+                        <img src="{{ asset('../assets/images/tarta1.png') }}" alt="Producto {{ producto.id }}" class="img-fluid mb-2" style="max-height: 100px;">
+{#                        <h4>{{ producto.nombre|capitalize }}</h4>#}
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox">
+                            <label class="form-check-label">Agotado</label>
+                        </div>
+                        <div class="mb-2 d-flex align-items-center justify-content-center">
+                            <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
+                            <input type="number"
+                                   class="form-control form-control-sm"
+                                   style="width: 60px;"
+                                   min="0" value="5">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Producto  -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto  -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto  -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto  -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto  -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto  -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto  -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto  -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto  -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto  -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto  -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-            <!-- Producto  -->
-            <div class="col">
-                <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                    <img src="" alt="Producto " class="img-fluid mb-2" style="max-height: 100px;">
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox">
-                        <label class="form-check-label" >Agotado</label>
-                    </div>
-                    <div class="mb-2 d-flex align-items-center justify-content-center">
-                        <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               style="width: 60px;"
-                               min="0" value="2">
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!-- ...más productos... -->
-
+            {% endfor %}
         </div>
     </div>
 </form>
