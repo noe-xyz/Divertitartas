@@ -39,8 +39,8 @@
                     {% for cliente in clientesRegistrados %}
                         <tr>
                             <td>{{ cliente.nombreCompleto|default('') }}</td>
-                            <td>{{ cliente.email }}</td>
-                            <td>{{ cliente.telefono1 }}
+                            <td>{{ cliente.email|default('') }}</td>
+                            <td>{{ cliente.telefono1|default('') }}
                             </td>
                             <td>{{ cliente.nombreEmpresa|default('-') }}</td>
                             <td>{{ cliente.nifCif|default('-') }}</td>
@@ -90,11 +90,11 @@
                     <tbody>
                     {% for trabajador in trabajadoresRegistrados %}
                         <tr class="trabajador">
-                            <td class="nombre">{{ trabajador.nombreCompleto }}</td>
-                            <td class="correo">{{ trabajador.email }}</td>
-                            <td>{{ trabajador.telefono1 }}</td>
-                            <td>{{ trabajador.turno|capitalize }}</td>
-                            <td>{{ trabajador.puesto|capitalize }}</td>
+                            <td class="nombre">{{ trabajador.nombreCompleto|default('') }}</td>
+                            <td class="correo">{{ trabajador.email|default('') }}</td>
+                            <td>{{ trabajador.telefono1|default('') }}</td>
+                            <td>{{ trabajador.turno|default('')|capitalize }}</td>
+                            <td>{{ trabajador.puesto|default('')|capitalize }}</td>
                             <td class="text-center">
                                 <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i></button>
                                 <button class="btn btn-link p-0" title="Editar"><i class="bi bi-pencil"></i></button>
