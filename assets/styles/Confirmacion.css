@@ -1,5 +1,5 @@
 /* ================ PÁGINA DE CONFIRMACIÓN ================ */
-@import url('global.css');
+@import url('app.css');
 
 .confirmation-main {
     display: grid;

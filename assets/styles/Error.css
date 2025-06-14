@@ -1,5 +1,5 @@
 /* ================ PÁGINA DE ERROR ================ */
-@import url('global.css');
+@import url('app.css');
 
 main {
     flex-grow: 1;
