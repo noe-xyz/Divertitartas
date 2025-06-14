@@ -78,6 +78,8 @@ class PedidosController extends AbstractController
             throw $this->createAccessDeniedException('No tienes permiso para ver esta factura.');
         }
 
+        $direccionStr = $this->separarDireccion($cliente);
+
         $detalles = $pedido->getDetalles();
         $productos = [];
 
@@ -91,7 +93,8 @@ class PedidosController extends AbstractController
         return $this->render('pedidos/factura.html.twig', [
             'pedido' => $pedido,
             'productos' => $productos,
-            'cliente' => $cliente
+            'cliente' => $cliente,
+            'direccionStr' => $direccionStr
         ]);
     }
 
@@ -106,17 +109,7 @@ class PedidosController extends AbstractController
             $cliente = $entityManager->getRepository(Cliente::class)->findOneBy(['nombreCompleto' => $clienteRegistrado]);
 
             if ($cliente && is_array($cliente->getDomicilio())) {
-                $direccion = $cliente->getDomicilio();
-                $orden = ['domicilio', 'piso', 'portal', 'puerta', 'cp', 'localidad', 'provincia'];
-                $direccionOrdenada = [];
-
-                foreach ($orden as $campo) {
-                    if (!empty($direccion[$campo])) {
-                        $direccionOrdenada[] = $direccion[$campo];
-                    }
-                }
-                $domicilioStr = implode(', ', $direccionOrdenada);
-
+                $this->separarDireccion($cliente);
             } elseif ($cliente) {
                 $domicilioStr = $cliente->getDomicilio();
             }
@@ -326,5 +319,21 @@ class PedidosController extends AbstractController
             'subtotal' => $subtotal,
             'puntosGanados' => $puntosGanados,
         ]);
+    }
+
+    public function separarDireccion($cliente): string
+    {
+        $direccion = $cliente->getDomicilio();
+        $orden = ['domicilio', 'piso', 'portal', 'puerta', 'cp', 'localidad', 'provincia'];
+        $direccionOrdenada = [];
+
+        foreach ($orden as $campo) {
+            if (!empty($direccion[$campo])) {
+                $direccionOrdenada[] = $direccion[$campo];
+            }
+        }
+        $domicilioStr = implode(', ', $direccionOrdenada);
+
+        return $domicilioStr;
     }
 }

@@ -23,8 +23,7 @@
                 <div class="col-md-6">
                     <h5 class="text-rosa">Datos del Cliente</h5>
                     <p><strong>Nombre:</strong> {{ cliente.nombreCompleto }}</p>
-                    <p><strong>Dirección:</strong> {{ cliente.domicilio|default('') }}</p>
-                    <p><strong>Código Postal:</strong> {{ cliente.domicilio.cp|default('') }}</p>
+                    <p><strong>Dirección:</strong> {{ cliente.domicilioStr|default('') }}</p>
                     <p><strong>Teléfono:</strong> {{ cliente.telefono1 }}</p>
                     <p><strong>Email:</strong> {{ cliente.email }}</p>
                 </div>
