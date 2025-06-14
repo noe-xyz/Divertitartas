@@ -44,10 +44,17 @@
 
 /* Sección de texto */
 .product-text-container {
-    padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 30px;
+    text-align: center;
+}
+
+.row.g-0 {
+    min-height: 400px;
 }
 
 .product-description {
