@@ -38,7 +38,7 @@
                     <tbody>
                     {% for cliente in clientesRegistrados %}
                         <tr>
-                            <td>{{ cliente.nombreCompleto }}</td>
+                            <td>{{ cliente.nombreCompleto|default('') }}</td>
                             <td>{{ cliente.email }}</td>
                             <td>{{ cliente.telefono1 }}
                             </td>
