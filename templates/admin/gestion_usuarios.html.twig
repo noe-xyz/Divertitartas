@@ -3,20 +3,25 @@
     <!-- Tabs de Clientes y Trabajadores -->
     <ul class="nav nav-tabs mb-3" id="userTabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link {{ tabActiva == 'clientes' ? 'active' : '' }}" id="clientes-tab" data-bs-toggle="tab" data-bs-target="#clientes"
-                    type="button" role="tab" aria-controls="clientes" aria-selected="{{ tabActiva == 'clientes' ? 'true' : 'false' }}">Clientes
+            <button class="nav-link {{ tabActiva == 'clientes' ? 'active' : '' }}" id="clientes-tab"
+                    data-bs-toggle="tab" data-bs-target="#clientes"
+                    type="button" role="tab" aria-controls="clientes"
+                    aria-selected="{{ tabActiva == 'clientes' ? 'true' : 'false' }}">Clientes
             </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link {{ tabActiva == 'trabajadores' ? 'active' : '' }}" id="trabajadores-tab" data-bs-toggle="tab" data-bs-target="#trabajadores"
-                    type="button" role="tab" aria-controls="trabajadores" aria-selected="{{ tabActiva == 'trabajadores' ? 'true' : 'false' }}">Trabajadores
+            <button class="nav-link {{ tabActiva == 'trabajadores' ? 'active' : '' }}" id="trabajadores-tab"
+                    data-bs-toggle="tab" data-bs-target="#trabajadores"
+                    type="button" role="tab" aria-controls="trabajadores"
+                    aria-selected="{{ tabActiva == 'trabajadores' ? 'true' : 'false' }}">Trabajadores
             </button>
         </li>
     </ul>
 
     <div class="tab-content" id="userTabsContent">
         <!-- Tab Clientes -->
-        <div class="tab-pane fade {{ tabActiva == 'clientes' ? 'show active' : '' }}" id="clientes" role="tabpanel" aria-labelledby="clientes-tab">
+        <div class="tab-pane fade {{ tabActiva == 'clientes' ? 'show active' : '' }}" id="clientes" role="tabpanel"
+             aria-labelledby="clientes-tab">
             <div class="text-center fw-bold mb-2">Clientes</div>
             <div class="table-responsive" style="max-height: 250px;">
                 <table class="table table-bordered align-middle">
@@ -67,13 +72,14 @@
         </div>
 
         <!-- Tab Trabajadores -->
-        <div class="tab-pane fade {{ tabActiva == 'trabajadores' ? 'show active' : '' }}" id="trabajadores" role="tabpanel" aria-labelledby="trabajadores-tab">
+        <div class="tab-pane fade {{ tabActiva == 'trabajadores' ? 'show active' : '' }}" id="trabajadores"
+             role="tabpanel" aria-labelledby="trabajadores-tab">
             <div class="text-center fw-bold mb-2">Trabajadores</div>
             <div class="table-responsive" style="max-height: 250px;">
                 <table class="table table-bordered align-middle">
                     <thead class="table-light">
                     <tr>
-                        <th>Nombre</th>
+                        <th>Nombre completo</th>
                         <th>Email</th>
                         <th>Teléfono</th>
                         <th>Turno</th>
@@ -116,32 +122,64 @@
             </form>
 
             <!-- Formulario para añadir un nuevo trabajador -->
-            <form class="row g-2 align-items-center mt-4" method="post"
-                  action="ruta_al_controlador_que_guarda_trabajador.php">
-                <div class="col">
-                    <input type="text" name="nombreCompleto" class="form-control" placeholder="Nombre completo"
-                           required>
-                </div>
-                <div class="col">
-                    <input type="email" name="email" class="form-control" placeholder="Correo" required>
-                </div>
-                <div class="col">
-                    <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
-                </div>
-                <div class="col">
-                    <input type="text" name="telefono1" class="form-control" placeholder="Teléfono" required>
-                </div>
-                <div class="col">
-                    <input type="text" name="turno" class="form-control" placeholder="Turno" required>
-                </div>
-                <div class="col">
-                    <input type="text" name="puesto" class="form-control" placeholder="Puesto" required>
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-uniforme px-4">Añadir trabajador</button>
-                </div>
-            </form>
+            {% if app.session.get('puesto')=='administrador' %}
+                <form class="row g-2 align-items-center mt-4" method="post"
+                      action="/administracion/add-trabajador" id="addTrabajadorForm">
+                    <div class="row g-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="nombreCompleto" class="col-form-label">Crear trabajador:</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Nombre completo" id="nombreCompleto"
+                                   name="nombreCompleto" required>
+                        </div>
+                        <div class="col">
+                            <input type="email" class="form-control" placeholder="E-mail" name="email" required>
+                        </div>
+                        <div class="col">
+                            <input type="tel" class="form-control" placeholder="Teléfono" name="telefono" required>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Turno" name="turno" required>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Puesto" name="puesto" required>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Contraseña" name="password" required>
+                        </div>
+                    </div>
+                    <div class="row mt-3 mx-3">
+                        <div class="col text-end">
+                            <button type="submit" class="btn btn-rosado px-4" id="crearTrabajador">Añadir empleado
+                            </button>
+                        </div>
+                    </div>
+                    <div id="confirmacionMensaje" class="alert alert-success mt-3" style="display: none;">
+                        Trabajador añadido correctamente.
+                    </div>
+                </form>
+
+            {% endif %}
 
         </div>
     </div>
 </div>
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const formulario = document.getElementById('addTrabajadorForm');
+
+            formulario.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                document.getElementById('confirmacionMensaje').style.display = 'block';
+
+                setTimeout(() => {
+                    formulario.submit();
+                }, 1500);
+            });
+        });
+    </script>
+{% endblock %}

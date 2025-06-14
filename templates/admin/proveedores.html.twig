@@ -18,10 +18,10 @@
                     {% for proveedor in proveedores %}
                         <tr>
                             <td>{{ proveedor.nombre|capitalize }}</td>
-                            <td>{{ proveedor.correo|capitalize }}</td>
+                            <td>{{ proveedor.correo }}</td>
                             <td>{{ proveedor.telefono }}</td>
                             <td>{{ proveedor.direccion|capitalize }}</td>
-                            <td>{{ proveedor.notas|capitalize }}</td>
+                            <td>{{ proveedor.notas|capitalize|default('') }}</td>
                         </tr>
                     {% endfor %}
                     <!-- Repite las filas según sea necesario -->
@@ -29,5 +29,54 @@
                 </table>
             </div>
         </div>
+
+        <!-- Añadir -->
+        {% if app.session.get('puesto')=='administrador' %}
+            <form class="row g-2 align-items-center mt-3" method="post"
+                  action="/administracion/add-proveedor" id="addProveedorForm">
+                <div class="col-auto">
+                    <label for="nombre" class="col-form-label">Crear proveedor:</label>
+                </div>
+                <div class="col">
+                    <input type="text" id="inputNombre" class="form-control" placeholder="Nombre" name="nombre" required>
+                </div>
+                <div class="col">
+                    <input type="email" id="inputEmail" class="form-control" placeholder="E-mail" name="correo" required>
+                </div>
+                <div class="col">
+                    <input type="tel" id="inputTelefono" class="form-control" placeholder="Teléfono" name="telefono" required>
+                </div>
+                <div class="col">
+                    <input type="text" id="inputDireccion" class="form-control" placeholder="Dirección" name="direccion" required>
+                </div>
+                <div class="col">
+                    <input type="text" id="inputNotas" class="form-control" placeholder="Notas" name="notas">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-rosado px-4" id="crearProveedor">Añadir</button>
+                </div>
+                <div id="confirmacionMensaje" class="alert alert-success mt-3" style="display: none;">
+                    Proveedor añadido correctamente.
+                </div>
+            </form>
+        {% endif %}
     </div>
 </div>
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const formulario = document.getElementById('addProveedorForm');
+
+            formulario.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                document.getElementById('confirmacionMensaje').style.display = 'block';
+
+                setTimeout(() => {
+                    formulario.submit();
+                }, 1500);
+            });
+        });
+    </script>
+{% endblock %}

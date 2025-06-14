@@ -79,6 +79,8 @@ class LoginController extends AbstractController
         if (get_class($usuario) === Cliente::class) {
             $session->set('nombre', $usuario->getNombre());
             $session->set('puntos', $usuario->getPuntos());
+        } elseif (get_class($usuario) === Trabajador::class) {
+            $session->set('puesto', $usuario->getPuesto());
         }
     }
 }

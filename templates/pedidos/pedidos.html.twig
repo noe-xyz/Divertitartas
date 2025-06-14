@@ -73,7 +73,7 @@
                                 <ul>
                                     {% for producto in item.detalles %}
                                         <li>{{ producto.nombre|capitalize }}</li>
-                                    {% endfor %}º
+                                    {% endfor %}
                                 </ul>
                                 {#<p><strong>Nombre en la tarta:</strong> Martina</p>#}
                                 <p><strong>Fecha de entrega:</strong> {{ item.pedido.fecha|date_modify('+5 days')|date('d/m/Y') }} </p>
