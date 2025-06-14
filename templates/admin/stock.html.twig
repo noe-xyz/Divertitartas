@@ -9,24 +9,21 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
             {% for producto in productos %}
                 <div class="col">
-                    <div class="border rounded p-2 h-100 d-flex flex-column align-items-center">
-                        <img src="{{ asset('../assets/images/tarta1.png') }}" alt="Producto {{ producto.id }}" class="img-fluid mb-2" style="max-height: 100px;">
-{#                        <h4>{{ producto.nombre|capitalize }}</h4>#}
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox">
-                            <label class="form-check-label">Agotado</label>
+                    <div class="border rounded p-3 h-100 d-flex flex-column align-items-center">
+                        <img src="{{ asset('uploads/productos/' ~ producto.imagen) }}" alt="Producto {{ producto.id }}" class="img-fluid mb-2" style="max-height: 100px;">
+                        <div class="form-check mb-2 w-100 d-flex justify-content-center">
+                            <input class="form-check-input" type="checkbox" id="agotado-{{ producto.id }}">
+                            <label class="form-check-label" for="agotado-{{ producto.id }}">Agotado</label>
                         </div>
-                        <div class="mb-2 d-flex align-items-center justify-content-center">
+                        <div class="mb-2 d-flex align-items-center justify-content-start w-100">
                             <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                            <input type="number"
-                                   class="form-control form-control-sm"
-                                   style="width: 60px;"
-                                   min="0" value="5">
+                            <input type="number" class="form-control form-control-sm" style="width: 60px;" min="0" value="5">
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
+
     </div>
 </form>
 
