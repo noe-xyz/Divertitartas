@@ -28,6 +28,18 @@ class ProductoRepository extends ServiceEntityRepository
         return $result ? $result['nombre'] : null;
     }
 
+    public function findByCategoriaAndConStock(string $categoria)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.categoria = :categoria')
+            ->andWhere('p.cantidad > 0')
+            ->setParameter(':categoria', $categoria)
+            ->getQuery()
+            ->getResult();
+
+    }
+
     //    /**
     //     * @return Producto[] Returns an array of Producto objects
     //     */

@@ -31,6 +31,8 @@ class CuentaController extends AbstractController
             return $this->redirectToRoute("cuenta", ["id" => $usuarioRegistrado->getId()]);
         }
 
+        $showModal = $request->query->get('updated') === '1';
+
         if ($request->isMethod('POST') && isset($_POST['submit'])) {
             $usuarioModificado=$this->guardarDatosCliente($request, $session, $usuarioRegistrado);
 
@@ -38,13 +40,16 @@ class CuentaController extends AbstractController
             $entityManager->persist($usuarioModificado);
             $entityManager->flush();
 
-            return $this->redirectToRoute("cuenta", ["id" => $usuarioRegistrado->getId()]);
+            return $this->redirectToRoute('cuenta', [
+                'id' => $usuarioRegistrado->getId(),
+                'updated' => 1,
+            ]);
         }
 
         return $this->render('cuenta/cuenta.html.twig', [
             'usuarioRegistrado' => $usuarioRegistrado,
             'idUsuarioRegistrado' => $idUsuarioRegistrado,
-            'submit' => true
+            'submit' => $showModal,
         ]);
     }
 

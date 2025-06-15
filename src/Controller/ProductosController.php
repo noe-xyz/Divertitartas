@@ -18,7 +18,7 @@ class ProductosController extends AbstractController
     #[Route('/productos/{categoria}', name: 'categorias', requirements: ['categoria' => 'tartas-creativas|preferencias|mas-productos'])]
     public function mostrarProductos(string $categoria, ProductoRepository $repository): Response
     {
-        $productosMostrados = $repository->findBy(['categoria' => $categoria]);
+        $productosMostrados = $repository->findByCategoriaAndConStock($categoria);
 //        $this->crearSlug($productosMostrados, $entityManager, $slugger);
         $mensajes = [];
         switch ($categoria) {
