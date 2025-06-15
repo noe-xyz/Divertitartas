@@ -15,7 +15,7 @@
     </div>
     <!-- Tabla de pedidos -->
     <div class="col-md-8">
-        <form id="formActualizarEstados" method="get">
+        <form id="formActualizarEstados" method="get" action="/administracion/cambiar-estado">
             <div class="table-responsive" style="max-height: 300px;">
                 <table class="table table-bordered align-middle mb-0">
                     <thead>
@@ -67,7 +67,30 @@
                 <button type="submit" class="btn btn-rosado" id="btnActualizarEstados">
                     <i class="bi bi-arrow-repeat"></i> Actualizar estados
                 </button>
+
+                <div id="confirmacionMensaje" class="alert alert-success mt-3" style="display: none;">
+                    Estado de los pedidos modificado correctamente.
+                </div>
+
             </div>
         </form>
     </div>
 </div>
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const formulario = document.getElementById('formActualizarEstados');
+
+            formulario.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                document.getElementById('confirmacionMensaje').style.display = 'block';
+
+                setTimeout(() => {
+                    formulario.submit();
+                }, 1500);
+            });
+        });
+    </script>
+{% endblock %}

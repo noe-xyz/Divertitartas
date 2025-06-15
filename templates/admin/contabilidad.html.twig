@@ -84,7 +84,7 @@
         <div class="fw-semibold" id="totalVentas">
             Total ventas: <span>{{ totalVentas|format_number({fraction_digit: 2}) }}€</span>
         </div>
-        {% if app.session.get('puesto')=='administrador' %}
+        {% if app.session.get('puesto')|lower=='administrador' %}
             <button class="btn btn-rosado px-4 mt-2 mt-md-0" type="button" onclick="window.print()">Exportar</button>
         {% endif %}
     </div>

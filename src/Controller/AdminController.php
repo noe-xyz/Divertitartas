@@ -97,20 +97,6 @@ class AdminController extends AbstractController
             ];
         }
 
-        $pedidosAModificarEstado = $request->query->all();
-        foreach ($pedidosAModificarEstado as $key => $value) {
-            if (str_starts_with($key, 'estado_')) {
-                $pedidoId = substr($key, strlen('estado_'));
-                $pedido = $entityManager->getRepository(Pedido::class)->find($pedidoId);
-                if ($pedido) {
-                    // Asumiendo que el setter es setEstado()
-                    $pedido->setEstado($value);
-                    $entityManager->persist($pedido);
-                }
-            }
-        }
-        $entityManager->flush();
-
         //Pestaña stock
         $productos = $entityManager->getRepository(Producto::class)->findAll();
 
@@ -146,63 +132,5 @@ class AdminController extends AbstractController
         $fechaPedido->modify('+5 days');
 
         return $fechaPedido;
-    }
-
-    #[Route('/administracion/add-trabajador', name: 'add-trabajador')]
-    public function addTrabajador(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        #Recoger en variables los datos introducidos en el formulario
-        $campos = [
-            'nombreCompleto', 'email', 'telefono', 'turno', 'puesto', 'password'
-        ];
-
-        $datos = [];
-        foreach ($campos as $campo) {
-            $datos[$campo] = $request->request->get($campo);
-        }
-        $nuevoTrabajador = new Trabajador();
-        $nuevoTrabajador->setNombreCompleto($datos['nombreCompleto'])
-            ->setEmail($datos['email'])
-            ->setTelefono1($datos['telefono'])
-            ->setTurno($datos['turno'])
-            ->setPuesto($datos['puesto'])
-            ->setPassword($datos['password']);
-
-        $entityManager->persist($nuevoTrabajador);
-        $entityManager->flush();
-
-        $tab = $request->query->get('tab');
-
-        return $this->redirectToRoute('mostrar-accion', [
-            'accion' => 'usuarios',
-            'tab' => $tab]);
-    }
-
-    #[Route('/administracion/add-proveedor', name: 'add-proveedor')]
-    public function addProveedor(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        #Recoger en variables los datos introducidos en el formulario
-        $campos = [
-            'nombre', 'telefono', 'correo', 'direccion', 'notas'
-        ];
-
-        $datos = [];
-        foreach ($campos as $campo) {
-            $datos[$campo] = $request->request->get($campo) ? $request->request->get($campo) : null;;
-        }
-        $nuevoProveedor = new Proveedores();
-        $nuevoProveedor->setNombre($datos['nombre'])
-            ->setTelefono($datos['telefono'])
-            ->setCorreo($datos['correo'])
-            ->setDireccion($datos['direccion'])
-            ->setNotas($datos['notas']);
-
-        $entityManager->persist($nuevoProveedor);
-        $entityManager->flush();
-
-        $tab = $request->query->get('tab');
-
-        return $this->redirectToRoute('mostrar-accion', [
-            'accion' => 'proveedores']);
     }
 }

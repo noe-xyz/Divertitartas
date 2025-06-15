@@ -14,20 +14,26 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
                 <div class="navbar-nav gap-2" id="mainMenu">
-                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'usuarios' ? 'tab-activa' : '' }}" onclick="location.href='/administracion/usuarios'">Gestión de usuarios
+                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'usuarios' ? 'tab-activa' : '' }}"
+                            onclick="location.href='/administracion/usuarios'">Gestión de usuarios
                     </button>
-                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'proveedores' ? 'tab-activa' : '' }}" onclick="location.href='/administracion/proveedores'">Proveedores
+                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'proveedores' ? 'tab-activa' : '' }}"
+                            onclick="location.href='/administracion/proveedores'">Proveedores
                     </button>
-                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'contabilidad' ? 'tab-activa' : '' }}" onclick="location.href='/administracion/contabilidad'">Contabilidad
+                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'contabilidad' ? 'tab-activa' : '' }}"
+                            onclick="location.href='/administracion/contabilidad'">Contabilidad
                     </button>
-                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'pedidos' ? 'tab-activa' : '' }}" onclick="location.href='/administracion/pedidos'">Pedidos
+                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'pedidos' ? 'tab-activa' : '' }}"
+                            onclick="location.href='/administracion/pedidos'">Pedidos
                     </button>
-                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'stock' ? 'tab-activa' : '' }}" onclick="location.href='/administracion/stock'">Stock de productos
+                    <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'stock' ? 'tab-activa' : '' }}"
+                            onclick="location.href='/administracion/stock'">Stock de productos
                     </button>
-                    {# {% if isAdmin %}
-                        <button class="btn btn-uniforme mx-1"><a href="/administracion/configuracion">Configuración de datos</a>
+                    {% if app.session.get('puesto')|lower=='administrador' %}
+                        <button class="btn btn-uniforme mx-1 {{ app.request.attributes.get('_route') =='mostrar-accion' and app.request.get('accion') == 'configuracion' ? 'tab-activa' : '' }}"
+                                onclick="location.href='/administracion/configuracion'">Configuración de datos
                         </button>
-                    {% endif %} #}
+                    {% endif %}
 
                 </div>
             </div>

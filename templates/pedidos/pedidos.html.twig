@@ -28,12 +28,7 @@
                                             <li>{{ producto.nombre|capitalize }}</li>
                                         {% endfor %}
                                     </ul>
-                                    {#<p><strong>Nombre en la tarta:</strong> Luiza</p> #}
                                     <p><strong>Fecha de entrega:</strong> {{ item.pedido.fecha|date_modify('+5 days')|date('d/m/Y') }}</p>
-                                    {#<p><strong>Tamaño:</strong> 20 cm de diámetro - 15-18 porciones</p> #}
-                                    {#<p><strong>Sabor del bizcocho:</strong> Chocolate</p> #}
-                                    {#<p><strong>Relleno:</strong> Fresas</p> #}
-                                    {#<p><strong>Cubierta:</strong> Nata vegetal</p> #}
                                     {% set partes = item.pedido.estado|split('-') %}
                                     {% set primera = partes[0]|capitalize %}
                                     {% set resto = partes|slice(1) %}

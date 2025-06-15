@@ -122,7 +122,7 @@
             </form>
 
             <!-- Formulario para añadir un nuevo trabajador -->
-            {% if app.session.get('puesto')=='administrador' %}
+            {% if app.session.get('puesto')|lower == 'administrador' %}
                 <form class="row g-2 align-items-center mt-4" method="post"
                       action="/administracion/add-trabajador" id="addTrabajadorForm">
                     <div class="row g-2 align-items-center">

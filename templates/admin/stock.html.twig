@@ -1,30 +1,93 @@
-<form id="formActualizarStock">
-    <div class="board-title text-center mb-4">STOCK</div>
-    <div class="d-flex justify-content-center mb-4 flex-wrap">
-        <button type="submit" class="btn btn-rosado px-5">Actualizar datos</button>
-    </div>
+<div class="board-title text-center mb-4">STOCK</div>
 
+{% if app.session.get('puesto')|lower=='administrador' %}
+    <form class="d-flex align-items-center gap-2" style="margin-bottom:0;" id="formDescuentoStock" method="post"
+          action="/administracion/add-descuento">
+        <button type="submit" class="btn btn-rosado">Añadir descuento general</button>
+        <div class="input-group" style="width: 120px;">
+            <input type="number" class="form-control" placeholder="0" min="0" max="100" name="descuentoGeneral">
+            <span class="input-group-text">%</span>
+        </div>
+    </form>
+    <div id="confirmacionMensaje" class="alert alert-success mt-3" style="display: none;">
+        Descuento general aplicado correctamente.
+    </div>
+    <br>
+{% endif %}
+
+<form id="formActualizarStock" method="post" action="/administracion/modificar-stock">
     <!-- Contenedor scrollable -->
     <div style="max-height: 480px; overflow-y: auto; border: 1.5px solid lightgrey; border-radius: 8px; background: #fff; padding: 16px;">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
             {% for producto in productos %}
                 <div class="col">
                     <div class="border rounded p-3 h-100 d-flex flex-column align-items-center">
-                        <img src="{{ asset('uploads/productos/' ~ producto.imagen) }}" alt="Producto {{ producto.id }}" class="img-fluid mb-2" style="max-height: 100px;">
+                        <img src="{{ asset('uploads/productos/' ~ producto.imagen) }}" alt="Producto {{ producto.id }}"
+                             class="img-fluid mb-2" style="max-height: 100px;">
                         <div class="form-check mb-2 w-100 d-flex justify-content-center">
-                            <input class="form-check-input" type="checkbox" id="agotado-{{ producto.id }}">
+                            <input class="form-check-input" type="checkbox"
+                                   id="agotado-{{ producto.id }}" {% if producto.cantidad == 0 %} checked {% endif %}>
                             <label class="form-check-label" for="agotado-{{ producto.id }}">Agotado</label>
                         </div>
                         <div class="mb-2 d-flex align-items-center justify-content-start w-100">
                             <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                            <input type="number" class="form-control form-control-sm" style="width: 60px;" min="0" value="5">
+                            <input id="cantidad-{{ producto.id }}" type="number" class="form-control form-control-sm"
+                                   style="width: 60px;" min="0"
+                                   value="{{ producto.cantidad }}" name="cantidad[{{ producto.id }}]">
                         </div>
+                        {{ producto.precio|format_number({fraction_digit: 2}) }}€
                     </div>
                 </div>
             {% endfor %}
         </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-center mb-4 flex-wrap">
+        <button type="submit" class="btn btn-rosado px-5">Actualizar datos</button>
+    </div>
 
+    <div id="confirmacionMensajeStock" class="alert alert-success mt-3" style="display: none;">
+        Stock actualizado correctamente.
     </div>
 </form>
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const forms = [
+                {formId: 'formDescuentoStock', messageId: 'confirmacionMensaje'},
+                {formId: 'formActualizarStock', messageId: 'confirmacionMensajeStock'}
+            ];
+
+            forms.forEach(({formId, messageId}) => {
+                const form = document.getElementById(formId);
+                const message = document.getElementById(messageId);
+
+                if (form && message) {
+                    form.addEventListener('submit', function () {
+                        message.style.display = 'block';
+
+                        setTimeout(() => {
+                            message.style.display = 'none';
+                        }, 5000);
+                    });
+                }
+            });
+
+            document.querySelectorAll('.form-check-input').forEach(function (checkbox) {
+                checkbox.addEventListener('change', function () {
+                    const productoId = this.id.split('-')[1];
+                    const cantidadInput = document.querySelector(`#cantidad-${productoId}`);
+                    if (this.checked) {
+                        cantidadInput.dataset.originalValue = cantidadInput.value;
+                        cantidadInput.value = 0;
+                    } else {
+                        cantidadInput.value = cantidadInput.dataset.originalValue || 1;
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
 
 
