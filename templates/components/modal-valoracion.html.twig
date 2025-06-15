@@ -1,18 +1,17 @@
 <!-- Modal para valoraciones -->
-<div class="modal fade" id="comentarioModal" tabindex="-1" aria-labelledby="comentarioModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="comentarioModal" tabindex="-1" aria-labelledby="comentarioModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="comentarioModalLabel">Añade tu valoración</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="formValoracion">
+            <form id="formValoracion" method="post" action="/valorar">
+                <div class="modal-body">
                     <div class="mb-3">
                         <label for="nombreValoracion" class="form-label">Tu nombre</label>
                         <input type="text" class="form-control" id="nombreValoracion"
-                               value="{{ app.session.get('nombreCompleto') }}" required>
+                               value="{{ app.session.get('nombreCompleto') }}" name="nombreValoracion" required>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Selecciona tu valoración</label>
@@ -36,19 +35,21 @@
                     <div class="mb-4">
                         <label for="comentarioValoracion" class="form-label">Tu comentario</label>
                         <textarea class="form-control" id="comentarioValoracion" rows="3" required
-                                  placeholder="Cuéntanos tu experiencia..."></textarea>
+                                  placeholder="Cuéntanos tu experiencia..." name="comentarioValoracion"></textarea>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="guardarValoracion()">Enviar
-                    valoración
-                </button>
-            </div>
+                    <div id="mensajeExito" class="alert alert-success mt-3 d-none" role="alert">
+                        ¡Gracias por tu valoración!
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Enviar valoración</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 
 {% block javascripts %}
     <script>
@@ -62,30 +63,22 @@
                 return;
             }
 
-            // Crear elemento HTML para el nuevo comentario
-            const nuevoComentario = document.createElement('div');
-            nuevoComentario.className = 'col-md-4 mb-4';
-            nuevoComentario.innerHTML = `
-        <div class="card h-100">
-            <div class="card-body">
-                <div class="d-flex justify-content-center mb-3">
-                    ${'<img src="{{ asset('../assets/images/estrella.png') }}" class="estrella">'.repeat(rating)}
-                    ${'<img src="{{ asset('../assets/images/estrella_vacia.png') }}" class="estrella">'.repeat(5 - rating)}
-                </div>
-                <p class="card-text">"${comentario}"</p>
-                <p class="text-muted">- ${nombre}</p>
-            </div>
-        </div>
-    `;
-
-            // Añadir al contenedor de comentarios
-            document.querySelector('.row.comentarios').prepend(nuevoComentario);
-
             // Cerrar modal y limpiar formulario
             // const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('comentarioModal'));
             // modal.hide();
 
-            alert('¡Gracias por tu valoración!');
+            // Limpiar campos
+            document.getElementById('comentarioValoracion').value = '';
+            document.querySelectorAll('input[name="rating"]').forEach(input => input.checked = false);
+
+            // Mostrar mensaje de éxito
+            const mensaje = document.getElementById('mensajeExito');
+            mensaje.classList.remove('d-none');
+
+            // Ocultarlo después de unos segundos
+            setTimeout(() => {
+                mensaje.classList.add('d-none');
+            }, 1500);
         }
     </script>
 {% endblock %}

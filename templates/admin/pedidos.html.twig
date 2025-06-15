@@ -57,7 +57,7 @@
                                     </option>
                                 </select>
                             </td>
-                            <td>{{ item.pedido.notas | default('Sin lactosa') }}</td>
+                            <td>{{ item.pedido.comentario | default('Sin lactosa') }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

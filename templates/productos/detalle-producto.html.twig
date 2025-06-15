@@ -9,133 +9,85 @@
     <main class="main-content">
         <!-- Contenido principal -->
         <div class="container my-5">
-        <!-- Título centrado arriba de todo -->
-        <div class="row mb-4">
-            <div class="col-12 text-center">
-                <h1 class="product-title">{{ productoAMostrar.nombre|capitalize }}</h1>
-            </div>
-        </div>
-
-        <!-- Contenedor único para imagen y texto -->
-        <div class="product-main-container">
-            <!-- Imagen y texto en el mismo recuadro -->
-            <div class="row g-0">
-                <!-- Columna de imagen -->
-                <div class="col-md-6">
-                    <div class="product-image-container">
-                        <img src="{{ asset('uploads/productos/' ~ productoAMostrar.imagen) }}" alt="Tarta Sunny Bannies" class="img-fluid product-image">
-                    </div>
+            <!-- Título centrado arriba de todo -->
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <h1 class="product-title">{{ productoAMostrar.nombre|capitalize }}</h1>
                 </div>
+            </div>
 
-                <!-- Columna de texto -->
-                <div class="col-md-6">
-                    <div class="product-text-container">
-                        <p class="product-description">{{ productoAMostrar.descripcion|capitalize }}</p>
-                        <p class="product-description small">{{ productoAMostrar.comentario|capitalize }}</p>
-                        {#                        <p class="product-description"> #}
-                        {#                            Alrededor de la tarta se encuentran seis figuras de personajes en tonos vibrantes: azul, #}
-                        {#                            rojo, verde, amarillo, naranja y morado, cada uno con detalles únicos y expresiones #}
-                        {#                            adorables. También incluye una etiqueta central personalizada con el nombre. #}
-                        {#                        </p> #}
-                        {#                        <p class="product-description"> #}
-                        {#                            Es una tarta divertida, ideal para niños, llena de fantasía, color y dulzura, perfecta para #}
-                        {#                            celebrar un cumpleaños especial. #}
-                        {#                        </p> #}
+            <!-- Contenedor único para imagen y texto -->
+            <div class="product-main-container">
+                <!-- Imagen y texto en el mismo recuadro -->
+                <div class="row g-0">
+                    <!-- Columna de imagen -->
+                    <div class="col-md-6">
+                        <div class="product-image-container">
+                            <img src="{{ asset('uploads/productos/' ~ productoAMostrar.imagen) }}"
+                                 alt="Tarta Sunny Bannies"
+                                 class="img-fluid product-image">
+                        </div>
+                    </div>
+
+                    <!-- Columna de texto -->
+                    <div class="col-md-6">
+                        <div class="product-text-container">
+                            <p class="product-description">{{ productoAMostrar.descripcion }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Personalización -->
-        <div class="customization-section">
-            <h2 class="section-title">Personalizar</h2>
+            <!-- Personalización -->
+            <div class="customization-section">
+                <h2 class="section-title">Personalizar</h2>
 
-            <div class="row">
-                <div class="col-md-6 ">
-                    <h3 class="option-title">Sabor</h3>
-                    {% if not productoAMostrar.sabor %}
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flavor" id="flavorVanilla" checked>
-                            <label class="form-check-label" for="flavorVanilla">
-                                Vainilla
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flavor" id="flavorChocolate">
-                            <label class="form-check-label" for="flavorChocolate">
-                                Chocolate
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flavor" id="flavorLemon">
-                            <label class="form-check-label" for="flavorLemon">
-                                Limón
-                            </label>
-                        </div>
-                    {% else %}
+                {% if productoAMostrar.categoria == 'tartas-creativas' %}
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <h3 class="option-title">Sabor</h3>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flavor" id="flavor" checked>
                             <label class="form-check-label" for="flavor">
                                 {{ productoAMostrar.sabor|capitalize }}
                             </label>
                         </div>
-                    {% endif %}
-                </div>
+                    </div>
 
-                <div class="col-md-6">
-                    <h3 class="option-title">Relleno</h3>
-                    {% if not productoAMostrar.relleno %}
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="filling" id="fillingDulceLeche" checked>
-                            <label class="form-check-label" for="fillingDulceLeche">
-                                Dulce de leche
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="filling" id="fillingNata">
-                            <label class="form-check-label" for="fillingNata">
-                                Nata
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="filling" id="fillingFruit">
-                            <label class="form-check-label" for="fillingFruit">
-                                Fruta
-                            </label>
-                        </div>
-                    {% else %}
+                    <div class="col-md-6">
+                        <h3 class="option-title">Relleno</h3>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="filling" id="filling" checked>
                             <label class="form-check-label" for="filling">
                                 {{ productoAMostrar.relleno|capitalize }}
                             </label>
                         </div>
-                    {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="mt-4">
+                    <h3 class="option-title">"Hazla aún más especial…</h3>
+                    <textarea class="form-control ideas-textarea" rows="3"
+                              placeholder="¿Qué nombre o mensaje especial te gustaría en tu tarta?"></textarea>
                 </div>
             </div>
 
-            <div class="mt-4">
-                <h3 class="option-title">"Hazla aún más especial…</h3>
-                <textarea class="form-control ideas-textarea" rows="3"
-                          placeholder="¿Qué nombre o mensaje especial te gustaría en tu tarta?"></textarea>
+            <!-- Botones al final -->
+            <div class="button-container">
+                <div class="d-flex justify-content-center gap-3">
+                    <form method="POST" action="{{ path('add-carrito') }}">
+                        <input type="hidden" name="productoId" value="{{ productoAMostrar.id }}">
+                        <input type="hidden" name="sabor" value="{{ productoAMostrar.sabor }}">
+                        <input type="hidden" name="relleno" value="{{ productoAMostrar.relleno }}">
+                        <button type="submit" class="custom-btn" style="text-decoration: none;"
+                                name="addCarrito">Agregar al carrito
+                        </button>
+                    </form>
+                    <a href="{{ path('categorias', {'categoria': productoAMostrar.categoria }) }}" class="custom-btn"
+                       style="text-decoration: none;">Volver</a>
+                </div>
             </div>
-        </div>
-
-        <!-- Botones al final -->
-        <div class="button-container">
-            <div class="d-flex justify-content-center gap-3">
-                <form method="POST" action="{{ path('add-carrito') }}">
-                    <input type="hidden" name="productoId" value="{{ productoAMostrar.id }}">
-                    <input type="hidden" name="sabor" value="{{ productoAMostrar.sabor }}">
-                    <input type="hidden" name="relleno" value="{{ productoAMostrar.relleno }}">
-                    <button type="submit" class="custom-btn" style="text-decoration: none;"
-                            name="addCarrito">Agregar al carrito
-                    </button>
-                </form>
-                <a href="{{ path('categorias', {'categoria': productoAMostrar.categoria }) }}" class="custom-btn"
-                   style="text-decoration: none;">Volver</a>
-            </div>
-        </div>
 
         </div>
     </main>

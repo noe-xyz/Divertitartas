@@ -40,6 +40,7 @@ class ProductosController extends AbstractController
                     'titulo' => 'Nos encanta el dulce',
                     'subtitulo' => 'Todos nuestros dulces son deliciosos y están elaborados con cariño y dedicación. ¡Especiales para Ti!'
                 ];
+                break;
         }
 
         return $this->render('productos/categorias-productos.html.twig', [

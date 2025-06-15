@@ -68,7 +68,7 @@
 
                     <label class="form-label">Fecha de Nacimiento</label>
                     <input type="date" class="form-control"
-                           value="{{ usuarioRegistrado.fechaNacimiento is defined and usuarioRegistrado.fechaNacimiento ? usuarioRegistrado.fechaNacimiento|date('d/m/Y') : '' }}"
+                           value="{{ usuarioRegistrado.fechaNacimiento is defined and usuarioRegistrado.fechaNacimiento ? usuarioRegistrado.fechaNacimiento|date('Y-m-d') : '' }}"
                            name="fechaNacimiento" placeholder="DD/MM/AAAA" readonly>
 
                     <label class="form-label">Domicilio</label>
