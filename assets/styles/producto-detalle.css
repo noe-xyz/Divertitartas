@@ -1,5 +1,5 @@
 /* ================ DETALLE DE PRODUCTO ================ */
-@import url('global.css');
+@import url('app.css');
 
 /* Título principal */
 .product-title {
@@ -44,14 +44,21 @@
 
 /* Sección de texto */
 .product-text-container {
-    padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 30px;
+    text-align: center;
+}
+
+.row.g-0 {
+    min-height: 400px;
 }
 
 .product-description {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     line-height: 1.7;
     margin-bottom: 20px;
 }

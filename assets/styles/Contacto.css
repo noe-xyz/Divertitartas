@@ -1,5 +1,5 @@
 /* ================ FORMULARIO DE CONTACTO ================ */
-@import url('global.css');
+@import url('app.css');
 
 .formulario {
     background-color: var(--color-rosa-claro);

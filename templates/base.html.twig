@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Divertitartas{% endblock %}</title>
-    <link rel="stylesheet" href="{{ asset('styles/global.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
 
     {% if app.request.attributes.get('_route') =='index' %}
         <link rel="stylesheet" href="{{ asset('styles/inicio.css') }}">

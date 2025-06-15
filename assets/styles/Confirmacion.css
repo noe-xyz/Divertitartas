@@ -1,5 +1,5 @@
 /* ================ PÁGINA DE CONFIRMACIÓN ================ */
-@import url('global.css');
+@import url('app.css');
 
 .confirmation-main {
     display: grid;
@@ -45,7 +45,32 @@
     border-top: 2px solid var(--color-rosa-oscuro);
     padding-top: 10px;
 }
+/* Añade esto al final de tu archivo CSS */
+.btn-rosa {
+    background-color: var(--color-gris-claro) !important;
+    color: black !important;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    margin: 10px;
+    display: inline-block;
+    transition: all var(--transition-time);
+}
 
+.btn-rosa:hover {
+    background-color: var(--color-rosa-oscuro) !important;
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+/* Versión alternativa sin !important (preferible) */
+.confirmation-actions .btn-rosa {
+    background-color: var(--color-rosa-oscuro);
+    color: white;
+    /* resto de estilos igual */
+}
 /* Responsive */
 @media (max-width: 768px) {
     .confirmation-card { padding: 30px 20px; }
