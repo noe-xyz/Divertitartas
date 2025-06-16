@@ -121,7 +121,7 @@
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between fw-bold">
-                                    <span>Total:</span>
+                                    <span>Total (IVA Incluido) :</span>
                                     <span>{% if app.session.get('carrito') is empty %}<small>Añade un producto para calcular el precio total</small>{% else %}{{ total|format_number({fraction_digit: 2}) }}€{% endif %}</span>
                                 </div>
                             </div>
