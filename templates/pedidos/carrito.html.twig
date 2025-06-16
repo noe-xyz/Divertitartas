@@ -14,150 +14,179 @@
 
         <!-- Contenido principal del carrito -->
         <div class="container my-5" id="mainCarrito">
-        <div class="row">
-            <!-- Productos del carrito -->
-            <div class="col-md-8">
-                <!-- Producto 1 -->
-                {% for productoCarrito in app.session.get('carrito', []) %}
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <h4 class="card-title">{{ productoCarrito.nombre|capitalize }}</h4>
-                                    <p class="card-text">
-                                        Precio: {{ productoCarrito.precio|format_number({fraction_digit: 2}) }}€</p>
+            <div class="row">
+                <!-- Productos del carrito -->
+                <div class="col-md-8">
+                    <!-- Producto 1 -->
+                    {% for productoCarrito in app.session.get('carrito', []) %}
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h4 class="card-title">{{ productoCarrito.nombre|capitalize }}</h4>
+                                        <p class="card-text">
+                                            Precio: {{ productoCarrito.precio|format_number({fraction_digit: 2}) }}€</p>
+                                        {% if productoCarrito.sabor and productoCarrito.relleno %}
+                                            <ul>
+                                                <li>Sabor: {{ productoCarrito.sabor }}</li>
+                                                <li>Relleno: {{ productoCarrito.relleno }}</li>
+                                                {% if productoCarrito.mensaje is defined and productoCarrito.mensaje %}
+                                                <li>Mensaje: "{{ productoCarrito.mensaje }}"</li>
+                                                {% endif %}
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                    <img src="{{ asset('uploads/productos/' ~ productoCarrito.imagen) }}"
+                                         alt="Tarta de Ositos"
+                                         class="img-thumbnail"
+                                         style="width: 100px; height: 100px;">
                                 </div>
-                                <img src="{{ asset('uploads/productos/' ~ productoCarrito.imagen) }}" alt="Tarta de Ositos"
-                                     class="img-thumbnail"
-                                     style="width: 100px; height: 100px;">
-                            </div>
-                            <div class="d-flex align-items-center mt-3">
-                                <input type="number" class="form-control me-3" value="1" min="1" style="width: 80px;">
-                                <form action="{{ path('eliminar-carrito', {id: productoCarrito.id}) }}" method="post">
-                                    <button class="btn btn-outline-danger me-2">Eliminar</button>
-                                </form>
-
+                                <div class="d-flex align-items-center mt-3">
+                                    <form action="{{ path('actualizar-carrito', {index: loop.index0}) }}" method="post"
+                                          class="d-flex align-items-center">
+                                        <input type="number" name="cantidad" class="form-control me-2"
+                                               value="{{ productoCarrito.cantidad|default(1) }}" min="1"
+                                               style="width: 80px;" onchange="this.form.submit()">
+                                    </form>
+                                    <form action="{{ path('eliminar-carrito', {id: productoCarrito.id}) }}"
+                                          method="post">
+                                        <button class="btn btn-outline-danger me-2">Eliminar</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% else %}
+                    {% else %}
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 py-3">
+                                        <h4 class="card-title mt-2">¡El carrito está vacío!</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <!-- Datos del envío -->
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-md-8 py-3">
-                                    <h4 class="card-title mt-2">¡El carrito está vacío!</h4>
-                                </div>
+                            <h5 class="card-title mb-3">Datos del envío</h5>
+                            <div class="mb-3">
+                                <p>
+                                    <strong>Cliente:</strong> {{ cliente.nombreCompleto|default('Por favor, identifícate') }}
+                                </p>
+                                <p><strong>Dirección de
+                                        envío:</strong> {% if domicilioStr is defined and domicilioStr is not empty %}{{ domicilioStr }}{% else %}Por
+                                        favor, añade una dirección de envío{% endif %}</p>
+                                <p><strong>Teléfono:</strong> {{ cliente.telefono1|default('Por favor, identifícate') }}
+                                </p>
+                                <p><strong>Fecha de envío estimada:</strong> {{ fechaDeEnvio|date('d/m/Y') }}</p>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-outline-rosa"
+                                        onclick="location.href='{{ path('cuenta') ~ '?id=' ~ app.session.get('id') }}'" {% if not app.session.get('id') %} disabled {% endif %}>
+                                    Modificar
+                                </button>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                </div>
 
-                <!-- Datos del envío -->
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title mb-3">Datos del envío</h5>
-                        <div class="mb-3">
-                            <p><strong>Cliente:</strong> {{ cliente.nombreCompleto|default('Por favor, identifícate') }}
-                            </p>
-                            <p><strong>Dirección de
-                                    envío:</strong> {% if domicilioStr is defined and domicilioStr is not empty %}{{ domicilioStr }}{% else %}Por
-                                    favor, añade una dirección de envío{% endif %}</p>
-                            <p><strong>Teléfono:</strong> {{ cliente.telefono1|default('Por favor, identifícate') }}</p>
-                            <p><strong>Fecha de envío estimada:</strong> {{ fechaDeEnvio|date('d/m/Y') }}</p>
-                        </div>
-                        <div class="text-end">
-                            <button class="btn btn-outline-rosa"
-                                    onclick="location.href='{{ path('cuenta') ~ '?id=' ~ app.session.get('id') }}'" {% if not app.session.get('id') %} disabled {% endif %}>
-                                Modificar
+                <!-- Columna derecha con resumen y puntos -->
+                <div class="col-md-4">
+                    <!-- Resumen del pedido -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">Resumen del Pedido</h5>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Subtotal:</span>
+                                    <span>{% if app.session.get('carrito') is empty %}<small>Añade un producto para calcular el subtotal</small>{% else %}{{ subtotal|format_number({fraction_digit: 2}) }}€{% endif %}</span>
+                                </div>
+                                {% if puntosCanjeados %}
+                                    <div class="d-flex justify-content-between mb-2 text-success">
+                                        <span>Descuento pts: </span>
+                                        <span>-{{ descuento|format_number({fraction_digit: 2}) }} €</span>
+                                    </div>
+                                {% endif %}
+                                {% if descuentoCuponAmount > 0 %}
+                                    <div class="d-flex justify-content-between mb-2 text-success">
+                                        <span>Descuento cupón ({{ descuentoCuponPorcentaje }}%):</span>
+                                        <span>-{{ descuentoCuponAmount|format_number({fraction_digit: 2}) }} €</span>
+                                    </div>
+                                {% endif %}
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Envío:</span>
+                                    <span>{% if app.session.get('carrito') is empty %}<small>Añade un producto para calcular los gastos de envío</small>{% else %}5.00€{% endif %}</span>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between fw-bold">
+                                    <span>Total:</span>
+                                    <span>{% if app.session.get('carrito') is empty %}<small>Añade un producto para calcular el precio total</small>{% else %}{{ total|format_number({fraction_digit: 2}) }}€{% endif %}</span>
+                                </div>
+                            </div>
+                            <button onclick="location.href='/pago'"
+                                    class="btn btn-primary w-100 mt-3" {% if app.session.get('carrito') is empty %} disabled {% endif %}>
+                                Finalizar Compra
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Columna derecha con resumen y puntos -->
-            <div class="col-md-4">
-                <!-- Resumen del pedido -->
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title mb-4">Resumen del Pedido</h5>
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between mb-2">
-                                <span>Subtotal:</span>
-                                <span>{% if app.session.get('carrito') is empty %}<small>Añade un producto para calcular el subtotal</small>{% else %}{{ subtotal|format_number({fraction_digit: 2}) }}€{% endif %}</span>
+                    <!-- Puntos acumulados -->
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Puntos acumulados:
+                                <span class="text-rosa" id="puntos-actuales"
+                                      data-puntos="{{ cliente.puntos|default('0') }}">{{ cliente.puntos|default('0') }}pts</span>
+                            </h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="canjearPuntos"
+                                       onchange="location.href='{{ path('carrito') }}?canjearPuntos=' + (this.checked ? '1' : '0')"
+                                        {% if puntosCanjeados|default(false) %} checked {% endif %}
+                                        {% if app.session.get('carrito') is empty or cliente.puntos < 10 %} disabled {% endif %}>
+                                <label class="form-check-label" for="canjearPuntos">Canjear puntos</label>
                             </div>
                             {% if puntosCanjeados %}
-                                <div class="d-flex justify-content-between mb-2 text-success">
-                                    <span>Descuento pts: </span>
-                                    <span>-{{ descuento|format_number({fraction_digit: 2}) }} €</span>
-                                </div>
-                            {% endif %}
-                            <div class="d-flex justify-content-between mb-2">
-                                <span>Envío:</span>
-                                <span>{% if app.session.get('carrito') is empty %}<small>Añade un producto para calcular los gastos de envío</small>{% else %}5.00€{% endif %}</span>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between fw-bold">
-                                <span>Total:</span>
-                                <span>{% if app.session.get('carrito') is empty %}<small>Añade un producto para calcular el precio total</small>{% else %}{{ total|format_number({fraction_digit: 2}) }}€{% endif %}</span>
-                            </div>
-                        </div>
-                        {# <a href="/pago" class="btn btn-primary w-100 mt-3">Finalizar Compra</a>  #}
-                        <button onclick="location.href='/pago'"
-                                class="btn btn-primary w-100 mt-3" {% if app.session.get('carrito') is empty %} disabled {% endif %}>
-                            Finalizar Compra
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Puntos acumulados -->
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Puntos acumulados:
-                            <span class="text-rosa" id="puntos-actuales"
-                                  data-puntos="{{ cliente.puntos|default('0') }}">{{ cliente.puntos|default('0') }}pts</span>
-                        </h5>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="canjearPuntos"
-                                   onchange="location.href='{{ path('carrito') }}?canjearPuntos=' + (this.checked ? '1' : '0')"
-                                    {% if puntosCanjeados|default(false) %} checked {% endif %}
-                                    {% if app.session.get('carrito') is empty or cliente.puntos < 10 %} disabled {% endif %}>
-                            <label class="form-check-label" for="canjearPuntos">Canjear puntos</label>
-                        </div>
-                        {% if puntosCanjeados %}
-                            {% set puntosRedimidos = (cliente.puntos // 10) * 10 %}
-                            {% set puntosRestantes = cliente.puntos - puntosRedimidos %}
-                            <div class="alert alert-success mt-3 mb-0 p-2">
-                                Has canjeado <strong>{{ puntosRedimidos }}</strong> puntos
-                                ({{ descuento|format_number({fraction_digit: 2}) }}€ de descuento).
-                                <br>
-                                Te quedarán <strong>{{ puntosRestantes }}</strong> puntos después de esta compra.
-                            </div>
-                        {% else %}
-                            {% if cliente is not null and cliente.puntos >= 10 %}
-                                <div class="alert alert-secondary mt-3 mb-0 p-2">
-                                    Puedes canjear hasta <strong>{{ (cliente.puntos // 10) * 10 }}</strong> puntos
-                                    ({{ ((cliente.puntos // 10) * 2)|format_number({fraction_digit: 2}) }}€ de
-                                    descuento).
+                                {% set puntosRedimidos = (cliente.puntos // 10) * 10 %}
+                                {% set puntosRestantes = cliente.puntos - puntosRedimidos %}
+                                <div class="alert alert-success mt-3 mb-0 p-2">
+                                    Has canjeado <strong>{{ puntosRedimidos }}</strong> puntos
+                                    ({{ descuento|format_number({fraction_digit: 2}) }}€ de descuento).
+                                    <br>
+                                    Te quedarán <strong>{{ puntosRestantes }}</strong> puntos después de esta compra.
                                 </div>
                             {% else %}
-                                <div class="alert alert-warning mt-3 mb-0 p-2">
-                                    Necesitas al menos <strong>10 puntos</strong> para poder canjear.
-                                </div>
+                                {% if cliente is not null and cliente.puntos >= 10 %}
+                                    <div class="alert alert-secondary mt-3 mb-0 p-2">
+                                        Puedes canjear hasta <strong>{{ (cliente.puntos // 10) * 10 }}</strong> puntos
+                                        ({{ ((cliente.puntos // 10) * 2)|format_number({fraction_digit: 2}) }}€ de
+                                        descuento).
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-warning mt-3 mb-0 p-2">
+                                        Necesitas al menos <strong>10 puntos</strong> para poder canjear.
+                                    </div>
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                        <br>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox"
-                                   id="usarCupon" {% if app.session.get('carrito') is empty %} disabled {% endif %}>
-                            <label class="form-check-label" for="usarCupon">Utilizar código de descuento</label>
-                            <input type="text" class="form-control mt-2"
-                                   placeholder="Ejemplo: AAAA-BBBB-CCCC" {% if app.session.get('carrito') is empty %} readonly {% endif %}>
+                            <br>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="usarCupon"
+                                        {% if app.session.get('carrito') is empty %} disabled {% endif %}
+                                        {% if usarCupon %} checked {% endif %}
+                                       onchange="toggleCupon()">
+                                <label class="form-check-label" for="usarCupon">Utilizar código de descuento</label>
+
+                                <input type="text" class="form-control mt-2" id="inputCupon"
+                                       placeholder="Ejemplo: AAAA-BBBB-CCCC"
+                                        {% if app.session.get('carrito') is empty %} readonly {% endif %}
+                                       style="display: {{ usarCupon ? 'block' : 'none' }};"
+                                       value="{{ codigoDescuento|default('') }}">
+                                <button id="btnAplicarCupon" class="btn btn-secondary mt-2" disabled>Aplicar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </main>
     {% include '_footer.html.twig' %}
@@ -166,38 +195,59 @@
 {% block javascripts %}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const checkbox = document.getElementById('canjearPuntos');
+            const checkboxCupon = document.getElementById('usarCupon');
+            const inputCupon = document.getElementById('inputCupon');
+            const btnAplicarCupon = document.getElementById('btnAplicarCupon');
+            const checkboxPuntos = document.getElementById('canjearPuntos');
 
-            checkbox.addEventListener('change', function () {
-                const url = new URL(window.location.href);
-                if (this.checked) {
-                    url.searchParams.set('canjearPuntos', 'true');
+            // Función que solo muestra/oculta y habilita/deshabilita
+            function actualizarVista() {
+                if (checkboxCupon.checked) {
+                    inputCupon.style.display = 'block';
+                    btnAplicarCupon.disabled = !inputCupon.value.trim();
                 } else {
+                    inputCupon.style.display = 'none';
+                    btnAplicarCupon.disabled = true;
+                }
+            }
+
+            // Inicialización sin recarga
+            actualizarVista();
+
+            // Evento change del checkbox: aquí sí recargamos si lo desmarcan
+            checkboxCupon.addEventListener('change', function () {
+                if (!this.checked) {
+                    // Quitar parámetro y recargar
+                    const url = new URL(window.location.href);
+                    url.searchParams.delete('codigoDescuento');
+                    window.location.href = url.toString();
+                } else {
+                    // Simplemente actualizar la vista (mostrar input)
+                    actualizarVista();
+                }
+            });
+
+            // Activar botón aplicar solo si hay texto
+            inputCupon.addEventListener('input', function () {
+                btnAplicarCupon.disabled = !this.value.trim();
+            });
+
+            // Al hacer clic en aplicar
+            btnAplicarCupon.addEventListener('click', function () {
+                const codigo = inputCupon.value.trim();
+                if (!codigo) return;
+
+                const url = new URL(window.location.href);
+                url.searchParams.set('codigoDescuento', codigo);
+
+                // Opcional: desactivar canjear puntos si se usa cupón
+                if (checkboxPuntos) {
+                    checkboxPuntos.checked = false;
                     url.searchParams.set('canjearPuntos', 'false');
                 }
+
                 window.location.href = url.toString();
             });
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const checkbox = document.getElementById('canjearPuntos');
-            const puntosSpan = document.getElementById('puntos-actuales');
-
-            if (!checkbox || !puntosSpan) return;
-
-            const puntosOriginales = parseInt(puntosSpan.dataset.puntos);
-
-            checkbox.addEventListener('change', function () {
-                if (this.checked) {
-                    puntosSpan.textContent = '0pts';
-                } else {
-                    puntosSpan.textContent = puntosOriginales + 'pts';
-                }
-            });
-
-            if (checkbox.checked) {
-                puntosSpan.textContent = '0pts';
-            }
         });
     </script>
 {% endblock %}

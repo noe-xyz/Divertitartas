@@ -32,7 +32,7 @@
                                     {% set partes = item.pedido.estado|split('-') %}
                                     {% set primera = partes[0]|capitalize %}
                                     {% set resto = partes|slice(1) %}
-                                    <span class="text-muted">Estado: {{ [primera]|merge(resto)|join(' ') }}</span>
+                                    <span class="{{ item.pedido.estado == 'en-proceso' ? 'text-success' : 'text-muted' }}">Estado: {{ [primera]|merge(resto)|join(' ') }}</span>
                                 </div>
                                 <div class="col-md-4 text-center">
                                     <img src="{{ asset('../assets/images/logo_circulo.png') }}" alt="Tarta de Unicornio"

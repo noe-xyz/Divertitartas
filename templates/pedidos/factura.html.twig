@@ -31,8 +31,8 @@
                     <h5 class="text-rosa">Datos de la Factura</h5>
                     <p><strong>Número de Factura:</strong> DIV-2025-{{ pedido.id|format('%05d') }}</p>
                     <p><strong>Fecha:</strong> {{ pedido.fecha|date('d/m/Y') }}</p>
-                    <p><strong>Método de Pago:</strong> {{ pedido.metodoPago ?? 'No especificado' }}</p>
-                    <p><strong>Referencia de Pago:</strong> {{ pedido.referenciaPago ?? 'N/C' }}</p>
+{#                    <p><strong>Método de Pago:</strong> {{ pedido.metodoPago ?? 'No especificado' }}</p>#}
+{#                    <p><strong>Referencia de Pago:</strong> {{ pedido.referenciaPago ?? 'N/C' }}</p>#}
                 </div>
             </div>
 
@@ -46,7 +46,9 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% set totalSinDescuento = 0 %}
                 {% for detalle in pedido.detalles %}
+                    {% set totalSinDescuento = totalSinDescuento + (detalle.precioUnitario * detalle.cantidad) %}
                     <tr>
                         <td>{{ detalle.producto.nombre|capitalize }}</td>
                         <td>{{ detalle.precioUnitario|number_format(2, ',', '.') }}€</td>
@@ -54,6 +56,15 @@
                         <td>{{ (detalle.precioUnitario * detalle.cantidad)|number_format(2, ',', '.') }}€</td>
                     </tr>
                 {% endfor %}
+
+                {% if totalSinDescuento != pedido.costeTotal-5 %}
+                    <tr>
+                        <td colspan="3" class="text-end text-success"><strong>Descuento:</strong></td>
+                        <td class="text-success">
+                            - {{ (totalSinDescuento - (pedido.costeTotal -5))|number_format(2, ',', '.') }} €
+                        </td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <td colspan="3" class="text-end"><strong>Subtotal:</strong></td>
                     <td>{{ (pedido.costeTotal - 5) |number_format(2, ',', '.') }} €</td>
@@ -70,7 +81,12 @@
             </table>
 
             <div class="invoice-totals">
-                <p><strong>Puntos obtenidos con esta compra:</strong> {{ (pedido.detalles|length) * 10 }} pts</p>
+                {% set totalUnidades = 0 %}
+                {% for detalle in pedido.detalles %}
+                    {% set totalUnidades = totalUnidades + detalle.cantidad %}
+                {% endfor %}
+
+                <p><strong>Puntos obtenidos con esta compra:</strong> {{ totalUnidades * 5 }} pts</p>
             </div>
 
             <div class="invoice-footer">

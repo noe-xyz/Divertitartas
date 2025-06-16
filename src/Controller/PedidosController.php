@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cliente;
+use App\Entity\Descuento;
 use App\Entity\DetallesPedido;
 use App\Entity\Pedido;
 use App\Entity\Producto;
@@ -116,12 +117,39 @@ class PedidosController extends AbstractController
         }
 
         $canjearPuntos = $request->query->getBoolean('canjearPuntos', false);
+        $codigoDescuento = trim($request->query->get('codigoDescuento', ''));
+
         $session->set('canjearPuntos', $canjearPuntos);
 
         $subtotal = $this->calcularPrecioTotal($session);
+
+        $porcentaje = 0;
+        $usarCupon = false;
+
+        if ($codigoDescuento !== '') {
+            $codigo = $entityManager->getRepository(Descuento::class)->findOneBy(['codigo_descuento' => $codigoDescuento]);
+            if ($codigo) {
+                $porcentaje = $codigo->getCantidadDescontada();
+                $descuentoCuponCantidad = $subtotal * $porcentaje / 100;
+                $usarCupon = true;
+            } else {
+                // Código no válido, limpiar parámetro para que no quede activo
+                $codigoDescuento = '';
+            }
+        } else {
+            $porcentaje = 0;
+            $descuentoCuponCantidad = 0;
+        }
+
         $puntosDescontados = $this->canjearPuntos($cliente, $session, $subtotal);
 
-        $session->set('descuento', $puntosDescontados['descuento']);
+        $total = max(0, $subtotal - $descuentoCuponCantidad - $puntosDescontados['descuento']);
+
+        $session->set('descuentoCupon', $descuentoCuponCantidad);
+        $session->set('descuentoPuntos', $puntosDescontados['descuento']);
+        $session->set('descuentoCuponPorcentaje', $porcentaje);
+        $session->set('usarCupon', $usarCupon);
+
 
         $fechaDeEnvio = $this->calcularFechaEnvio();
 
@@ -130,9 +158,13 @@ class PedidosController extends AbstractController
             'fechaDeEnvio' => $fechaDeEnvio,
             'domicilioStr' => $domicilioStr,
             'subtotal' => $subtotal,
-            'total' => $puntosDescontados['total'],
+            'total' => $total,
             'puntosCanjeados' => $canjearPuntos,
             'descuento' => $puntosDescontados['descuento'],
+            'usarCupon' => $usarCupon,
+            'codigoDescuento' => $codigoDescuento,
+            'descuentoCuponPorcentaje' => $porcentaje,
+            'descuentoCuponAmount' => $descuentoCuponCantidad,
         ]);
     }
 
@@ -179,22 +211,38 @@ class PedidosController extends AbstractController
             $productoId = $request->request->get('productoId');
             $sabor = $request->request->get('sabor');
             $relleno = $request->request->get('relleno');
+            $cantidad = max((int)$request->request->get('cantidad', 1), 1);
+            $mensaje = $request->request->get('mensajePersonalizado');
 
             $productoSeleccionado = $entityManager->getRepository(Producto::class)->findOneBy(['id' => $productoId]);
             $categoria = $productoSeleccionado->getCategoria();
             $slug = $productoSeleccionado->getSlug();
 
-            $carritoSesion = $session->get('carrito', []);
-            $carritoSesion[] = [
-                'id' => $productoSeleccionado->getId(),
-                'nombre' => $productoSeleccionado->getNombre(),
-                'precio' => $productoSeleccionado->getPrecio(),
-                'sabor' => $sabor,     //$productoSeleccionado->getSabor(),
-                'relleno' => $relleno,
-                'imagen' => $productoSeleccionado->getImagen(),
-            ];
+            $carrito = $session->get('carrito', []);
+            $productoYaExiste = false;
 
-            $session->set('carrito', $carritoSesion);
+            foreach ($carrito as &$item) {
+                if ($item['id'] === $productoSeleccionado->getId()) {
+                    $item['cantidad'] = ($item['cantidad'] ?? 1) + $cantidad;
+                    $productoYaExiste = true;
+                    break;
+                }
+            }
+
+            if (!$productoYaExiste) {
+                $carrito[] = [
+                    'id' => $productoSeleccionado->getId(),
+                    'nombre' => $productoSeleccionado->getNombre(),
+                    'precio' => $productoSeleccionado->getPrecio(),
+                    'sabor' => $sabor,
+                    'relleno' => $relleno,
+                    'imagen' => $productoSeleccionado->getImagen(),
+                    'cantidad' => $cantidad,
+                    'mensaje' => $mensaje
+                ];
+            }
+
+            $session->set('carrito', $carrito);
         }
         return $this->redirectToRoute('producto', [
             'categoria' => $categoria,
@@ -219,13 +267,27 @@ class PedidosController extends AbstractController
         return $this->redirectToRoute('carrito');
     }
 
+    #[Route('/carrito/actualizar/{index}', name: 'actualizar-carrito', methods: ['POST'])]
+    public function actualizarCantidad(int $index, Request $request, SessionInterface $session): Response
+    {
+        $nuevaCantidad = max((int)$request->request->get('cantidad'), 1);
+        $carrito = $session->get('carrito', []);
+
+        if (isset($carrito[$index])) {
+            $carrito[$index]['cantidad'] = $nuevaCantidad;
+            $session->set('carrito', $carrito);
+        }
+
+        return $this->redirectToRoute('carrito');
+    }
 
     public function calcularPrecioTotal(SessionInterface $session): float
     {
         $carritoSesion = $session->get('carrito', []);
         $precioTotal = 0;
         foreach ($carritoSesion as $carrito) {
-            $precioTotal += $carrito['precio']; //* $carrito['cantidad'];
+            $cantidad = $carrito['cantidad'] ?? 1;
+            $precioTotal += $carrito['precio'] * $cantidad;
         }
 
         return $precioTotal;
@@ -263,63 +325,82 @@ class PedidosController extends AbstractController
     }
 
     #[Route('/pago/confirmacion', name: 'confirmacion', methods: ['POST'])]
-    public function confirmacion(SessionInterface $session, EntityManagerInterface $entityManager): Response
+    public function confirmacion(SessionInterface $session, EntityManagerInterface $entityManager, Request $request): Response
     {
+        // 1. Datos básicos
         $carritoSesion = $session->get('carrito', []);
         $clienteSesion = $session->get('id');
-        $cliente = $entityManager->getRepository(Cliente::class)->findOneBy(['id' => $clienteSesion]);
+        $cliente = $entityManager->getRepository(Cliente::class)->find($clienteSesion);
 
+        // 2. Subtotal sin descuentos
         $subtotal = $this->calcularPrecioTotal($session);
-        $descuento = $session->get('descuento', 0);
-        $total = max(0, $subtotal - $descuento) + 5;
 
+        // 3. Recuperar descuentos de la sesión
+        $descuentoPuntos = $session->get('descuentoPuntos', 0);
+        $descuentoCupon = $session->get('descuentoCupon', 0);
+
+        // 4. Calcular total final
+        $descuentoTotal = $descuentoPuntos + $descuentoCupon;
+        $total = max(0, $subtotal - $descuentoTotal) + 5; // + envío
+
+        // 5. Crear Pedido
         $pedido = new Pedido();
         $pedido->setFecha(new \DateTime())
             ->setEstado('pendiente')
             ->setCosteTotal($total)
             ->setIdCliente($clienteSesion);
 
+        // 6. Ajustar puntos: restar canjeados, sumar ganados
         $puntosCanjeados = $session->get('puntosCanjeadosCantidad', 0);
         $puntosPrevios = $cliente->getPuntos();
-        $puntosActualizados = max(0, $puntosPrevios - $puntosCanjeados);
+        $puntosActuales = max(0, $puntosPrevios - $puntosCanjeados);
 
-        $puntosGanados = count($carritoSesion) * 5; // Podrías usar cantidad real
-        $cliente->setPuntos($puntosActualizados + $puntosGanados);
+        $puntosGanados = 0;
+        foreach ($carritoSesion as $item) {
+            $puntosGanados += $item['cantidad'] * 5;
+        }
+        $cliente->setPuntos($puntosActuales + $puntosGanados);
 
-        foreach ($carritoSesion as $carrito) {
-            $producto = $entityManager->getRepository(Producto::class)->find($carrito['id']);
+        // 7. Persistir DetallesPedido
+        foreach ($carritoSesion as $item) {
+            $producto = $entityManager->getRepository(Producto::class)->find($item['id']);
             if (!$producto) {
                 continue;
             }
-
-            $detallesPedido = new DetallesPedido();
-            $detallesPedido->setPedido($pedido)
+            $detalle = new DetallesPedido();
+            $detalle->setPedido($pedido)
                 ->setProducto($producto)
-                ->setPrecioUnitario($carrito['precio'])
-                ->setCantidad(1); // Cambiar para manejar cantidad real input
-
-            $pedido->addDetalle($detallesPedido);
-            $entityManager->persist($detallesPedido);
+                ->setPrecioUnitario($item['precio'])
+                ->setCantidad($item['cantidad']);
+            $pedido->addDetalle($detalle);
+            $entityManager->persist($detalle);
         }
 
         $entityManager->persist($cliente);
         $entityManager->persist($pedido);
         $entityManager->flush();
 
+        // 8. Limpiar sesión
         $session->set('puntos', $cliente->getPuntos());
         $session->remove('carrito');
         $session->remove('puntosCanjeadosCantidad');
+        $session->remove('descuentoPuntos');
+        $session->remove('descuentoCupon');
         $session->remove('canjearPuntos');
-        $session->remove('descuento');
 
+        // 9. Renderizar confirmación con todos los datos
         return $this->render('pedidos/confirmacion.html.twig', [
             'carrito' => $carritoSesion,
-            'total' => $total,
-            'descuento' => $descuento,
             'subtotal' => $subtotal,
+            'descuentoPuntos' => $descuentoPuntos,
+            'descuentoCupon' => $descuentoCupon,
+            'descuentoTotal' => $descuentoTotal,
+            'total' => $total,
             'puntosGanados' => $puntosGanados,
+            'pago' => $request->request->get('payment_method'),
         ]);
     }
+
 
     public function separarDireccion($cliente): string
     {

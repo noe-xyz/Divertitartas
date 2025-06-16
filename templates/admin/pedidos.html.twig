@@ -24,7 +24,6 @@
                         <th style="color: #ed7abd;">Descripción</th>
                         <th style="color: #ed7abd;">Entrega</th>
                         <th style="color: #ed7abd;">Estado</th>
-                        <th style="color: #ed7abd;">Notas</th>
                     </tr>
                     </thead>
                     <!--ejemplo de una tabla con el contenido del dia seleccionado buscado en la bd -->
@@ -57,7 +56,6 @@
                                     </option>
                                 </select>
                             </td>
-                            <td>{{ item.pedido.comentario | default('Sin lactosa') }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

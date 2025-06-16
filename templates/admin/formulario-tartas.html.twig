@@ -1,0 +1,53 @@
+<form method="post" action="/administracion/crear-producto" enctype="multipart/form-data">
+    <h5 class="modal-title" id="crearProductoLabel" style="color: #ed7abd; font-size: 30px; font-weight: bold">Nuevo producto</h5>
+    <br>
+    <div class="modal-body">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="nombre" class="form-label">Nombre *</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" required>
+            </div>
+            <div class="col-md-6">
+                <label for="precio" class="form-label">Precio (€) *</label>
+                <input type="number" class="form-control" name="precio" id="precio" required>
+            </div>
+            <div class="col-md-6">
+                <label for="sabor" class="form-label">Sabor</label>
+                <input type="text" class="form-control" name="sabor" id="sabor">
+            </div>
+            <div class="col-md-6">
+                <label for="relleno" class="form-label">Relleno</label>
+                <input type="text" class="form-control" name="relleno" id="relleno">
+            </div>
+            <div class="col-md-6">
+                <label for="raciones" class="form-label">Raciones</label>
+                <input type="number" class="form-control" name="raciones" id="raciones">
+            </div>
+            <div class="col-md-6">
+                <label for="categoria" class="form-label">Categoría *</label>
+                <input type="text" class="form-control" name="categoria" id="categoria" required>
+            </div>
+            <div class="col-md-12">
+                <label for="descripcion" class="form-label">Descripción *</label>
+                <textarea class="form-control" name="descripcion" id="descripcion" rows="2"
+                          required></textarea>
+            </div>
+            <div class="col-md-12">
+                <label for="comentario" class="form-label">Comentario (interno)</label>
+                <textarea class="form-control" name="comentario" id="comentario" rows="2"></textarea>
+            </div>
+            <div class="col-md-6">
+                <label for="cantidad" class="form-label">Cantidad *</label>
+                <input type="number" class="form-control" name="cantidad" id="cantidad" required>
+            </div>
+            <div class="col-md-6">
+                <label for="imagen" class="form-label">Imagen *</label>
+                <input class="form-control" type="file" name="imagen" id="imagen" accept="image/*" required>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-rosado">Guardar</button>
+    </div>
+</form>

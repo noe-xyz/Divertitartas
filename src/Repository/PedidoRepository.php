@@ -30,6 +30,8 @@ class PedidoRepository extends ServiceEntityRepository
                 ->setParameter('estado1', $estado1);
         }
 
+        $qb->orderBy('p.id', 'DESC');
+
         return $qb->getQuery()->getResult();
     }
 

@@ -123,8 +123,6 @@
 
         <form id="confirmationForm" method="POST" action="{{ path('confirmacion') }}" style="display: none;">
             <input type="hidden" name="payment_method" id="paymentMethodInput">
-            {# Add CSRF token if required by Symfony #}
-            {{ csrf_token('confirmacion')|raw }}
         </form>
 
     </main>

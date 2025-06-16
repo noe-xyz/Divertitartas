@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Descuento;
 use App\Entity\Pedido;
 use App\Entity\Producto;
 use App\Entity\Proveedores;
@@ -11,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ModificarDatosAdminController extends AbstractController
 {
@@ -118,6 +120,24 @@ class ModificarDatosAdminController extends AbstractController
         ]);
     }
 
+    #[Route('/administracion/add-codigo-descuento', name: 'add-codigo-descuento')]
+    public function addCodigo(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $cantidadDescontada = $request->request->get('descuento') ?? 0;
+
+        $descuento = new Descuento();
+        $descuento->setCodigoDescuento('diver-' . $cantidadDescontada)
+            ->setNombre('diver-' . $cantidadDescontada . '%')
+            ->setCantidadDescontada($cantidadDescontada);
+        $entityManager->persist($descuento);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('mostrar-accion', [
+            'accion' => 'stock',
+        ]);
+    }
+
     #[Route('/administracion/modificar-stock', name: 'modificar-stock')]
     public function modificarStock(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -155,6 +175,55 @@ class ModificarDatosAdminController extends AbstractController
         return $this->redirectToRoute('mostrar-accion', [
             'accion' => 'configuracion',
         ]);
+    }
+
+    #[Route('/administracion/crear-producto', name: 'crear-producto')]
+    public function crearProducto(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    {
+        $producto = new Producto();
+
+        $slug = $this->crearSlugUrl($request->request->get('nombre'));
+        $slugCategoria = $this->crearSlugUrl($request->request->get('categoria'));
+
+        $producto->setNombre($request->request->get('nombre'))
+            ->setPrecio((float)$request->request->get('precio'))
+            ->setSabor($request->request->get('sabor') ?? null)
+            ->setRelleno($request->request->get('relleno') ?? null)
+            ->setRaciones($request->request->get('raciones'))
+            ->setDescripcion($request->request->get('descripcion'))
+            ->setComentario($request->request->get('comentario'))
+            ->setCategoria($slugCategoria)
+            ->setSlug($slug)
+            ->setCantidad((int)$request->request->get('cantidad'));
+
+        $imagen = $request->files->get('imagen');
+        if ($imagen) {
+            $nombreSeguro = $slugger->slug(pathinfo($imagen->getClientOriginalName(), PATHINFO_FILENAME));
+            $nuevoNombre = $nombreSeguro . '-' . uniqid() . '.' . $imagen->guessExtension();
+            $imagen->move($this->getParameter('productos_directory'), $nuevoNombre);
+            $producto->setImagen($nuevoNombre);
+        }
+
+        $entityManager->persist($producto);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('mostrar-accion', [
+            'accion' => 'stock',
+        ]);
+    }
+
+    private function crearSlugUrl($nombreProducto)
+    {
+        // Convertir a minúsculas
+        $slug = strtolower($nombreProducto);
+        // Eliminar acentos y caracteres especiales
+        $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $slug);
+        // Reemplazar cualquier carácter que no sea letra o número por un espacio
+        $slug = preg_replace('/[^a-z0-9\s]/', '', $slug);
+        // Reemplazar múltiples espacios por un solo guion
+        $slug = preg_replace('/\s+/', '-', trim($slug));
+
+        return $slug;
     }
 
 }
