@@ -14,7 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class AdminController extends AbstractController
@@ -30,8 +29,8 @@ class AdminController extends AbstractController
         }
 
         //Pestaña gestión usuarios
-        $clientesRegistrados = $entityManager->getRepository(Cliente::class)->findAll();
-        $trabajadoresRegistrados = $entityManager->getRepository(Trabajador::class)->findAll();
+        $clientesRegistrados = $entityManager->getRepository(Cliente::class)->findAllActivos();
+        $trabajadoresRegistrados = $entityManager->getRepository(Trabajador::class)->findBy(['eliminado' => 0]);
 
         $nombre = $request->query->get('nombre');
         $correo = $request->query->get('correo');

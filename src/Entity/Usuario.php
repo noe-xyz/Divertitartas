@@ -34,6 +34,9 @@ class Usuario
     #[ORM\Column]
     private ?int $telefono1 = null;
 
+    #[ORM\Column]
+    private ?bool $eliminado = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -83,6 +86,18 @@ class Usuario
     public function setTelefono1(?int $telefono1): static
     {
         $this->telefono1 = $telefono1;
+
+        return $this;
+    }
+
+    public function isEliminado(): ?bool
+    {
+        return $this->eliminado;
+    }
+
+    public function setEliminado(bool $eliminado): static
+    {
+        $this->eliminado = $eliminado;
 
         return $this;
     }

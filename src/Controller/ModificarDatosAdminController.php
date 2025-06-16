@@ -7,15 +7,32 @@ use App\Entity\Pedido;
 use App\Entity\Producto;
 use App\Entity\Proveedores;
 use App\Entity\Trabajador;
+use App\Entity\Usuario;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ModificarDatosAdminController extends AbstractController
 {
+    #[Route('/administracion/eliminar-usuario/{id}', name: 'eliminar-usuario', methods: ['POST'])]
+    public function eliminarCuenta(int $id, SessionInterface $session, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $usuario = $entityManager->getRepository(Usuario::class)->find($id);
+
+        $usuario->setEliminado(true);
+        $entityManager->persist($usuario);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('mostrar-accion', [
+            'accion' => 'usuarios'
+        ]);
+    }
+
+
     #[Route('/administracion/add-trabajador', name: 'add-trabajador')]
     public function addTrabajador(Request $request, EntityManagerInterface $entityManager): Response
     {

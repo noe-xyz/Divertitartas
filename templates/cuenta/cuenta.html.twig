@@ -119,7 +119,8 @@
 
                     <label class="form-label">Teléfono 2</label>
                     <input type="tel" class="form-control" id="phone2Input"
-                           value="{{ usuarioRegistrado.telefono2|default('') }}" name="telefono2" placeholder="Ej. 987654321" readonly>
+                           value="{{ usuarioRegistrado.telefono2|default('') }}" name="telefono2"
+                           placeholder="Ej. 987654321" readonly>
                 </section>
 
                 <!-- Tarjeta de crédito -->
@@ -142,7 +143,8 @@
 
                         <div class="card-info">
                             <label class="form-label">Fecha de vencimiento</label>
-                            <input type="text" class="form-control" id="cardExpiryInput" placeholder="Ej. 05/26" readonly>
+                            <input type="text" class="form-control" id="cardExpiryInput" placeholder="Ej. 05/26"
+                                   readonly>
                         </div>
                     </div>
 
@@ -159,9 +161,17 @@
 
             <!-- Eliminar cuenta -->
             <section class="mt-5">
-                <button class="action-button" style="background-color: #ff6b6b; color: white;">Eliminar mi
-                    cuenta
-                </button>
+                <form method="POST" action="{{ path('eliminar-cuenta') }}" id="form-eliminar-cuenta">
+                    <button type="button" id="btn-mostrar-confirmacion" class="action-button" style="background-color: #ff6b6b; color: white;">Eliminar mi
+                        cuenta
+                    </button>
+
+                    <div id="confirmacion-eliminar" style="display: none; margin-top: 1rem;">
+                        <p>¿Estás seguro de que quieres eliminar tu cuenta?</p>
+                        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                        <button type="button" id="btn-cancelar" class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </form>
             </section>
         </div>
 
@@ -187,66 +197,86 @@
 
             document.addEventListener('DOMContentLoaded', function () {
                 const toggleEditBtn = document.getElementById('toggleEditBtn');
+                const cancelEditBtn = document.getElementById('cancelEditBtn');
                 const formActions = document.getElementById('formActions');
                 const showPasswordBtn = document.getElementById('showPasswordBtn');
                 const accountForm = document.getElementById('accountForm');
                 const passwordInput = document.getElementById('passwordInput');
 
-                // Seleccionar solo los inputs del formulario de cuenta, no del footer
                 const accountInputs = accountForm.querySelectorAll('input, button:not(.footer-btn)');
 
                 let isEditing = false;
                 let originalValues = {};
 
-                function toggleEditMode() {
-                    isEditing = !isEditing;
+                function entrarEnModoEdicion() {
+                    isEditing = true;
 
-                    if (isEditing) {
-                        // Guardar valores originales
-                        originalValues = {
-                            email: document.getElementById('emailInput').value,
-                            password: passwordInput.value,
-                            name: document.getElementById('nameInput').value,
-                            // ... otros campos ...
-                        };
+                    // Guardar valores originales
+                    originalValues = {
+                        email: document.getElementById('emailInput').value,
+                        password: passwordInput.value,
+                        name: document.getElementById('nameInput').value
+                    };
 
-                        toggleEditBtn.textContent = 'Cancelar edición';
-                        formActions.style.display = 'flex';
+                    toggleEditBtn.textContent = 'Cancelar edición';
+                    formActions.style.display = 'flex';
 
-                        // Habilitar solo los campos del formulario de cuenta
-                        accountInputs.forEach(el => {
-                            el.removeAttribute('readonly');
-                            el.removeAttribute('disabled');
-                        });
+                    accountInputs.forEach(el => {
+                        el.removeAttribute('readonly');
+                        el.removeAttribute('disabled');
+                    });
 
-                        if (passwordInput.type === 'text') {
-                            passwordInput.type = 'password';
-                            showPasswordBtn.innerHTML = '<i class="bi bi-eye"></i> Mostrar';
-                        }
-                    } else {
-                        toggleEditBtn.textContent = 'Editar información';
-                        formActions.style.display = 'none';
-
-                        // Deshabilitar solo los campos del formulario de cuenta
-                        accountInputs.forEach(el => {
-                            if (el.tagName === 'INPUT') el.setAttribute('readonly', 'true');
-                            if (el.type === 'radio' || el.tagName === 'BUTTON') el.setAttribute('disabled', 'true');
-                        });
+                    if (passwordInput.type === 'text') {
+                        passwordInput.type = 'password';
+                        showPasswordBtn.innerHTML = '<i class="bi bi-eye"></i> Mostrar';
                     }
                 }
 
+                function salirDeModoEdicion() {
+                    isEditing = false;
+
+                    // Restaurar valores originales
+                    document.getElementById('emailInput').value = originalValues.email;
+                    passwordInput.value = originalValues.password;
+                    document.getElementById('nameInput').value = originalValues.name;
+                    // Agrega otros campos aquí si los hay
+
+                    toggleEditBtn.textContent = 'Editar información';
+                    formActions.style.display = 'none';
+
+                    accountInputs.forEach(el => {
+                        if (el.tagName === 'INPUT') el.setAttribute('readonly', 'true');
+                        if (el.type === 'radio' || el.tagName === 'BUTTON') el.setAttribute('disabled', 'true');
+                    });
+                }
+
                 toggleEditBtn.addEventListener('click', function () {
-                    if (isEditing) {
-                        // Restaurar valores originales
-                        document.getElementById('emailInput').value = originalValues.email;
-                        passwordInput.value = originalValues.password;
-                        document.getElementById('nameInput').value = originalValues.name;
-                        // ... otros campos ...
+                    if (!isEditing) {
+                        entrarEnModoEdicion();
+                    } else {
+                        salirDeModoEdicion();
                     }
-                    toggleEditMode();
+                });
+
+                cancelEditBtn.addEventListener('click', function () {
+                    salirDeModoEdicion();
                 });
             });
         </script>
+
+        <script>
+            document.getElementById('btn-mostrar-confirmacion').addEventListener('click', function () {
+                document.getElementById('confirmacion-eliminar').style.display = 'block';
+                this.style.display = 'none'; // Oculta el botón original
+            });
+
+            document.getElementById('btn-cancelar').addEventListener('click', function () {
+                document.getElementById('confirmacion-eliminar').style.display = 'none';
+                document.getElementById('btn-mostrar-confirmacion').style.display = 'inline-block';
+            });
+        </script>
+
     {% endblock %}
+
 
 {% endblock %}

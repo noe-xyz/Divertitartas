@@ -35,6 +35,16 @@ class ClienteRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findAllActivos(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.eliminado = :eliminado')
+            ->setParameter('eliminado', 0)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     //    /**
     //     * @return Cliente[] Returns an array of Cliente objects
     //     */

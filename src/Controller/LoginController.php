@@ -29,7 +29,17 @@ class LoginController extends AbstractController
             #Query que busca en la base de datos si existe el usuario y lógica por si no lo está (no está registrado)
             $usuarioExiste = $usuarioRepository->findRegisteredUser($email, $password);
             if ($usuarioExiste) {
-                #TODO avisar de haberse logueado correctamente
+                if ($usuarioExiste && $usuarioExiste->isEliminado()) {
+                    return $this->render('login/login.html.twig', [
+                        "error" => true,
+                        "titulo" => "Cuenta eliminada",
+                        "mensaje" => 'Tu cuenta ha sido eliminada. Contacta con nosotros si crees que esto es un error.',
+                        "boton" => false,
+                        "mensajeBtn" => "",
+                        "enlaceBtn" => ""
+                    ]);
+                }
+
                 #Crear la sesión del usuario
                 $this->crearSesion($session, $usuarioExiste, $entityManager);
                 #Redirigir al index

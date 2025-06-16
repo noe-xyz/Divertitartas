@@ -45,8 +45,11 @@
                             <td>{{ cliente.nombreEmpresa|default('-') }}</td>
                             <td>{{ cliente.nifCif|default('-') }}</td>
                             <td class="text-center">
-                                <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i></button>
-
+                                <form method="POST" action="{{ path('eliminar-usuario', {'id': cliente.id}) }}"
+                                      class="form-eliminar-cuenta">
+                                    <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     {% endfor %}
@@ -96,7 +99,11 @@
                             <td>{{ trabajador.turno|default('')|capitalize }}</td>
                             <td>{{ trabajador.puesto|default('')|capitalize }}</td>
                             <td class="text-center">
-                                <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                <form method="POST" action="{{ path('eliminar-usuario', {'id': trabajador.id}) }}"
+                                      class="form-eliminar-cuenta">
+                                    <button class="btn btn-link p-0" title="Eliminar"><i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     {% endfor %}

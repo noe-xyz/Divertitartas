@@ -69,14 +69,14 @@ class PedidosController extends AbstractController
         $pedido = $entityManager->getRepository(Pedido::class)->find($id);
 
         if (!$pedido) {
-            throw $this->createNotFoundException('El pedido no existe');
+            return $this->redirectToRoute('error');
         }
 
 
         $clienteId = $session->get('id');
         $cliente = $entityManager->getRepository(Cliente::class)->find($pedido->getIdCliente());
         if (!$cliente || $cliente->getId() !== $clienteId) {
-            throw $this->createAccessDeniedException('No tienes permiso para ver esta factura.');
+            return $this->redirectToRoute('error');
         }
 
         $direccionStr = $this->separarDireccion($cliente);

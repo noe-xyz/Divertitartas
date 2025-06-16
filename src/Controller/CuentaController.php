@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Cliente;
 use App\Entity\Usuario;
 use App\Repository\UsuarioRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,12 +19,12 @@ class CuentaController extends AbstractController
     {
         $id = $request->query->get('id');
         if (!$id || !is_numeric($id)) {
-            throw $this->createNotFoundException('ID de usuario no válido');
+            return $this->redirectToRoute('error');
         }
 
         $usuarioRegistrado = $usuarioRepository->findOneById($id);
         if (!$usuarioRegistrado) {
-            throw $this->createAccessDeniedException('No encontramos esta página...');
+            return $this->redirectToRoute('error');
         }
 
         $idUsuarioRegistrado = $session->get('id');
@@ -98,5 +99,22 @@ class CuentaController extends AbstractController
             ->setTelefono2($datos['telefono2']);
 
         return $usuario;
+    }
+
+    #[Route('/cuenta/eliminar', name: 'eliminar-cuenta', methods: ['POST'])]
+    public function eliminarCuenta(SessionInterface $session, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $idUsuario = $session->get('id');
+
+        $usuarioBorrar = $entityManager->getRepository(Usuario::class)->findOneById($idUsuario);
+
+        $usuarioBorrar->setEliminado(true);
+        $entityManager->persist($usuarioBorrar);
+        $entityManager->flush();
+
+        $request->getSession()->invalidate();
+
+        return $this->redirectToRoute("index");
+
     }
 }

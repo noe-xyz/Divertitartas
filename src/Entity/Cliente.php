@@ -36,9 +36,6 @@ class Cliente extends Usuario
     #[ORM\Column(nullable: true)]
     private ?string $sexo = null;
 
-    #[ORM\Column]
-    private ?bool $eliminado = null;
-
     #Getters y setters
     public function getNombre(): ?string
     {
@@ -124,18 +121,6 @@ class Cliente extends Usuario
     public function setSexo(?string $sexo): static
     {
         $this->sexo = $sexo;
-        return $this;
-    }
-
-    public function isEliminado(): ?bool
-    {
-        return $this->eliminado;
-    }
-
-    public function setEliminado(bool $eliminado): static
-    {
-        $this->eliminado = $eliminado;
-
         return $this;
     }
 }
