@@ -27,10 +27,10 @@
                                         <p class="card-text">
                                             Precio: {{ productoCarrito.precio|format_number({fraction_digit: 2}) }}€</p>
                                         <ul>
-                                            {% if productoCarrito.sabor is defined and productoCarrito.sabor %}
+                                            {% if productoCarrito.sabor is defined and productoCarrito.sabor|trim is not empty and productoCarrito.sabor != 'null'%}
                                                 <li>Sabor: {{ productoCarrito.sabor|capitalize }}</li>
                                             {% endif %}
-                                            {% if productoCarrito.relleno is defined and productoCarrito.relleno is not null and productoCarrito.relleno != '' %}
+                                            {% if productoCarrito.relleno is defined and productoCarrito.relleno|trim is not empty and productoCarrito.relleno != 'null' %}
                                                 <li>Relleno: {{ productoCarrito.relleno|capitalize }}</li>
                                             {% endif %}
                                             {% if productoCarrito.mensaje is defined and productoCarrito.mensaje %}

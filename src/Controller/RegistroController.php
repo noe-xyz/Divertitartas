@@ -66,7 +66,8 @@ class RegistroController extends AbstractController
                             ->setEmail($email)
                             ->setPassword($password)
                             ->setNombreEmpresa($nombreEmpresa)
-                            ->setNifCif($nifCif);
+                            ->setNifCif($nifCif)
+                            ->setEliminado(0);
 
                         #Se prepara el objeto para insertarlo en la base de datos
                         $entityManager->persist($empresaLogueada);

@@ -42,12 +42,12 @@
                                    id="agotado-{{ producto.id }}" {% if producto.cantidad == 0 %} checked {% endif %}>
                             <label class="form-check-label" for="agotado-{{ producto.id }}">Agotado</label>
                         </div>
-                        <div class="mb-2 d-flex align-items-center justify-content-start w-100">
-                            <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>
-                            <input id="cantidad-{{ producto.id }}" type="number" class="form-control form-control-sm"
-                                   style="width: 60px;" min="0"
-                                   value="{{ producto.cantidad }}" name="cantidad[{{ producto.id }}]">
-                        </div>
+{#                        <div class="mb-2 d-flex align-items-center justify-content-start w-100">#}
+{#                            <label class="form-label mb-0 me-2" style="font-size: 0.98rem;">Unidades</label>#}
+{#                            <input id="cantidad-{{ producto.id }}" type="number" class="form-control form-control-sm"#}
+{#                                   style="width: 60px;" min="0"#}
+{#                                   value="{{ producto.cantidad }}" name="cantidad[{{ producto.id }}]">#}
+{#                        </div>#}
                         {{ producto.precio|format_number({fraction_digit: 2}) }}€
                     </div>
                 </div>

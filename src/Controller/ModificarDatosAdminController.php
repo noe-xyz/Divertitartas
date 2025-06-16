@@ -51,7 +51,8 @@ class ModificarDatosAdminController extends AbstractController
             ->setTelefono1($datos['telefono'])
             ->setTurno($datos['turno'])
             ->setPuesto($datos['puesto'])
-            ->setPassword($datos['password']);
+            ->setPassword($datos['password'])
+            ->setEliminado(0);
 
         $entityManager->persist($nuevoTrabajador);
         $entityManager->flush();
@@ -202,16 +203,23 @@ class ModificarDatosAdminController extends AbstractController
         $slug = $this->crearSlugUrl($request->request->get('nombre'));
         $slugCategoria = $this->crearSlugUrl($request->request->get('categoria'));
 
+        $saborInput = $request->request->get('sabor') ?? '';
+        $sabores = array_filter(array_map('trim', explode(',', $saborInput)));
+        $sabores = empty($sabores) ? null : $sabores;
+
+        $rellenoInput = $request->request->get('relleno') ?? '';
+        $rellenos = array_filter(array_map('trim', explode(',', $rellenoInput)));
+        $rellenos = empty($rellenos) ? null : $rellenos;
+
         $producto->setNombre($request->request->get('nombre'))
             ->setPrecio((float)$request->request->get('precio'))
-            ->setSabor($request->request->get('sabor') ?? null)
-            ->setRelleno($request->request->get('relleno') ?? null)
+            ->setSabor($sabores)
+            ->setRelleno($rellenos)
             ->setRaciones($request->request->get('raciones'))
             ->setDescripcion($request->request->get('descripcion'))
             ->setComentario($request->request->get('comentario'))
             ->setCategoria($slugCategoria)
-            ->setSlug($slug)
-            ->setCantidad((int)$request->request->get('cantidad'));
+            ->setSlug($slug);
 
         $imagen = $request->files->get('imagen');
         if ($imagen) {
