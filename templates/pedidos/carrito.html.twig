@@ -26,15 +26,17 @@
                                         <h4 class="card-title">{{ productoCarrito.nombre|capitalize }}</h4>
                                         <p class="card-text">
                                             Precio: {{ productoCarrito.precio|format_number({fraction_digit: 2}) }}€</p>
-                                        {% if productoCarrito.sabor and productoCarrito.relleno %}
-                                            <ul>
-                                                <li>Sabor: {{ productoCarrito.sabor }}</li>
-                                                <li>Relleno: {{ productoCarrito.relleno }}</li>
-                                                {% if productoCarrito.mensaje is defined and productoCarrito.mensaje %}
+                                        <ul>
+                                            {% if productoCarrito.sabor is defined and productoCarrito.sabor %}
+                                                <li>Sabor: {{ productoCarrito.sabor|capitalize }}</li>
+                                            {% endif %}
+                                            {% if productoCarrito.relleno is defined and productoCarrito.relleno is not null and productoCarrito.relleno != '' %}
+                                                <li>Relleno: {{ productoCarrito.relleno|capitalize }}</li>
+                                            {% endif %}
+                                            {% if productoCarrito.mensaje is defined and productoCarrito.mensaje %}
                                                 <li>Mensaje: "{{ productoCarrito.mensaje }}"</li>
-                                                {% endif %}
-                                            </ul>
-                                        {% endif %}
+                                            {% endif %}
+                                        </ul>
                                     </div>
                                     <img src="{{ asset('uploads/productos/' ~ productoCarrito.imagen) }}"
                                          alt="Tarta de Ositos"

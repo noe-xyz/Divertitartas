@@ -13,7 +13,7 @@ class Valoraciones
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $estrellas = null;
 
     #[ORM\Column(length: 90)]
@@ -32,7 +32,7 @@ class Valoraciones
         return $this->estrellas;
     }
 
-    public function setEstrellas(int $estrellas): static
+    public function setEstrellas(?int $estrellas): static
     {
         $this->estrellas = $estrellas;
 

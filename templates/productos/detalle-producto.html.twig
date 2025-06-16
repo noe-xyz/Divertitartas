@@ -44,29 +44,37 @@
 
                 <form method="POST" action="{{ path('add-carrito') }}">
                     <input type="hidden" name="productoId" value="{{ productoAMostrar.id }}">
-                    <input type="hidden" name="sabor" value="{{ productoAMostrar.sabor }}">
-                    <input type="hidden" name="relleno" value="{{ productoAMostrar.relleno }}">
+                    <input type="hidden" name="sabor" value="{{ productoAMostrar.sabor|json_encode }}">
+                    <input type="hidden" name="relleno" value="{{ productoAMostrar.relleno|json_encode }}">
 
                     {% if productoAMostrar.categoria == 'tartas-creativas' %}
                         <div class="row">
                             <div class="col-md-6 ">
                                 <h3 class="option-title">Sabor</h3>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flavor" id="flavor" checked>
-                                    <label class="form-check-label" for="flavor">
-                                        {{ productoAMostrar.sabor|capitalize }}
-                                    </label>
-                                </div>
+                                {% for sabor in productoAMostrar.sabor %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="sabor"
+                                               id="sabor_{{ loop.index }}" value="{{ sabor }}"
+                                               {% if loop.first %}checked{% endif %}>
+                                        <label class="form-check-label" for="sabor_{{ loop.index }}">
+                                            {{ sabor|capitalize }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
                             </div>
 
                             <div class="col-md-6">
                                 <h3 class="option-title">Relleno</h3>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="filling" id="filling" checked>
-                                    <label class="form-check-label" for="filling">
-                                        {{ productoAMostrar.relleno|capitalize }}
-                                    </label>
-                                </div>
+                                {% for relleno in productoAMostrar.relleno %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="relleno"
+                                               id="filling_{{ loop.index }}" value="{{ relleno }}"
+                                               {% if loop.first %}checked{% endif %}>
+                                        <label class="form-check-label" for="filling_{{ loop.index }}">
+                                            {{ relleno|capitalize }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
                     {% endif %}

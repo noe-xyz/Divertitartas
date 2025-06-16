@@ -174,144 +174,155 @@
             <div class="row comentarios">
                 <!-- Comentario de ejemplo 1 -->
                 {% for valoracion in valoraciones %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-center mb-3">
-                                {# Estrellas llenas #}
-                                {% for i in 1..valoracion.estrellas %}
-                                    <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" class="estrella">
-                                {% endfor %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center mb-3">
+                                    {% if valoracion.estrellas is null %}
+                                        {# Mostrar 5 estrellas vacías cuando no hay calificación #}
+                                        {% for i in 1..5 %}
+                                            <img src="{{ asset('../assets/images/estrella_vacia.png') }}"
+                                                 alt="Estrella vacía" class="estrella">
+                                        {% endfor %}
+                                    {% else %}
+                                        {# Estrellas llenas #}
+                                        {% for i in 1..valoracion.estrellas %}
+                                            <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"
+                                                 class="estrella">
+                                        {% endfor %}
 
-                                {# Estrellas vacías solo si la valoración es menor a 5 #}
-                                {% if valoracion.estrellas < 5 %}
-                                    {% for i in 1..(5 - valoracion.estrellas) %}
-                                        <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía" class="estrella">
-                                    {% endfor %}
-                                {% endif %}
+                                        {# Estrellas vacías solo si la valoración es menor a 5 #}
+                                        {% if valoracion.estrellas < 5 %}
+                                            {% for i in 1..(5 - valoracion.estrellas) %}
+                                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}"
+                                                     alt="Estrella vacía" class="estrella">
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+
+                                <p class="card-text">"{{ valoracion.comentario }}"</p>
+                                <p class="text-muted">- Por {{ valoracion.usuario }}</p>
                             </div>
-                            <p class="card-text">"{{ valoracion.comentario }}"</p>
-                            <p class="text-muted">- Por {{ valoracion.usuario }}</p>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
 
 
-{#                <!-- Comentario de ejemplo 2 -->#}
-{#                <div class="col-md-4 mb-4">#}
-{#                    <div class="card h-100">#}
-{#                        <div class="card-body">#}
-{#                            <div class="d-flex justify-content-center mb-3">#}
-{#                                <!-- 4 estrellas -->#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía"#}
-{#                                     class="estrella">#}
-{#                            </div>#}
-{#                            <p class="card-text">"El pastel de cumpleaños fue un éxito. Casi como ganar un#}
-{#                                mundial."</p>#}
-{#                            <p class="text-muted">- Lionel Andres M.</p>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
+                {#                <!-- Comentario de ejemplo 2 --> #}
+                {#                <div class="col-md-4 mb-4"> #}
+                {#                    <div class="card h-100"> #}
+                {#                        <div class="card-body"> #}
+                {#                            <div class="d-flex justify-content-center mb-3"> #}
+                {#                                <!-- 4 estrellas --> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía" #}
+                {#                                     class="estrella"> #}
+                {#                            </div> #}
+                {#                            <p class="card-text">"El pastel de cumpleaños fue un éxito. Casi como ganar un #}
+                {#                                mundial."</p> #}
+                {#                            <p class="text-muted">- Lionel Andres M.</p> #}
+                {#                        </div> #}
+                {#                    </div> #}
+                {#                </div> #}
 
-{#                <!-- Comentario de ejemplo 3 -->#}
-{#                <div class="col-md-4 mb-4">#}
-{#                    <div class="card h-100">#}
-{#                        <div class="card-body">#}
-{#                            <div class="d-flex justify-content-center mb-3">#}
-{#                                <!-- 3.5 estrellas -->#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía"#}
-{#                                     class="estrella">#}
-{#                            </div>#}
-{#                            <p class="card-text">"Muy bueno, aunque esperaba un poco más de relleno. La decoración#}
-{#                                perfecta."</p>#}
-{#                            <p class="text-muted">- Chicote.</p>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <!-- Comentario de ejemplo 4 -->#}
-{#                <div class="col-md-4 mb-4">#}
-{#                    <div class="card h-100">#}
-{#                        <div class="card-body">#}
-{#                            <div class="d-flex justify-content-center mb-3">#}
-{#                                <!-- 3.5 estrellas -->#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella vacía"#}
-{#                                     class="estrella">#}
-{#                            </div>#}
-{#                            <p class="card-text">"El mejor croissant que comi en mi vida"</p>#}
-{#                            <p class="text-muted">- Mbappé.</p>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <!-- Comentario de ejemplo 5 -->#}
-{#                <div class="col-md-4 mb-4">#}
-{#                    <div class="card h-100">#}
-{#                        <div class="card-body">#}
-{#                            <div class="d-flex justify-content-center mb-3">#}
-{#                                <!-- 3.5 estrellas -->#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía"#}
-{#                                     class="estrella">#}
-{#                            </div>#}
-{#                            <p class="card-text">"Muy buen precio, casi lo compro todo!"</p>#}
-{#                            <p class="text-muted">- Florentino P.</p>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <!-- Comentario de ejemplo 6 -->#}
-{#                <div class="col-md-4 mb-4">#}
-{#                    <div class="card h-100">#}
-{#                        <div class="card-body">#}
-{#                            <div class="d-flex justify-content-center mb-3">#}
-{#                                <!-- 5 estrellas -->#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella"#}
-{#                                     class="estrella">#}
-{#                            </div>#}
-{#                            <p class="card-text">"Las tartas son increíbles, tanto en sabor como en presentación.#}
-{#                                ¡Volveré!"</p>#}
-{#                            <p class="text-muted">- Diego Armando M.</p>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
+                {#                <!-- Comentario de ejemplo 3 --> #}
+                {#                <div class="col-md-4 mb-4"> #}
+                {#                    <div class="card h-100"> #}
+                {#                        <div class="card-body"> #}
+                {#                            <div class="d-flex justify-content-center mb-3"> #}
+                {#                                <!-- 3.5 estrellas --> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía" #}
+                {#                                     class="estrella"> #}
+                {#                            </div> #}
+                {#                            <p class="card-text">"Muy bueno, aunque esperaba un poco más de relleno. La decoración #}
+                {#                                perfecta."</p> #}
+                {#                            <p class="text-muted">- Chicote.</p> #}
+                {#                        </div> #}
+                {#                    </div> #}
+                {#                </div> #}
+                {#                <!-- Comentario de ejemplo 4 --> #}
+                {#                <div class="col-md-4 mb-4"> #}
+                {#                    <div class="card h-100"> #}
+                {#                        <div class="card-body"> #}
+                {#                            <div class="d-flex justify-content-center mb-3"> #}
+                {#                                <!-- 3.5 estrellas --> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella vacía" #}
+                {#                                     class="estrella"> #}
+                {#                            </div> #}
+                {#                            <p class="card-text">"El mejor croissant que comi en mi vida"</p> #}
+                {#                            <p class="text-muted">- Mbappé.</p> #}
+                {#                        </div> #}
+                {#                    </div> #}
+                {#                </div> #}
+                {#                <!-- Comentario de ejemplo 5 --> #}
+                {#                <div class="col-md-4 mb-4"> #}
+                {#                    <div class="card h-100"> #}
+                {#                        <div class="card-body"> #}
+                {#                            <div class="d-flex justify-content-center mb-3"> #}
+                {#                                <!-- 3.5 estrellas --> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella_vacia.png') }}" alt="Estrella vacía" #}
+                {#                                     class="estrella"> #}
+                {#                            </div> #}
+                {#                            <p class="card-text">"Muy buen precio, casi lo compro todo!"</p> #}
+                {#                            <p class="text-muted">- Florentino P.</p> #}
+                {#                        </div> #}
+                {#                    </div> #}
+                {#                </div> #}
+                {#                <!-- Comentario de ejemplo 6 --> #}
+                {#                <div class="col-md-4 mb-4"> #}
+                {#                    <div class="card h-100"> #}
+                {#                        <div class="card-body"> #}
+                {#                            <div class="d-flex justify-content-center mb-3"> #}
+                {#                                <!-- 5 estrellas --> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                                <img src="{{ asset('../assets/images/estrella.png') }}" alt="Estrella" #}
+                {#                                     class="estrella"> #}
+                {#                            </div> #}
+                {#                            <p class="card-text">"Las tartas son increíbles, tanto en sabor como en presentación. #}
+                {#                                ¡Volveré!"</p> #}
+                {#                            <p class="text-muted">- Diego Armando M.</p> #}
+                {#                        </div> #}
+                {#                    </div> #}
+                {#                </div> #}
             </div>
             {% if app.session.get('email') is defined and app.session.get('email') is not null %}
                 <button class="custom-btn mt-3" data-bs-toggle="modal" data-bs-target="#comentarioModal">Deja tu

@@ -19,11 +19,11 @@ class Producto
     #[ORM\Column]
     private ?float $precio = null;
 
-    #[ORM\Column(length: 30, nullable: true)]
-    private ?string $sabor = null;
+    #[ORM\Column(type: 'json', nullable: true)]
+    private ?array $sabor = null;
 
-    #[ORM\Column(length: 30, nullable: true)]
-    private ?string $relleno = null;
+    #[ORM\Column(type: 'json', nullable: true)]
+    private ?array $relleno = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $raciones = null;
@@ -75,24 +75,24 @@ class Producto
         return $this;
     }
 
-    public function getSabor(): ?string
+    public function getSabor(): ?array
     {
         return $this->sabor;
     }
 
-    public function setSabor(?string $sabor): static
+    public function setSabor(?array $sabor): self
     {
         $this->sabor = $sabor;
 
         return $this;
     }
 
-    public function getRelleno(): ?string
+    public function getRelleno(): ?array
     {
         return $this->relleno;
     }
 
-    public function setRelleno(?string $relleno): static
+    public function setRelleno(?array $relleno): self
     {
         $this->relleno = $relleno;
 
